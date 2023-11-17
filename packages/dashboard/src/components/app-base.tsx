@@ -68,7 +68,7 @@ export function AppBase({ children }: React.PropsWithChildren<{}>): JSX.Element 
 
   React.useEffect(() => {
     const checkSize = () => {
-      if (window.innerHeight < 1080 || window.innerWidth < 1080) {
+      if (window.screen.availHeight < 1080 || window.screen.availWidth < 1080) {
         setLowResolutionAlert(true);
       }
     };
@@ -89,7 +89,7 @@ export function AppBase({ children }: React.PropsWithChildren<{}>): JSX.Element 
         alertContents={[
           {
             title: 'Current resolution',
-            value: `${window.innerWidth} x ${window.innerHeight}`,
+            value: `${window.screen.availWidth} x ${window.screen.availHeight}`,
           },
           {
             title: 'Minimum recommended resolution',
