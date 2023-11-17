@@ -337,7 +337,6 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
   return (
     <>
       <HeaderBar>
-        <LogoButton src={brandingIconPath} alt="logo" sx={{ width: logoSize }} />
         <NavigationBar value={tabValue}>
           <AppBarTab
             label="Map"
@@ -349,12 +348,15 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
             label="System Overview"
             value="robots"
             aria-label="System Overview"
+            color="in"
             onTabClick={() => navigate(RobotsRoute)}
           />
           <AppBarTab
             label="Tasks"
             value="tasks"
             aria-label="Tasks"
+            color="secondary"
+            //sx={{ backgroundColor: 'pink', color: 'red' }}
             onTabClick={() => navigate(TasksRoute)}
           />
           <AppBarTab
@@ -455,9 +457,6 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
               ))
             )}
           </Menu>
-          <Divider orientation="vertical" sx={{ marginLeft: 1, marginRight: 2 }} />
-          <Typography variant="caption">Powered by Open-RMF</Typography>
-          {extraToolbarItems}
           <Tooltip title="Settings">
             <IconButton
               id="show-settings-btn"
@@ -468,7 +467,11 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
               <Settings />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Help">
+          <Divider orientation="vertical" sx={{ marginLeft: 1, marginRight: 2 }} />
+          <Typography variant="caption">Altınay Robot Teknolojileri</Typography>
+          {extraToolbarItems}
+
+          {/* <Tooltip title="Help">
             <IconButton
               id="show-help-btn"
               aria-label="help"
@@ -487,7 +490,7 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
             >
               <Issue />
             </IconButton>
-          </Tooltip>
+          </Tooltip> */}
           {profile && (
             <>
               <Tooltip title="Profile">

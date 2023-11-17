@@ -85,7 +85,7 @@ export function AppBase({ children }: React.PropsWithChildren<{}>): JSX.Element 
       <AlertDialog
         key="display-alert"
         onDismiss={dismissDisplayAlert}
-        title="Low display resolution detected_deneme"
+        title="Low display resolution detected"
         alertContents={[
           {
             title: 'Current resolution',
