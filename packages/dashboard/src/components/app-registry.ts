@@ -1,5 +1,5 @@
 import { BeaconsApp } from './beacons-app';
-import { DoorsApp } from './doors-app';
+import { DoorsApp } from './doors/doors-app';
 import { LiftsApp } from './lifts-app';
 import { MapApp } from './map-app';
 import { RobotInfoApp } from './robots/robot-info-app';

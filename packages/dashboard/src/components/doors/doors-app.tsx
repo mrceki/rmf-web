@@ -2,9 +2,9 @@ import { BuildingMap } from 'api-client';
 import React from 'react';
 import { DoorDataGridTable, DoorTableData } from 'react-components';
 import { DoorMode as RmfDoorMode } from 'rmf-models';
-import { createMicroApp } from './micro-app';
-import { RmfAppContext } from './rmf-app';
-import { getApiErrorMessage } from './utils';
+import { createMicroApp } from '../micro-app';
+import { RmfAppContext } from '../rmf-app';
+import { getApiErrorMessage } from '../utils';
 
 export const DoorsApp = createMicroApp('Doors', () => {
   const rmf = React.useContext(RmfAppContext);

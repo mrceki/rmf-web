@@ -11,7 +11,7 @@ import {
   viewBoxFromLeafletBounds,
   withLabel,
 } from 'react-components';
-import { RmfAppContext } from './rmf-app';
+import { RmfAppContext } from '../rmf-app';
 
 interface DoorMarkerProps extends Omit<BaseDoorMarkerProps, 'doorMode'> {
   door: Door;

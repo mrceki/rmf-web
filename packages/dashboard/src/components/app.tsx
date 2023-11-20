@@ -10,8 +10,7 @@ import appConfig from '../app-config';
 import ResourceManager from '../managers/resource-manager';
 import {
   AdminRoute,
-  CustomRoute1,
-  CustomRoute2,
+  DoorsRoute,
   DashboardRoute,
   LoginRoute,
   RobotsRoute,
@@ -26,6 +25,7 @@ import { RmfApp } from './rmf-app';
 import { robotsWorkspace } from './robots/robots-workspace';
 import { tasksWorkspace } from './tasks/tasks-workspace';
 import { ManagedWorkspace, Workspace } from './workspace';
+import { doorsWorkspace } from './doors/doors-workspace';
 
 export default function App(): JSX.Element | null {
   const authenticator = appConfig.authenticator;
@@ -106,22 +106,22 @@ export default function App(): JSX.Element | null {
               />
 
               <Route
-                path={CustomRoute1}
+                path={DoorsRoute}
                 element={
                   <PrivateRoute unauthorizedComponent={loginRedirect} user={user}>
-                    <ManagedWorkspace key="custom1" workspaceId="custom1" />
+                    <Workspace key="doors" state={doorsWorkspace} />
                   </PrivateRoute>
                 }
               />
 
-              <Route
+              {/* <Route
                 path={CustomRoute2}
                 element={
                   <PrivateRoute unauthorizedComponent={loginRedirect} user={user}>
                     <ManagedWorkspace key="custom2" workspaceId="custom2" />
                   </PrivateRoute>
                 }
-              />
+              /> */}
 
               <Route
                 path={AdminRoute}

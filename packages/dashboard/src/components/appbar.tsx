@@ -43,14 +43,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { UserProfileContext } from 'rmf-auth';
 import { logoSize } from '../managers/resource-manager';
 import { ThemeMode } from '../settings';
-import {
-  AdminRoute,
-  CustomRoute1,
-  CustomRoute2,
-  DashboardRoute,
-  RobotsRoute,
-  TasksRoute,
-} from '../util/url';
+import { AdminRoute, DashboardRoute, DoorsRoute, RobotsRoute, TasksRoute } from '../util/url';
 import {
   AppConfigContext,
   AppControllerContext,
@@ -66,14 +59,13 @@ import { useCreateTaskFormData } from '../hooks/useCreateTaskForm';
 import { toApiSchedule } from './tasks/utils';
 import useGetUsername from '../hooks/useFetchUser';
 
-export type TabValue = 'infrastructure' | 'robots' | 'tasks' | 'custom1' | 'custom2' | 'admin';
+export type TabValue = 'infrastructure' | 'robots' | 'tasks' | 'doors' | 'admin';
 
 const locationToTabValue = (pathname: string): TabValue | undefined => {
   const routes: { prefix: string; tabValue: TabValue }[] = [
     { prefix: RobotsRoute, tabValue: 'robots' },
     { prefix: TasksRoute, tabValue: 'tasks' },
-    { prefix: CustomRoute1, tabValue: 'custom1' },
-    { prefix: CustomRoute2, tabValue: 'custom2' },
+    { prefix: DoorsRoute, tabValue: 'doors' },
     { prefix: AdminRoute.replace(/\*/g, ''), tabValue: 'admin' },
     { prefix: DashboardRoute, tabValue: 'infrastructure' },
   ];
@@ -360,17 +352,17 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
             onTabClick={() => navigate(TasksRoute)}
           />
           <AppBarTab
-            label="Custom 1"
-            value="custom1"
-            aria-label="Custom 1"
-            onTabClick={() => navigate(CustomRoute1)}
+            label="Doors"
+            value="doors"
+            aria-label="Doors"
+            onTabClick={() => navigate(DoorsRoute)}
           />
-          <AppBarTab
+          {/* <AppBarTab
             label="Custom 2"
             value="custom2"
             aria-label="Custom 2"
             onTabClick={() => navigate(CustomRoute2)}
-          />
+          /> */}
           {profile?.user.is_admin && (
             <AppBarTab
               label="Admin"
