@@ -331,17 +331,17 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
       <HeaderBar>
         <NavigationBar value={tabValue}>
           <AppBarTab
-            label="Map"
-            value="infrastructure"
-            aria-label="Map"
-            onTabClick={() => navigate(DashboardRoute)}
-          />
-          <AppBarTab
             label="System Overview"
             value="robots"
             aria-label="System Overview"
             color="in"
             onTabClick={() => navigate(RobotsRoute)}
+          />
+          <AppBarTab
+            label="Map"
+            value="infrastructure"
+            aria-label="Map"
+            onTabClick={() => navigate(DashboardRoute)}
           />
           <AppBarTab
             label="Tasks"
