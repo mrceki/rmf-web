@@ -15,6 +15,7 @@ import {
   LoginRoute,
   RobotsRoute,
   TasksRoute,
+  LiftsRoute,
 } from '../util/url';
 import { AdminRouter } from './admin';
 import { AppBase } from './app-base';
@@ -26,6 +27,7 @@ import { robotsWorkspace } from './robots/robots-workspace';
 import { tasksWorkspace } from './tasks/tasks-workspace';
 import { ManagedWorkspace, Workspace } from './workspace';
 import { doorsWorkspace } from './doors/doors-workspace';
+import { liftsWorkspace } from './lifts/lifts-workspace';
 
 export default function App(): JSX.Element | null {
   const authenticator = appConfig.authenticator;
@@ -110,6 +112,14 @@ export default function App(): JSX.Element | null {
                 element={
                   <PrivateRoute unauthorizedComponent={loginRedirect} user={user}>
                     <Workspace key="doors" state={doorsWorkspace} />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path={LiftsRoute}
+                element={
+                  <PrivateRoute unauthorizedComponent={loginRedirect} user={user}>
+                    <Workspace key="lifts" state={liftsWorkspace} />
                   </PrivateRoute>
                 }
               />

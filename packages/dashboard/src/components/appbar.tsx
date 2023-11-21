@@ -46,7 +46,14 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { UserProfileContext } from 'rmf-auth';
 import { logoSize } from '../managers/resource-manager';
 import { ThemeMode } from '../settings';
-import { AdminRoute, DashboardRoute, DoorsRoute, RobotsRoute, TasksRoute } from '../util/url';
+import {
+  AdminRoute,
+  DashboardRoute,
+  DoorsRoute,
+  LiftsRoute,
+  RobotsRoute,
+  TasksRoute,
+} from '../util/url';
 import {
   AppConfigContext,
   AppControllerContext,
@@ -61,6 +68,7 @@ import { formatDistance } from 'date-fns';
 import { useCreateTaskFormData } from '../hooks/useCreateTaskForm';
 import { toApiSchedule } from './tasks/utils';
 import useGetUsername from '../hooks/useFetchUser';
+import { Lifts } from './three-fiber';
 
 export type TabValue = 'infrastructure' | 'robots' | 'tasks' | 'doors' | 'admin';
 
@@ -360,6 +368,12 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
             value="doors"
             aria-label="Doors"
             onTabClick={() => navigate(DoorsRoute)}
+          />
+          <AppBarTab
+            label="Lifts"
+            value="lifts"
+            aria-label="Lifts"
+            onTabClick={() => navigate(LiftsRoute)}
           />
           {/* <AppBarTab
             label="Custom 2"

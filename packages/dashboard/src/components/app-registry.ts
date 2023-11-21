@@ -1,6 +1,6 @@
 import { BeaconsApp } from './beacons-app';
 import { DoorsApp } from './doors/doors-app';
-import { LiftsApp } from './lifts-app';
+import { LiftsApp } from './lifts/lifts-app';
 import { MapApp } from './map-app';
 import { RobotInfoApp } from './robots/robot-info-app';
 import { RobotsApp } from './robots/robots-app';

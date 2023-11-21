@@ -15,7 +15,7 @@ import {
   withLabel,
 } from 'react-components';
 import { LiftState as RmfLiftState } from 'rmf-models';
-import { RmfAppContext } from './rmf-app';
+import { RmfAppContext } from '../rmf-app';
 
 function toDoorMode(liftState: LiftState): DoorMode {
   // LiftState uses its own enum definition of door state/mode which is separated from DoorMode.

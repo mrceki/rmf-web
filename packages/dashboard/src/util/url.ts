@@ -16,3 +16,4 @@ export const TasksRoute = `${BasePath}/tasks`;
 export const RobotsRoute = `${BasePath}/robots`;
 export const AdminRoute = `${BasePath}/admin/*`;
 export const DoorsRoute = `${BasePath}/doors`;
+export const LiftsRoute = `${BasePath}/lifts`;
