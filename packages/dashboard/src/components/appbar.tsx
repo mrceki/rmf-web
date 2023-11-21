@@ -68,15 +68,15 @@ import { formatDistance } from 'date-fns';
 import { useCreateTaskFormData } from '../hooks/useCreateTaskForm';
 import { toApiSchedule } from './tasks/utils';
 import useGetUsername from '../hooks/useFetchUser';
-import { Lifts } from './three-fiber';
 
-export type TabValue = 'infrastructure' | 'robots' | 'tasks' | 'doors' | 'admin';
+export type TabValue = 'infrastructure' | 'robots' | 'tasks' | 'doors' | 'admin' | 'lifts';
 
 const locationToTabValue = (pathname: string): TabValue | undefined => {
   const routes: { prefix: string; tabValue: TabValue }[] = [
     { prefix: RobotsRoute, tabValue: 'robots' },
     { prefix: TasksRoute, tabValue: 'tasks' },
     { prefix: DoorsRoute, tabValue: 'doors' },
+    { prefix: LiftsRoute, tabValue: 'lifts' },
     { prefix: AdminRoute.replace(/\*/g, ''), tabValue: 'admin' },
     { prefix: DashboardRoute, tabValue: 'infrastructure' },
   ];
