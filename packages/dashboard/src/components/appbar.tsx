@@ -329,6 +329,7 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
   return (
     <>
       <HeaderBar>
+        <LogoButton src={brandingIconPath} alt="logo" sx={{ width: logoSize }} />
         <NavigationBar value={tabValue}>
           <AppBarTab
             label="System Overview"
