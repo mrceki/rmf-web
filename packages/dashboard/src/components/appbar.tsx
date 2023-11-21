@@ -4,8 +4,9 @@ import {
   Help,
   Notifications,
   Report,
-  Settings,
   Warning as Issue,
+  ModeNightOutlined,
+  ModeNight,
 } from '@mui/icons-material';
 import {
   Badge,
@@ -37,6 +38,8 @@ import {
   HeaderBar,
   LogoButton,
   NavigationBar,
+  rmfDark,
+  rmfLight,
   useAsync,
 } from 'react-components';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -457,7 +460,7 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
               color="inherit"
               onClick={(ev) => setSettingsAnchor(ev.currentTarget)}
             >
-              <Settings />
+              {curTheme === 2 ? <ModeNight /> : <ModeNightOutlined />}
             </IconButton>
           </Tooltip>
           <Divider orientation="vertical" sx={{ marginLeft: 1, marginRight: 2 }} />

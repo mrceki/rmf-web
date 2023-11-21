@@ -7,7 +7,7 @@ export const base = createTheme({
     ...commonTheme,
     mode: 'light',
     primary: {
-      main: '#1FD8DC ',
+      main: '#d6cdce',
       light: '#ECEFF1',
       dark: '#B0BEC5',
     },
