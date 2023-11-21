@@ -123,16 +123,6 @@ export default function App(): JSX.Element | null {
                   </PrivateRoute>
                 }
               />
-
-              {/* <Route
-                path={CustomRoute2}
-                element={
-                  <PrivateRoute unauthorizedComponent={loginRedirect} user={user}>
-                    <ManagedWorkspace key="custom2" workspaceId="custom2" />
-                  </PrivateRoute>
-                }
-              /> */}
-
               <Route
                 path={AdminRoute}
                 element={
