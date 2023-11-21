@@ -8,12 +8,12 @@ const base = createTheme({
     primary: {
       //Charcoal, Rich Black Fogra 29, Cadet
       main: '#37474F',
-      dark: '#102027',
+      dark: '#edeae8',
       light: '#62727B',
     },
     background: {
       //Rich Black Fogra 29, Cadet
-      default: '#102027',
+      default: '#edeae8',
       paper: '#62727B',
     },
   },
