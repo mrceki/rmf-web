@@ -1,8 +1,3 @@
-/**
- * FIXME(kp): Make the whole task request system task agnostic.
- * For that RMF needs to support task discovery and UI schemas https://github.com/open-rmf/rmf_api_msgs/issues/32.
- */
-
 import UpdateIcon from '@mui/icons-material/Create';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PlaceOutlined from '@mui/icons-material/PlaceOutlined';
@@ -712,6 +707,7 @@ export function CreateTaskForm({
   ...otherProps
 }: CreateTaskFormProps): JSX.Element {
   const theme = useTheme();
+  const createTaskFormRef = React.useRef(null);
 
   const [openFavoriteDialog, setOpenFavoriteDialog] = React.useState(false);
   const [callToDeleteFavoriteTask, setCallToDeleteFavoriteTask] = React.useState(false);
@@ -946,8 +942,24 @@ export function CreateTaskForm({
 
   const submitText = taskRequests.length > 1 ? 'Submit All Now' : 'Submit Now';
 
+  React.useEffect(() => {
+    const handleClickOutside = (event: any) => {
+      if (
+        createTaskFormRef.current &&
+        !(createTaskFormRef.current as HTMLElement).contains(event.target)
+      ) {
+        onClose && onClose(event, 'escapeKeyDown');
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
-    <>
+    <div>
       <StyledDialog
         title="Create Task"
         maxWidth="lg"
@@ -955,7 +967,7 @@ export function CreateTaskForm({
         disableEnforceFocus
         {...otherProps}
       >
-        <form aria-label="create-task">
+        <form aria-label="create-task" ref={createTaskFormRef}>
           <DialogTitle>
             <Grid container wrap="nowrap">
               <Grid item className={classes.title}>
@@ -1291,6 +1303,6 @@ export function CreateTaskForm({
           </Grid>
         </ConfirmationDialog>
       )}
-    </>
+    </div>
   );
 }
