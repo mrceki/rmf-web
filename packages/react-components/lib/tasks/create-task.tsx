@@ -1002,9 +1002,9 @@ export function CreateTaskForm({
               <Grid item>
                 <FormToolbar onSelectFileClick={handleSelectFileClick} />
               </Grid>
-              <Button onClick={(ev) => onClose && onClose(ev, 'escapeKeyDown')}>
+              <IconButton onClick={(ev) => onClose && onClose(ev, 'escapeKeyDown')}>
                 <Close />
-              </Button>
+              </IconButton>
             </Grid>
           </DialogTitle>
           <DialogContent>
