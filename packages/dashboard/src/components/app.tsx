@@ -41,11 +41,13 @@ export default function App(): JSX.Element | null {
   const authenticator = appConfig.authenticator;
   const [authInitialized, setAuthInitialized] = React.useState(!!appConfig.authenticator.user);
   const [user, setUser] = React.useState<string | null>(authenticator.user || null);
+  const resourceManager = React.useRef<ResourceManager | undefined>(undefined);
+  const [appReady, setAppReady] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     let cancel = false;
     const onUserChanged = (newUser: string | null) => setUser(newUser);
-    authenticator.on('userChanged', onUserChanged);
     (async () => {
       await authenticator.init();
       if (cancel) {
@@ -54,18 +56,13 @@ export default function App(): JSX.Element | null {
       setUser(authenticator.user || null);
       setAuthInitialized(true);
     })();
+
     return () => {
       cancel = true;
       authenticator.off('userChanged', onUserChanged);
     };
   }, [authenticator]);
 
-  const resourceManager = React.useRef<ResourceManager | undefined>(undefined);
-  const [appReady, setAppReady] = React.useState(false);
-
-  /**
-   * TODO: If resource loading gets too long we should add a loading screen.
-   */
   React.useEffect(() => {
     (async () => {
       const appResources = await appConfig.appResourcesFactory();
@@ -78,91 +75,92 @@ export default function App(): JSX.Element | null {
     })();
   }, []);
 
+  React.useEffect(() => {
+    const timeout = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
   const loginRedirect = React.useMemo(() => <Navigate to={LoginRoute} />, []);
 
-  return authInitialized ? (
-    appReady ? (
-      <ResourcesContext.Provider value={resourceManager.current}>
-        {user ? (
-          <RmfApp>
-            <AppBase>
-              <Routes>
-                <Route path={LoginRoute} element={<Navigate to={DashboardRoute} />} />
-
-                <Route
-                  path={DashboardRoute}
-                  element={
-                    <PrivateRoute unauthorizedComponent={loginRedirect} user={user}>
-                      <Workspace key="dashboard" state={dashboardWorkspace} />
-                    </PrivateRoute>
-                  }
-                />
-
-                <Route
-                  path={RobotsRoute}
-                  element={
-                    <PrivateRoute unauthorizedComponent={loginRedirect} user={user}>
-                      <Workspace key="robots" state={robotsWorkspace} />
-                    </PrivateRoute>
-                  }
-                />
-
-                <Route
-                  path={TasksRoute}
-                  element={
-                    <PrivateRoute unauthorizedComponent={loginRedirect} user={user}>
-                      <Workspace key="tasks" state={tasksWorkspace} />
-                    </PrivateRoute>
-                  }
-                />
-
-                <Route
-                  path={DoorsRoute}
-                  element={
-                    <PrivateRoute unauthorizedComponent={loginRedirect} user={user}>
-                      <Workspace key="doors" state={doorsWorkspace} />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path={LiftsRoute}
-                  element={
-                    <PrivateRoute unauthorizedComponent={loginRedirect} user={user}>
-                      <Workspace key="lifts" state={liftsWorkspace} />
-                    </PrivateRoute>
-                  }
-                />
-                <Route
-                  path={AdminRoute}
-                  element={
-                    <PrivateRoute unauthorizedComponent={loginRedirect} user={user}>
-                      <AdminRouter />
-                    </PrivateRoute>
-                  }
-                />
-              </Routes>
-            </AppBase>
-          </RmfApp>
-        ) : (
-          <Routes>
-            <Route
-              path={LoginRoute}
-              element={
-                <LoginPage
-                  title={'Dashboard'}
-                  logo="assets/defaultLogo.png"
-                  onLoginClick={() =>
-                    authenticator.login(`${window.location.origin}${DashboardRoute}`)
-                  }
-                />
-              }
-            />
-            <Route path="*" element={<Navigate to={LoginRoute} />} />
-          </Routes>
-        )}
-      </ResourcesContext.Provider>
-    ) : (
-      <LoadingScreen />
-    )
+  return loading ? (
+    <LoadingScreen />
+  ) : authInitialized && appReady ? (
+    <ResourcesContext.Provider value={resourceManager.current}>
+      {user ? (
+        <RmfApp>
+          <AppBase>
+            <Routes>
+              <Route
+                path={DashboardRoute}
+                element={
+                  <PrivateRoute unauthorizedComponent={loginRedirect} user={user}>
+                    <Workspace key="dashboard" state={dashboardWorkspace} />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path={RobotsRoute}
+                element={
+                  <PrivateRoute unauthorizedComponent={loginRedirect} user={user}>
+                    <Workspace key="robots" state={robotsWorkspace} />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path={TasksRoute}
+                element={
+                  <PrivateRoute unauthorizedComponent={loginRedirect} user={user}>
+                    <Workspace key="tasks" state={tasksWorkspace} />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path={DoorsRoute}
+                element={
+                  <PrivateRoute unauthorizedComponent={loginRedirect} user={user}>
+                    <Workspace key="doors" state={doorsWorkspace} />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path={LiftsRoute}
+                element={
+                  <PrivateRoute unauthorizedComponent={loginRedirect} user={user}>
+                    <Workspace key="lifts" state={liftsWorkspace} />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path={AdminRoute}
+                element={
+                  <PrivateRoute unauthorizedComponent={loginRedirect} user={user}>
+                    <AdminRouter />
+                  </PrivateRoute>
+                }
+              />
+            </Routes>
+          </AppBase>
+        </RmfApp>
+      ) : (
+        <Routes>
+          <Route
+            path={LoginRoute}
+            element={
+              <LoginPage
+                title={'Dashboard'}
+                logo="assets/defaultLogo.png"
+                onLoginClick={() =>
+                  authenticator.login(`${window.location.origin}${DashboardRoute}`)
+                }
+              />
+            }
+          />
+          <Route path="*" element={<Navigate to={LoginRoute} />} />
+        </Routes>
+      )}
+    </ResourcesContext.Provider>
   ) : null;
 }
