@@ -7,6 +7,7 @@ import {
   Warning as Issue,
   ModeNightOutlined,
   ModeNight,
+  AlignHorizontalCenter,
 } from '@mui/icons-material';
 import {
   Badge,
@@ -17,10 +18,13 @@ import {
   FormControlLabel,
   FormLabel,
   IconButton,
+  InputLabel,
   Menu,
   MenuItem,
   Radio,
   RadioGroup,
+  Select,
+  SelectChangeEvent,
   Toolbar,
   Tooltip,
   Typography,
@@ -133,6 +137,41 @@ export interface AppBarProps {
   alarmState?: boolean | null;
 }
 
+const getTabLabel = (tabValue: TabValue): string => {
+  switch (tabValue) {
+    case 'robots':
+      return 'Robots';
+    case 'infrastructure':
+      return 'System Overview';
+    case 'tasks':
+      return 'Tasks';
+    case 'doors':
+      return 'Doors';
+    case 'lifts':
+      return 'Lifts';
+    // Add more cases as needed
+    default:
+      return ''; // Return an empty string or a default label for unknown tab values
+  }
+};
+const getTabRoute = (tabValue: TabValue): string => {
+  switch (tabValue) {
+    case 'robots':
+      return RobotsRoute;
+    case 'infrastructure':
+      return DashboardRoute;
+    case 'tasks':
+      return TasksRoute;
+    case 'doors':
+      return DoorsRoute;
+    case 'lifts':
+      return LiftsRoute;
+    // Add more cases as needed
+    default:
+      return '/'; // Return a default route or handle unknown tab values accordingly
+  }
+};
+
 export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.ReactElement => {
   const rmf = React.useContext(RmfAppContext);
   const resourceManager = React.useContext(ResourcesContext);
@@ -153,6 +192,7 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
   const [alertListAnchor, setAlertListAnchor] = React.useState<HTMLElement | null>(null);
   const [unacknowledgedAlertsNum, setUnacknowledgedAlertsNum] = React.useState(0);
   const [unacknowledgedAlertList, setUnacknowledgedAlertList] = React.useState<Alert[]>([]);
+  const [selectedFilters, setSelectedFilters] = React.useState<TabValue[]>([]);
 
   const curTheme = React.useContext(SettingsContext).themeMode;
   const { waypointNames, pickupPoints, dropoffPoints, cleaningZoneNames } =
@@ -328,7 +368,6 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
     })();
     setAlertListAnchor(event.currentTarget);
   };
-
   const openAlertDialog = (alert: Alert) => {
     AppEvents.alertListOpenedAlert.next(alert);
   };
@@ -337,58 +376,64 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
     return formatDistance(new Date(), new Date(time));
   };
 
+  const handleFilterChange = (event: SelectChangeEvent<TabValue[]>) => {
+    setSelectedFilters(event.target.value as TabValue[]);
+    navigate(getTabRoute(event.target.value as TabValue));
+  };
+  const filteredTabs = () => {
+    if (selectedFilters.length === 0) {
+      return ['robots', 'infrastructure', 'tasks', 'doors', 'lifts'];
+    }
+    return [selectedFilters];
+  };
+
   return (
     <>
       <HeaderBar>
         <LogoButton src={brandingIconPath} alt="logo" sx={{ width: logoSize }} />
+        <Toolbar variant="dense" sx={{ minWidth: '10rem', paddingY: '0.5rem' }}>
+          <FormControl>
+            <InputLabel id="filter-label">Filter Tabs</InputLabel>
+            <Select
+              sx={{ minWidth: '10rem' }}
+              labelId="filter-label"
+              id="filter-select"
+              value={selectedFilters}
+              onChange={handleFilterChange}
+            >
+              <MenuItem value="robots">Robots</MenuItem>
+              <MenuItem value="infrastructure">System Overview</MenuItem>
+              <MenuItem value="tasks">Tasks</MenuItem>
+              <MenuItem value="doors">Doors</MenuItem>
+              <MenuItem value="lifts">Lifts</MenuItem>
+            </Select>
+          </FormControl>
+        </Toolbar>
         <NavigationBar value={tabValue}>
-          <AppBarTab
-            label="System Overview"
-            value="robots"
-            aria-label="System Overview"
-            color="in"
-            onTabClick={() => navigate(RobotsRoute)}
-          />
-          <AppBarTab
-            label="Map"
-            value="infrastructure"
-            aria-label="Map"
-            onTabClick={() => navigate(DashboardRoute)}
-          />
-          <AppBarTab
-            label="Tasks"
-            value="tasks"
-            aria-label="Tasks"
-            color="secondary"
-            //sx={{ backgroundColor: 'pink', color: 'red' }}
-            onTabClick={() => navigate(TasksRoute)}
-          />
-          <AppBarTab
-            label="Doors"
-            value="doors"
-            aria-label="Doors"
-            onTabClick={() => navigate(DoorsRoute)}
-          />
-          <AppBarTab
-            label="Lifts"
-            value="lifts"
-            aria-label="Lifts"
-            onTabClick={() => navigate(LiftsRoute)}
-          />
+          {filteredTabs().map((tab) => (
+            <AppBarTab
+              key={tab as TabValue}
+              label={getTabLabel(tab as TabValue)}
+              value={tab as TabValue}
+              aria-label={getTabLabel(tab as TabValue)}
+              onTabClick={() => navigate(getTabRoute(tab as TabValue))}
+            />
+          ))}
+
           {/* <AppBarTab
             label="Custom 2"
             value="custom2"
             aria-label="Custom 2"
             onTabClick={() => navigate(CustomRoute2)}
           /> */}
-          {profile?.user.is_admin && (
+          {/* {profile?.user.is_admin && (
             <AppBarTab
               label="Admin"
               value="admin"
               aria-label="Admin"
               onTabClick={() => navigate(AdminRoute)}
             />
-          )}
+          )} */}
         </NavigationBar>
         <Toolbar variant="dense" sx={{ textAlign: 'right', flexGrow: -1 }}>
           <Button
