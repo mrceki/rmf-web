@@ -391,24 +391,6 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
     <>
       <HeaderBar>
         <LogoButton src={brandingIconPath} alt="logo" sx={{ width: logoSize }} />
-        <Toolbar variant="dense" sx={{ minWidth: '10rem', paddingY: '0.5rem' }}>
-          <FormControl>
-            <InputLabel id="filter-label">Filter Tabs</InputLabel>
-            <Select
-              sx={{ minWidth: '10rem' }}
-              labelId="filter-label"
-              id="filter-select"
-              value={selectedFilters}
-              onChange={handleFilterChange}
-            >
-              <MenuItem value="robots">Robots</MenuItem>
-              <MenuItem value="infrastructure">System Overview</MenuItem>
-              <MenuItem value="tasks">Tasks</MenuItem>
-              <MenuItem value="doors">Doors</MenuItem>
-              <MenuItem value="lifts">Lifts</MenuItem>
-            </Select>
-          </FormControl>
-        </Toolbar>
         <NavigationBar value={tabValue}>
           {filteredTabs().map((tab) => (
             <AppBarTab
@@ -435,7 +417,25 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
             />
           )} */}
         </NavigationBar>
-        <Toolbar variant="dense" sx={{ textAlign: 'right', flexGrow: -1 }}>
+        <Toolbar variant="dense" sx={{ flexGrow: -1 }}>
+          <FormControl sx={{ marginY: '0.5rem', paddingRight: '1rem' }}>
+            <InputLabel id="filter-label" sx={{ textAlign: 'left' }}>
+              Filter Tabs
+            </InputLabel>
+            <Select
+              sx={{ minWidth: '10rem' }}
+              labelId="filter-label"
+              id="filter-select"
+              value={selectedFilters}
+              onChange={handleFilterChange}
+            >
+              <MenuItem value="robots">Robots</MenuItem>
+              <MenuItem value="infrastructure">System Overview</MenuItem>
+              <MenuItem value="tasks">Tasks</MenuItem>
+              <MenuItem value="doors">Doors</MenuItem>
+              <MenuItem value="lifts">Lifts</MenuItem>
+            </Select>
+          </FormControl>
           <Button
             id="create-new-task-button"
             aria-label="new task"
