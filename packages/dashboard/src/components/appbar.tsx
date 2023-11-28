@@ -404,24 +404,24 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
             aria-label="Robots"
             onTabClick={() => navigate(RobotsRoute)}
           />
-          <AppBarTab
+          {/* <AppBarTab
             label="Tasks"
             value="tasks"
             aria-label="Tasks"
             onTabClick={() => navigate(TasksRoute)}
-          />
+          /> */}
           <AppBarTab
-            label="Doors"
+            label="Doors and Lifts"
             value="doors"
             aria-label="Doors"
             onTabClick={() => navigate(DoorsRoute)}
           />
-          <AppBarTab
+          {/* <AppBarTab
             label="Lifts"
             value="lifts"
             aria-label="Lifts"
             onTabClick={() => navigate(LiftsRoute)}
-          />
+          /> */}
           {/* <AppBarTab
             label="Custom 2"
             value="custom2"
