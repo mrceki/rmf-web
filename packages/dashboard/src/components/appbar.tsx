@@ -392,16 +392,36 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
       <HeaderBar>
         <LogoButton src={brandingIconPath} alt="logo" sx={{ width: logoSize }} />
         <NavigationBar value={tabValue}>
-          {filteredTabs().map((tab) => (
-            <AppBarTab
-              key={tab as TabValue}
-              label={getTabLabel(tab as TabValue)}
-              value={tab as TabValue}
-              aria-label={getTabLabel(tab as TabValue)}
-              onTabClick={() => navigate(getTabRoute(tab as TabValue))}
-            />
-          ))}
-
+          <AppBarTab
+            label="Map"
+            value="infrastructure"
+            aria-label="Map"
+            onTabClick={() => navigate(DashboardRoute)}
+          />
+          <AppBarTab
+            label="Robots"
+            value="robots"
+            aria-label="Robots"
+            onTabClick={() => navigate(RobotsRoute)}
+          />
+          <AppBarTab
+            label="Tasks"
+            value="tasks"
+            aria-label="Tasks"
+            onTabClick={() => navigate(TasksRoute)}
+          />
+          <AppBarTab
+            label="Doors"
+            value="doors"
+            aria-label="Doors"
+            onTabClick={() => navigate(DoorsRoute)}
+          />
+          <AppBarTab
+            label="Lifts"
+            value="lifts"
+            aria-label="Lifts"
+            onTabClick={() => navigate(LiftsRoute)}
+          />
           {/* <AppBarTab
             label="Custom 2"
             value="custom2"
@@ -418,24 +438,6 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
           )} */}
         </NavigationBar>
         <Toolbar variant="dense" sx={{ flexGrow: -1 }}>
-          <FormControl sx={{ marginY: '0.5rem', paddingRight: '1rem' }}>
-            <InputLabel id="filter-label" sx={{ textAlign: 'left' }}>
-              Filter Tabs
-            </InputLabel>
-            <Select
-              sx={{ minWidth: '10rem' }}
-              labelId="filter-label"
-              id="filter-select"
-              value={selectedFilters}
-              onChange={handleFilterChange}
-            >
-              <MenuItem value="robots">Robots</MenuItem>
-              <MenuItem value="infrastructure">System Overview</MenuItem>
-              <MenuItem value="tasks">Tasks</MenuItem>
-              <MenuItem value="doors">Doors</MenuItem>
-              <MenuItem value="lifts">Lifts</MenuItem>
-            </Select>
-          </FormControl>
           <Button
             id="create-new-task-button"
             aria-label="new task"

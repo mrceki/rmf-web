@@ -28,6 +28,7 @@ import { tasksWorkspace } from './tasks/tasks-workspace';
 import { ManagedWorkspace, Workspace } from './workspace';
 import { doorsWorkspace } from './doors/doors-workspace';
 import { liftsWorkspace } from './lifts/lifts-workspace';
+import useMouseTracker from '../hooks/useMouseTracker';
 
 const LoadingScreen: React.FC = () => (
   <div className="loading-screen">
@@ -44,6 +45,7 @@ export default function App(): JSX.Element | null {
   const resourceManager = React.useRef<ResourceManager | undefined>(undefined);
   const [appReady, setAppReady] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
+  const mouseTracker = useMouseTracker();
 
   React.useEffect(() => {
     let cancel = false;
@@ -62,6 +64,18 @@ export default function App(): JSX.Element | null {
       authenticator.off('userChanged', onUserChanged);
     };
   }, [authenticator]);
+
+  // React.useEffect(() => {
+  //   if (mouseTracker.isMouseMoving === false) {
+  //     console.log(mouseTracker.isMouseMoving)
+  //     window.location.reload();
+  //   }
+  //   if(mouseTracker.isMouseMoving === true){
+  //     console.log(mouseTracker.isMouseMoving)
+  //   }
+
+  // }
+  // , [mouseTracker]);
 
   React.useEffect(() => {
     (async () => {
@@ -151,7 +165,7 @@ export default function App(): JSX.Element | null {
             element={
               <LoginPage
                 title={'Dashboard'}
-                logo="assets/defaultLogo.png"
+                logo="assets/altınay.png"
                 onLoginClick={() =>
                   authenticator.login(`${window.location.origin}${DashboardRoute}`)
                 }

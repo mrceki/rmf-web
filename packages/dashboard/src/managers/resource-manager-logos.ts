@@ -39,7 +39,7 @@ export class LogoResourceManager {
         : await this.getIconPath('headerLogo');
     if (themeIcon) return themeIcon;
     debug('using default header logo');
-    return (await import(/* webpackMode: "eager" */ '../assets/defaultLogo.png')).default;
+    return (await import(/* webpackMode: "eager" */ '../assets/altınay.png')).default;
   };
 
   get all(): Record<string, LogoResource> {
