@@ -115,7 +115,7 @@ export function AppBase({ children }: React.PropsWithChildren<{}>): JSX.Element 
       <SettingsContext.Provider value={settings}>
         <AppControllerContext.Provider value={appController}>
           <AlertStore />
-          {lowResolutionAlert && lowResolutionDisplayAlert()}
+          {/* {lowResolutionAlert && lowResolutionDisplayAlert()} */}
           <Grid
             container
             direction="column"
