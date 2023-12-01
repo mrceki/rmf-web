@@ -1,4 +1,4 @@
-import { styled } from '@mui/material';
+import { Typography, styled } from '@mui/material';
 import {
   BuildingMap,
   Dispenser,
@@ -56,6 +56,7 @@ export const MapApp = styled(
     const rmf = React.useContext(RmfAppContext);
     const resourceManager = React.useContext(ResourcesContext);
     const [currentLevel, setCurrentLevel] = React.useState<Level | undefined>(undefined);
+    const [currentRobot, setCurrentRobot] = React.useState<RobotData>();
     const [disabledLayers, setDisabledLayers] = React.useState<Record<string, boolean>>({
       Waypoints: false,
       Dispensers: false,
@@ -400,12 +401,21 @@ export const MapApp = styled(
       setDistance(Math.max(size.x, size.y, size.z) * 0.7);
     }, [sceneBoundingBox]);
 
+    // React.useEffect(() => {
+    //   console.log("robot locations",robotLocations);
+
+    //   //console log the robots in the map
+    //   console.log("robots",robots);
+
+    // }
+    // , [robotLocations, robots]);
     return ready ? (
       <Suspense fallback={null}>
         <LayersController
           disabledLayers={disabledLayers}
           levels={buildingMap.levels}
           currentLevel={currentLevel}
+          robots={robots}
           onChange={(event: ChangeEvent<HTMLInputElement>, value: string) => {
             AppEvents.levelSelect.next(
               buildingMap.levels.find((l: Level) => l.name === value) || buildingMap.levels[0],
@@ -442,6 +452,9 @@ export const MapApp = styled(
           {currentLevel.images.length > 0 && imageUrl && (
             <ReactThreeFiberImageMaker level={currentLevel} imageUrl={imageUrl} />
           )}
+          {/* <Typography variant="h5" sx={{ position: 'absolute', top: 10, left: 10 }}>
+          {currentLevel.name}
+          </Typography> */}
           {buildingMap.lifts.length > 0
             ? buildingMap.lifts.map((lift, i) =>
                 lift.doors.map((door, i) => (

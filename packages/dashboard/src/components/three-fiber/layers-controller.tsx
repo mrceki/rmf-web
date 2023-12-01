@@ -15,11 +15,13 @@ import {
 import LayersIcon from '@mui/icons-material/Layers';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import ZoomOutIcon from '@mui/icons-material/ZoomOut';
+import { RobotData } from 'react-components';
 
 interface LayersControllerProps {
   disabledLayers: Record<string, boolean>;
   onChange: (event: ChangeEvent<HTMLInputElement>, value: string) => void;
   levels: Level[];
+  robots: RobotData[];
   currentLevel: Level;
   handleZoomIn: () => void;
   handleZoomOut: () => void;
@@ -29,11 +31,14 @@ export const LayersController = ({
   disabledLayers,
   onChange,
   levels,
+  robots,
   currentLevel,
   handleZoomIn,
   handleZoomOut,
 }: LayersControllerProps) => {
   const [isHovered, setIsHovered] = React.useState(false);
+  //if there is one robot in the list than show it as value to the text field else show string like click to select
+  const robotValue = robots.length === 1 ? robots[0].name : 'Click to see';
 
   return (
     <Box
@@ -48,6 +53,25 @@ export const LayersController = ({
       }}
     >
       <FormControl>
+        <TextField
+          select
+          id="robot-select"
+          label="Robots"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={robotValue}
+          size="small"
+          sx={{ width: '150px' }}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e, e.target.value as string)}
+        >
+          {robots.map((robot, i) => (
+            <MenuItem key={i} value={robots[i].name}>
+              {robots[i].name}
+            </MenuItem>
+          ))}
+        </TextField>
+
         <TextField
           select
           id="level-select"
@@ -67,6 +91,7 @@ export const LayersController = ({
           ))}
         </TextField>
       </FormControl>
+
       <div>
         <IconButton size="small" onClick={handleZoomIn} data-testid="zoom-in">
           <ZoomInIcon fontSize="large" />
