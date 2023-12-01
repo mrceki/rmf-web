@@ -452,9 +452,6 @@ export const MapApp = styled(
           {currentLevel.images.length > 0 && imageUrl && (
             <ReactThreeFiberImageMaker level={currentLevel} imageUrl={imageUrl} />
           )}
-          {/* <Typography variant="h5" sx={{ position: 'absolute', top: 10, left: 10 }}>
-          {currentLevel.name}
-          </Typography> */}
           {buildingMap.lifts.length > 0
             ? buildingMap.lifts.map((lift, i) =>
                 lift.doors.map((door, i) => (
