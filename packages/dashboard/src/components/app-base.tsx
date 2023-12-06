@@ -44,9 +44,7 @@ export function AppBase({ children }: React.PropsWithChildren<{}>): JSX.Element 
         return rmfLight;
     }
   }, [settings.themeMode]);
-  React.useEffect(() => {
-    console.log(ThemeMode);
-  }, [theme]);
+
   const updateSettings = React.useCallback((newSettings: Settings) => {
     saveSettings(newSettings);
     setSettings(newSettings);
