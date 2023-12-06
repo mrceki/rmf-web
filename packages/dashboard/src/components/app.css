@@ -3,8 +3,58 @@ body,
 #root {
   height: 100%;
   width: 100%;
-  margin: 0;
-  padding: 0;
+}
+.deneme {
+  width: 100px;
+}
+.sideBar {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+.divAppBase {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+.children {
+  width: 100%;
+}
+.navProps {
+  margin-top: 30px;
+}
+.buttonTab {
+  display: flex;
+  align-items: center;
+}
+.buttonTab:hover {
+  background-color: #e6e6e6;
+  transform: scale(1.1) perspective(1px);
+}
+.buttonNewTask {
+  display: flex;
+  align-items: center;
+  margin-top: 50px;
+  border-radius: 20px;
+  border: 1px solid black;
+  border-color: black;
+}
+.buttonNewTask:hover {
+  background-color: #e6e6e6;
+  transform: scale(1.1) perspective(1px);
+}
+.alertIcon {
+  display: flex;
+  align-items: center;
+}
+.alertIconType {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+.buttomDiv {
+  justify-content: end;
 }
 .loading-screen {
   font-family: arial;
@@ -12,9 +62,6 @@ body,
   font-weight: bold;
   width: 100%;
   height: 100%;
-
-  /* Center child horizontally*/
-
   display: flex;
   justify-content: center;
   align-items: center;

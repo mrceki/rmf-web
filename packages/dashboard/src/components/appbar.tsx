@@ -8,6 +8,10 @@ import {
   ModeNightOutlined,
   ModeNight,
   AlignHorizontalCenter,
+  PlaylistAddOutlined,
+  MapOutlined,
+  SmartToyOutlined,
+  SensorDoorOutlined,
 } from '@mui/icons-material';
 import {
   Badge,
@@ -388,199 +392,153 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
   };
 
   return (
-    <>
-      <HeaderBar>
-        <LogoButton src={brandingIconPath} alt="logo" sx={{ width: logoSize }} />
-        <NavigationBar value={tabValue}>
+    <div className="sideBar">
+      <LogoButton src={brandingIconPath} alt="logo" sx={{ width: logoSize, marginTop: '8px' }} />
+      <div className="navProps">
+        <div className="buttonTab">
+          <MapOutlined fontSize="large" />
           <AppBarTab
-            label="Map"
+            label="Map Management"
             value="infrastructure"
             aria-label="Map"
             onTabClick={() => navigate(DashboardRoute)}
           />
+        </div>
+        <div className="buttonTab">
+          <SmartToyOutlined fontSize="large" />
           <AppBarTab
             label="Robots and Tasks"
             value="robots"
             aria-label="Robots"
             onTabClick={() => navigate(RobotsRoute)}
           />
-          {/* <AppBarTab
-            label="Tasks"
-            value="tasks"
-            aria-label="Tasks"
-            onTabClick={() => navigate(TasksRoute)}
-          /> */}
+        </div>
+        <div className="buttonTab">
+          <SensorDoorOutlined fontSize="large" />
           <AppBarTab
             label="Doors and Lifts"
             value="doors"
             aria-label="Doors"
             onTabClick={() => navigate(DoorsRoute)}
           />
-          {/* <AppBarTab
-            label="Lifts"
-            value="lifts"
-            aria-label="Lifts"
-            onTabClick={() => navigate(LiftsRoute)}
-          /> */}
-          {/* <AppBarTab
-            label="Custom 2"
-            value="custom2"
-            aria-label="Custom 2"
-            onTabClick={() => navigate(CustomRoute2)}
-          /> */}
-          {/* {profile?.user.is_admin && (
-            <AppBarTab
-              label="Admin"
-              value="admin"
-              aria-label="Admin"
-              onTabClick={() => navigate(AdminRoute)}
-            />
-          )} */}
-        </NavigationBar>
-        <Toolbar variant="dense" sx={{ flexGrow: -1 }}>
-          <Button
-            id="create-new-task-button"
-            aria-label="new task"
-            color="secondary"
-            variant="contained"
-            size="small"
-            onClick={() => setOpenCreateTaskForm(true)}
-          >
-            <AddOutlined />
-            New Task
-          </Button>
-          <Tooltip title="Notifications">
-            <IconButton
-              id="alert-list-button"
-              aria-label="alert-list-button"
-              color="inherit"
-              onClick={handleOpenAlertList}
-            >
-              <Badge badgeContent={unacknowledgedAlertsNum} color="secondary">
-                <Notifications />
-              </Badge>
-            </IconButton>
-          </Tooltip>
-          <Menu
-            anchorEl={alertListAnchor}
-            open={!!alertListAnchor}
-            onClose={() => setAlertListAnchor(null)}
-            transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-            anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-            PaperProps={{
-              style: {
-                maxHeight: '20rem',
-                maxWidth: '30rem',
-              },
-            }}
-          >
-            {unacknowledgedAlertList.length === 0 ? (
-              <MenuItem dense disabled>
-                <Typography variant="body2" noWrap>
-                  No unacknowledged alerts
-                </Typography>
-              </MenuItem>
-            ) : (
-              unacknowledgedAlertList.map((alert) => (
-                <Tooltip
-                  key={alert.id}
-                  title={
-                    <React.Fragment>
-                      <Typography>Alert</Typography>
-                      <Typography>ID: {alert.original_id}</Typography>
-                      <Typography>Type: {alert.category.toUpperCase()}</Typography>
-                      <Typography>
-                        Created: {new Date(alert.unix_millis_created_time).toLocaleString()}
-                      </Typography>
-                    </React.Fragment>
-                  }
-                  placement="right"
-                >
-                  <MenuItem
-                    dense
-                    onClick={() => {
-                      openAlertDialog(alert);
-                      setAlertListAnchor(null);
-                    }}
-                    divider
-                  >
-                    <Report />
-                    <Typography variant="body2" mx={1} noWrap>
-                      Task {alert.original_id} had an alert{' '}
-                      {timeDistance(alert.unix_millis_created_time)} ago
+        </div>
+        <div className="buttonNewTask">
+          <PlaylistAddOutlined fontSize="large" />
+          <AppBarTab
+            label="New Task"
+            value="newTask"
+            aria-label="NewTask"
+            onTabClick={() => setOpenCreateTaskForm(true)}
+          />
+        </div>
+      </div>
+      <div className="bottomDiv">
+        <IconButton
+          id="alert-list-button"
+          aria-label="alert-list-button"
+          color="inherit"
+          onClick={handleOpenAlertList}
+        >
+          <Badge badgeContent={unacknowledgedAlertsNum}>
+            <Notifications />
+          </Badge>
+        </IconButton>
+        <Menu
+          anchorEl={alertListAnchor}
+          open={!!alertListAnchor}
+          onClose={() => setAlertListAnchor(null)}
+          transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+          PaperProps={{
+            style: {
+              maxHeight: '20rem',
+              maxWidth: '30rem',
+            },
+          }}
+        >
+          {unacknowledgedAlertList.length === 0 ? (
+            <MenuItem dense disabled>
+              <Typography variant="body2" noWrap>
+                No unacknowledged alerts
+              </Typography>
+            </MenuItem>
+          ) : (
+            unacknowledgedAlertList.map((alert) => (
+              <Tooltip
+                key={alert.id}
+                title={
+                  <React.Fragment>
+                    <Typography>Alert</Typography>
+                    <Typography>ID: {alert.original_id}</Typography>
+                    <Typography>Type: {alert.category.toUpperCase()}</Typography>
+                    <Typography>
+                      Created: {new Date(alert.unix_millis_created_time).toLocaleString()}
                     </Typography>
-                  </MenuItem>
-                </Tooltip>
-              ))
-            )}
-          </Menu>
-          <Tooltip title="Settings">
-            <IconButton
-              id="show-settings-btn"
-              aria-label="settings"
-              color="inherit"
-              onClick={(ev) => setSettingsAnchor(ev.currentTarget)}
-            >
-              {curTheme === 2 ? <ModeNight /> : <ModeNightOutlined />}
-            </IconButton>
-          </Tooltip>
-          <Divider orientation="vertical" sx={{ marginLeft: 1, marginRight: 2 }} />
-          <Typography variant="caption">Altınay Robot Teknolojileri</Typography>
-          {extraToolbarItems}
-
-          {/* <Tooltip title="Help">
-            <IconButton
-              id="show-help-btn"
-              aria-label="help"
-              color="inherit"
-              onClick={() => window.open(resourceManager?.helpLink, '_blank')}
-            >
-              <Help />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Report issues">
-            <IconButton
-              id="show-warning-btn"
-              aria-label="warning"
-              color="inherit"
-              onClick={() => window.open(resourceManager?.reportIssue, '_blank')}
-            >
-              <Issue />
-            </IconButton>
-          </Tooltip> */}
-          {profile && (
-            <>
-              <Tooltip title="Profile">
-                <IconButton
-                  id="user-btn"
-                  aria-label={'user-btn'}
-                  color="inherit"
-                  onClick={(event) => setAnchorEl(event.currentTarget)}
-                >
-                  <AccountCircle />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'right',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={!!anchorEl}
-                onClose={() => setAnchorEl(null)}
+                  </React.Fragment>
+                }
+                placement="right"
               >
-                <MenuItem id="logout-btn" onClick={handleLogout}>
-                  Logout
+                <MenuItem
+                  dense
+                  onClick={() => {
+                    openAlertDialog(alert);
+                    setAlertListAnchor(null);
+                  }}
+                  divider
+                >
+                  <Report />
+                  <Typography variant="body2" mx={1} noWrap>
+                    Task {alert.original_id} had an alert{' '}
+                    {timeDistance(alert.unix_millis_created_time)} ago
+                  </Typography>
                 </MenuItem>
-              </Menu>
-            </>
+              </Tooltip>
+            ))
           )}
-        </Toolbar>
-      </HeaderBar>
+        </Menu>
+        <IconButton
+          id="show-settings-btn"
+          aria-label="settings"
+          color="inherit"
+          onClick={(ev) => setSettingsAnchor(ev.currentTarget)}
+        >
+          {curTheme === 2 ? <ModeNight /> : <ModeNightOutlined />}
+        </IconButton>
+      </div>
+      {/* <Typography variant="caption">Altınay Robot Teknolojileri</Typography> */}
+      {extraToolbarItems}
+      {/* {profile && (
+                <>
+                  <Tooltip title="Profile">
+                    <IconButton
+                      id="user-btn"
+                      aria-label={'user-btn'}
+                      color="inherit"
+                      onClick={(event) => setAnchorEl(event.currentTarget)}
+                    >
+                      <AccountCircle />
+                    </IconButton>
+                  </Tooltip>
+                  <Menu
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'right',
+                    }}
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    open={!!anchorEl}
+                    onClose={() => setAnchorEl(null)}
+                  >
+                    <MenuItem id="logout-btn" onClick={handleLogout}>
+                      Logout
+                    </MenuItem>
+                  </Menu>
+                </>
+              )} */}
+
       <Menu
         anchorEl={settingsAnchor}
         open={!!settingsAnchor}
@@ -626,7 +584,7 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
           }}
         />
       )}
-    </>
+    </div>
   );
 });
 

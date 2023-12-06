@@ -116,15 +116,9 @@ export function AppBase({ children }: React.PropsWithChildren<{}>): JSX.Element 
         <AppControllerContext.Provider value={appController}>
           <AlertStore />
           {/* {lowResolutionAlert && lowResolutionDisplayAlert()} */}
-          <Grid
-            container
-            direction="column"
-            style={{ width: '100%', height: '100%' }}
-            wrap="nowrap"
-          >
+          <div className="divAppBase">
             <AppBar extraToolbarItems={extraAppbarIcons} />
-            {children}
-            {/* TODO: Support stacking of alerts */}
+            <div className="children">{children}</div>
             <Snackbar
               open={showAlert}
               message={alertMessage}
@@ -139,7 +133,7 @@ export function AppBase({ children }: React.PropsWithChildren<{}>): JSX.Element 
                 {alertMessage}
               </Alert>
             </Snackbar>
-          </Grid>
+          </div>
         </AppControllerContext.Provider>
       </SettingsContext.Provider>
     </ThemeProvider>
