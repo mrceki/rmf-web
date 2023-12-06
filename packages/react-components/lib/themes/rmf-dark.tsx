@@ -13,8 +13,8 @@ const base = createTheme({
     },
     background: {
       //Rich Black Fogra 29, Cadet
-      default: '#edeae8',
-      paper: '#62727B',
+      default: '#323232',
+      paper: '#7f6c68',
     },
   },
 });

@@ -38,15 +38,15 @@ export function AppBase({ children }: React.PropsWithChildren<{}>): JSX.Element 
 
   const theme = React.useMemo(() => {
     switch (settings.themeMode) {
-      case ThemeMode.RmfLight:
-        return rmfLight;
       case ThemeMode.RmfDark:
         return rmfDark;
       default:
-        return defaultTheme;
+        return rmfLight;
     }
   }, [settings.themeMode]);
-
+  React.useEffect(() => {
+    console.log(ThemeMode);
+  }, [theme]);
   const updateSettings = React.useCallback((newSettings: Settings) => {
     saveSettings(newSettings);
     setSettings(newSettings);

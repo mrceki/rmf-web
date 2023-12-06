@@ -104,16 +104,7 @@ function AppSettings() {
         <FormControlLabel
           value={ThemeMode.Default}
           control={<Radio />}
-          label="Default"
-          checked={settings.themeMode === ThemeMode.Default}
-          onChange={() =>
-            appController.updateSettings({ ...settings, themeMode: ThemeMode.Default })
-          }
-        />
-        <FormControlLabel
-          value={ThemeMode.RmfLight}
-          control={<Radio />}
-          label="RMF Light"
+          label="Light Mode"
           checked={settings.themeMode === ThemeMode.RmfLight}
           onChange={() =>
             appController.updateSettings({ ...settings, themeMode: ThemeMode.RmfLight })
@@ -122,7 +113,7 @@ function AppSettings() {
         <FormControlLabel
           value={ThemeMode.RmfDark}
           control={<Radio />}
-          label="RMF Dark"
+          label="Dark Mode"
           checked={settings.themeMode === ThemeMode.RmfDark}
           onChange={() =>
             appController.updateSettings({ ...settings, themeMode: ThemeMode.RmfDark })

@@ -29,7 +29,6 @@ body,
   align-items: center;
 }
 .buttonTab:hover {
-  background-color: #e6e6e6;
   transform: scale(1.1) perspective(1px);
 }
 .buttonNewTask {
@@ -41,7 +40,6 @@ body,
   border-color: black;
 }
 .buttonNewTask:hover {
-  background-color: #e6e6e6;
   transform: scale(1.1) perspective(1px);
 }
 .alertIcon {
