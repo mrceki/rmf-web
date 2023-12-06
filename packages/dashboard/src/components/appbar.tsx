@@ -141,41 +141,6 @@ export interface AppBarProps {
   alarmState?: boolean | null;
 }
 
-const getTabLabel = (tabValue: TabValue): string => {
-  switch (tabValue) {
-    case 'robots':
-      return 'Robots';
-    case 'infrastructure':
-      return 'System Overview';
-    case 'tasks':
-      return 'Tasks';
-    case 'doors':
-      return 'Doors';
-    case 'lifts':
-      return 'Lifts';
-    // Add more cases as needed
-    default:
-      return ''; // Return an empty string or a default label for unknown tab values
-  }
-};
-const getTabRoute = (tabValue: TabValue): string => {
-  switch (tabValue) {
-    case 'robots':
-      return RobotsRoute;
-    case 'infrastructure':
-      return DashboardRoute;
-    case 'tasks':
-      return TasksRoute;
-    case 'doors':
-      return DoorsRoute;
-    case 'lifts':
-      return LiftsRoute;
-    // Add more cases as needed
-    default:
-      return '/'; // Return a default route or handle unknown tab values accordingly
-  }
-};
-
 export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.ReactElement => {
   const rmf = React.useContext(RmfAppContext);
   const resourceManager = React.useContext(ResourcesContext);
@@ -196,7 +161,6 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
   const [alertListAnchor, setAlertListAnchor] = React.useState<HTMLElement | null>(null);
   const [unacknowledgedAlertsNum, setUnacknowledgedAlertsNum] = React.useState(0);
   const [unacknowledgedAlertList, setUnacknowledgedAlertList] = React.useState<Alert[]>([]);
-  const [selectedFilters, setSelectedFilters] = React.useState<TabValue[]>([]);
 
   const curTheme = React.useContext(SettingsContext).themeMode;
   const { waypointNames, pickupPoints, dropoffPoints, cleaningZoneNames } =
@@ -378,17 +342,6 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
 
   const timeDistance = (time: number) => {
     return formatDistance(new Date(), new Date(time));
-  };
-
-  const handleFilterChange = (event: SelectChangeEvent<TabValue[]>) => {
-    setSelectedFilters(event.target.value as TabValue[]);
-    navigate(getTabRoute(event.target.value as TabValue));
-  };
-  const filteredTabs = () => {
-    if (selectedFilters.length === 0) {
-      return ['robots', 'infrastructure', 'tasks', 'doors', 'lifts'];
-    }
-    return [selectedFilters];
   };
 
   return (
