@@ -22,6 +22,7 @@ interface LayersControllerProps {
   onChange: (event: ChangeEvent<HTMLInputElement>, value: string) => void;
   levels: Level[];
   robots: RobotData[];
+  robotLocations: Record<string, number[]>;
   currentLevel: Level;
   handleZoomIn: () => void;
   handleZoomOut: () => void;
@@ -32,13 +33,22 @@ export const LayersController = ({
   onChange,
   levels,
   robots,
+  robotLocations,
   currentLevel,
   handleZoomIn,
   handleZoomOut,
 }: LayersControllerProps) => {
   const [isHovered, setIsHovered] = React.useState(false);
-  //if there is one robot in the list than show it as value to the text field else show string like click to select
+
   const robotValue = robots.length === 1 ? robots[0].name : 'Click to see';
+
+  const handleRobotClick = () => {
+    const RobotLocations = Object.values(robotLocations);
+    const mapCoordsLocation: [number, number] = [RobotLocations[0][0], RobotLocations[0][1]];
+    const newCenter: L.LatLngTuple = [mapCoordsLocation[0], mapCoordsLocation[1]];
+    AppEvents.mapCenter.next(newCenter);
+    AppEvents.zoom.next(50);
+  };
 
   return (
     <Box
@@ -66,7 +76,7 @@ export const LayersController = ({
           onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e, e.target.value as string)}
         >
           {robots.map((robot, i) => (
-            <MenuItem key={i} value={robots[i].name}>
+            <MenuItem key={i} value={robots[i].name} onClick={() => handleRobotClick()}>
               {robots[i].name}
             </MenuItem>
           ))}

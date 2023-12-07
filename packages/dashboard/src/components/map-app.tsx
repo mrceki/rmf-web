@@ -1,4 +1,4 @@
-import { Typography, styled } from '@mui/material';
+import { styled } from '@mui/material';
 import {
   BuildingMap,
   Dispenser,
@@ -56,7 +56,6 @@ export const MapApp = styled(
     const rmf = React.useContext(RmfAppContext);
     const resourceManager = React.useContext(ResourcesContext);
     const [currentLevel, setCurrentLevel] = React.useState<Level | undefined>(undefined);
-    const [currentRobot, setCurrentRobot] = React.useState<RobotData>();
     const [disabledLayers, setDisabledLayers] = React.useState<Record<string, boolean>>({
       Waypoints: false,
       Dispensers: false,
@@ -77,6 +76,7 @@ export const MapApp = styled(
 
     const [dispensers, setDispensers] = React.useState<Dispenser[]>([]);
     const [dispensersData, setDispensersData] = React.useState<WorkcellData[]>([]);
+
     React.useEffect(() => {
       if (!currentLevel) {
         return;
@@ -107,6 +107,7 @@ export const MapApp = styled(
 
     const [ingestors, setIngestors] = React.useState<Ingestor[]>([]);
     const [ingestorsData, setIngestorsData] = React.useState<WorkcellData[]>([]);
+
     React.useEffect(() => {
       if (!currentLevel) {
         return;
@@ -141,11 +142,11 @@ export const MapApp = styled(
     const [currentLevelOfRobots, setCurrentLevelOfRobots] = React.useState<{
       [key: string]: string;
     }>({});
-
     const [trajectories, setTrajectories] = React.useState<TrajectoryData[]>([]);
     const trajectoryTime = 300000;
     const trajectoryAnimScale = trajectoryTime / (0.9 * TrajectoryUpdateInterval);
     const trajManager = rmf?.trajectoryManager;
+
     React.useEffect(() => {
       if (!currentLevel) {
         return;
@@ -367,6 +368,7 @@ export const MapApp = styled(
           return;
         }
         const [fleetName, robotName] = data;
+
         const robotId = getRobotId(fleetName, robotName);
         const robotLocation = robotLocations[robotId];
         if (!robotLocation) {
@@ -401,19 +403,12 @@ export const MapApp = styled(
       setDistance(Math.max(size.x, size.y, size.z) * 0.7);
     }, [sceneBoundingBox]);
 
-    // React.useEffect(() => {
-    //   console.log("robot locations",robotLocations);
-
-    //   //console log the robots in the map
-    //   console.log("robots",robots);
-
-    // }
-    // , [robotLocations, robots]);
     return ready ? (
       <Suspense fallback={null}>
         <LayersController
           disabledLayers={disabledLayers}
           levels={buildingMap.levels}
+          robotLocations={robotLocations}
           currentLevel={currentLevel}
           robots={robots}
           onChange={(event: ChangeEvent<HTMLInputElement>, value: string) => {
