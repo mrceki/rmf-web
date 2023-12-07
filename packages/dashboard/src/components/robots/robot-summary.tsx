@@ -289,7 +289,7 @@ export const RobotSummary = React.memo(({ onClose, robot }: RobotSummaryProps) =
           autoFocus
           disabled={taskState === null}
         >
-          Inspect Task
+          <span className="spanInspect">Inspect Task</span>
         </Button>
       </DialogActions>
       {openTaskDetailsLogs && taskState && (
