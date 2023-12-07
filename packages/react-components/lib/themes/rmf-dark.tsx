@@ -16,6 +16,9 @@ const base = createTheme({
       default: '#323232',
       paper: '#7f6c68',
     },
+    secondary: {
+      main: '#3874c7',
+    },
   },
 });
 

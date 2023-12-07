@@ -51,13 +51,13 @@ const setTaskDialogColor = (robotStatus: Status2 | undefined) => {
 
   switch (robotStatus) {
     case Status2.Error:
-      return base.palette.error.dark;
+      return base.palette.grey[400];
 
     case Status2.Working:
-      return base.palette.success.dark;
+      return base.palette.grey[400];
 
     default:
-      return base.palette.warning.main;
+      return base.palette.grey[400];
   }
 };
 
@@ -254,7 +254,9 @@ export const RobotSummary = React.memo(({ onClose, robot }: RobotSummaryProps) =
       <Grid container mb={1} alignItems="center" spacing={1}>
         <Grid item xs={2}></Grid>
         <Grid item xs={8}>
-          <DialogTitle align="center">Robot summary: {robotState?.name}</DialogTitle>
+          <DialogTitle align="center" className="dialogTitle">
+            Robot summary: {robotState?.name}
+          </DialogTitle>
         </Grid>
         <Grid item xs={2}>
           <Grid container justifyContent="flex-end">

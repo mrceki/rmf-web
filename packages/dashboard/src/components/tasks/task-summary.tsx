@@ -52,16 +52,16 @@ const setTaskDialogColor = (taskStatus: Status | undefined) => {
 
   switch (taskStatus) {
     case Status.Failed:
-      return base.palette.error.dark;
+      return base.palette.grey[400];
 
     case Status.Underway:
-      return base.palette.success.dark;
+      return base.palette.grey[400];
 
     case Status.Queued:
-      return base.palette.info.main;
+      return base.palette.grey[400];
 
     default:
-      return base.palette.background.default;
+      return base.palette.grey[400];
   }
 };
 
@@ -137,6 +137,10 @@ export const TaskSummary = React.memo((props: TaskSummaryProps) => {
         title: 'Current phase',
         value: taskState ? getTaskPhaseDetails(taskState) : 'Invalid task state.',
       },
+      {
+        title: 'Status',
+        value: taskState ? taskState.status : 'Invalid task state.',
+      },
     ];
 
     return (
@@ -177,9 +181,13 @@ export const TaskSummary = React.memo((props: TaskSummaryProps) => {
       fullWidth
       maxWidth="sm"
     >
-      <DialogTitle align="center">Task Summary</DialogTitle>
+      <DialogTitle align="center" className="dialogTitle">
+        Task Summary
+      </DialogTitle>
       <Divider />
-      <DialogTitle align="center">Task State</DialogTitle>
+      <DialogTitle align="center" className="dialogTitle">
+        Task State
+      </DialogTitle>
       {taskProgress && (
         <Box component="div" sx={{ width: '90%', ml: 3 }}>
           <LinearProgressWithLabel value={taskProgress * 100} />

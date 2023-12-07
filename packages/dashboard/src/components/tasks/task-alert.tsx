@@ -125,7 +125,7 @@ export function TaskAlertDialog({ alert, removeAlert }: TaskAlertDialogProps): J
     if (state.status) {
       switch (state.status) {
         case Status.Completed:
-          return base.palette.success.dark;
+          return base.palette.grey[300];
 
         case Status.Error:
         case Status.Failed:

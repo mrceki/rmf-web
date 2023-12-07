@@ -16,6 +16,9 @@ export const base = createTheme({
       default: '#EEEEEE',
       paper: '#FFFFFF',
     },
+    secondary: {
+      main: '#FFFFFF',
+    },
   },
 });
 
