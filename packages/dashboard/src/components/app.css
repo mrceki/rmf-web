@@ -60,6 +60,21 @@ body,
 .spanInspect {
   color: black;
 }
+.spanDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.robotBat {
+  display: flex;
+  align-items: center;
+}
+.robotDiv {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  justify-content: space-between;
+}
 .loading-screen {
   font-family: arial;
   font-size: 24px;

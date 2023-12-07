@@ -8,8 +8,10 @@ import {
   Typography,
   Divider,
   TextField,
+  IconButton,
 } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
+import CloseIcon from '@mui/icons-material/Close';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -181,9 +183,23 @@ export const TaskSummary = React.memo((props: TaskSummaryProps) => {
       fullWidth
       maxWidth="sm"
     >
-      <DialogTitle align="center" className="dialogTitle">
-        Task Summary
-      </DialogTitle>
+      <span className="spanDiv">
+        <DialogTitle align="center" className="dialogTitle">
+          Task Summary
+        </DialogTitle>
+        <div>
+          <IconButton
+            className="closeButton"
+            aria-label="close"
+            onClick={() => {
+              setIsOpen(false);
+              onClose();
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </div>
+      </span>
       <Divider />
       <DialogTitle align="center" className="dialogTitle">
         Task State

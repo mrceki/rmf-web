@@ -7,11 +7,13 @@ import {
   DialogTitle,
   Divider,
   Grid,
+  Icon,
   LinearProgress,
   LinearProgressProps,
   TextField,
   Theme,
   Typography,
+  IconButton,
 } from '@mui/material';
 import { makeStyles, createStyles } from '@mui/styles';
 import React from 'react';
@@ -31,7 +33,9 @@ import {
   BatteryFull,
   BatteryChargingFull,
   BatteryUnknown,
+  Close as CloseIcon,
 } from '@mui/icons-material';
+import { flexbox } from '@mui/system';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -251,24 +255,29 @@ export const RobotSummary = React.memo(({ onClose, robot }: RobotSummaryProps) =
       fullWidth
       maxWidth="sm"
     >
-      <Grid container mb={1} alignItems="center" spacing={1}>
-        <Grid item xs={2}></Grid>
-        <Grid item xs={8}>
-          <DialogTitle align="center" className="dialogTitle">
-            Robot summary: {robotState?.name}
-          </DialogTitle>
-        </Grid>
-        <Grid item xs={2}>
-          <Grid container justifyContent="flex-end">
-            <Typography variant="subtitle1">{`${
-              robotState?.battery ? (robotState.battery * 100).toFixed(0) : 0
-            }%`}</Typography>
-            {robotState && (
-              <>{showBatteryIcon(robot, robotState.battery ? robotState?.battery * 100 : 0)}</>
-            )}
-          </Grid>
-        </Grid>
-      </Grid>
+      <div className="robotDiv">
+        <span className="robotBat">
+          <Typography variant="subtitle1">{`${
+            robotState?.battery ? (robotState.battery * 100).toFixed(0) : 0
+          }%`}</Typography>
+          {robotState && (
+            <>{showBatteryIcon(robot, robotState.battery ? robotState?.battery * 100 : 0)}</>
+          )}
+        </span>
+        <span className="dialogTitle">
+          <DialogTitle align="center">Robot summary: {robotState?.name}</DialogTitle>
+        </span>
+        <IconButton
+          className="closeButton"
+          aria-label="close"
+          onClick={() => {
+            setIsOpen(false);
+            onClose();
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      </div>
       <Divider />
       {taskProgress && (
         <>
