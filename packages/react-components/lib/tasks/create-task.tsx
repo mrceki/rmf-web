@@ -765,7 +765,7 @@ export function CreateTaskForm({
   };
   // schedule is not supported with batch upload
   const scheduleEnabled = taskRequests.length === 1;
-
+  const [isOpen, setIsOpen] = React.useState(true);
   const updateTasks = () => {
     setTaskRequests((prev) => {
       prev.splice(selectedTaskIdx, 1, taskRequest);
@@ -992,6 +992,11 @@ export function CreateTaskForm({
         fullWidth={taskRequests.length > 1}
         disableEnforceFocus
         {...otherProps}
+        open={isOpen}
+        onClose={(event, reason) => {
+          onClose && onClose(event, reason);
+          setIsOpen(false);
+        }}
       >
         <form aria-label="create-task" ref={createTaskFormRef} id="form_area">
           <DialogTitle>
