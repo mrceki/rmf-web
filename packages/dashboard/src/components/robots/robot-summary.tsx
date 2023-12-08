@@ -42,25 +42,11 @@ const useStyles = makeStyles((theme: Theme) =>
         backgroundColor: theme.palette.background.default,
       },
     },
+    summaryDiv: {
+      backgroundColor: theme.palette.mode === 'dark' ? '#7f6c68' : '#d6cdce',
+    },
   }),
 );
-
-const setTaskDialogColor = (robotStatus: Status2 | undefined) => {
-  if (!robotStatus) {
-    return base.palette.background.default;
-  }
-
-  switch (robotStatus) {
-    case Status2.Error:
-      return base.palette.grey[400];
-
-    case Status2.Working:
-      return base.palette.grey[400];
-
-    default:
-      return base.palette.grey[400];
-  }
-};
 
 const LinearProgressWithLabel = (props: LinearProgressProps & { value: number }) => {
   return (
@@ -243,9 +229,11 @@ export const RobotSummary = React.memo(({ onClose, robot }: RobotSummaryProps) =
   return (
     <Dialog
       PaperProps={{
+        className: classes.summaryDiv,
         style: {
-          backgroundColor: setTaskDialogColor(robotState?.status),
           boxShadow: 'none',
+          borderRadius: '20px',
+          padding: '30px',
         },
       }}
       open={isOpen}

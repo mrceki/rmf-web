@@ -339,6 +339,15 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
     <div className="sideBar">
       <LogoButton src={brandingIconPath} alt="logo" sx={{ width: logoSize, marginTop: '8px' }} />
       <div className="navProps">
+        <div className="buttonNewTask">
+          <PlaylistAddOutlined fontSize="large" />
+          <AppBarTab
+            label="New Task"
+            value="newTask"
+            aria-label="NewTask"
+            onTabClick={() => setOpenCreateTaskForm(true)}
+          />
+        </div>
         <div className="buttonTab">
           <MapOutlined fontSize="large" />
           <AppBarTab
@@ -364,15 +373,6 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
             value="doors"
             aria-label="Doors"
             onTabClick={() => navigate(DoorsRoute)}
-          />
-        </div>
-        <div className="buttonNewTask">
-          <PlaylistAddOutlined fontSize="large" />
-          <AppBarTab
-            label="New Task"
-            value="newTask"
-            aria-label="NewTask"
-            onTabClick={() => setOpenCreateTaskForm(true)}
           />
         </div>
       </div>

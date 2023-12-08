@@ -9,7 +9,6 @@ body,
   display: flex;
   flex-direction: column;
   margin-left: 10px;
-  justify-content: space-between;
 }
 .divAppBase {
   width: 100%;
@@ -32,7 +31,7 @@ body,
 .buttonNewTask {
   display: flex;
   align-items: center;
-  margin-top: 50px;
+  margin-bottom: 50px;
   border-radius: 20px;
   border: 1px solid black;
   border-color: black;

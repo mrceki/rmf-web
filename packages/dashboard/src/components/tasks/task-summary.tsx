@@ -29,6 +29,9 @@ const useStyles = makeStyles((theme: Theme) =>
         backgroundColor: theme.palette.background.default,
       },
     },
+    summaryDiv: {
+      backgroundColor: theme.palette.mode === 'dark' ? '#7f6c68' : '#d6cdce',
+    },
   }),
 );
 
@@ -139,10 +142,6 @@ export const TaskSummary = React.memo((props: TaskSummaryProps) => {
         title: 'Current phase',
         value: taskState ? getTaskPhaseDetails(taskState) : 'Invalid task state.',
       },
-      {
-        title: 'Status',
-        value: taskState ? taskState.status : 'Invalid task state.',
-      },
     ];
 
     return (
@@ -170,9 +169,11 @@ export const TaskSummary = React.memo((props: TaskSummaryProps) => {
   return (
     <Dialog
       PaperProps={{
+        className: classes.summaryDiv,
         style: {
-          backgroundColor: setTaskDialogColor(taskState?.status),
           boxShadow: 'none',
+          borderRadius: '20px',
+          padding: '30px',
         },
       }}
       open={isOpen}
@@ -201,9 +202,13 @@ export const TaskSummary = React.memo((props: TaskSummaryProps) => {
         </div>
       </span>
       <Divider />
-      <DialogTitle align="center" className="dialogTitle">
-        Task State
-      </DialogTitle>
+      {taskState?.status === 'underway' || taskState?.status === 'completed' ? (
+        <DialogTitle align="center" className="dialogTitle">
+          <span>Task Status : {taskState?.status}</span>
+        </DialogTitle>
+      ) : (
+        <></>
+      )}
       {taskProgress && (
         <Box component="div" sx={{ width: '90%', ml: 3 }}>
           <LinearProgressWithLabel value={taskProgress * 100} />
