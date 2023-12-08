@@ -945,44 +945,6 @@ export function CreateTaskForm({
   };
 
   const submitText = taskRequests.length > 1 ? 'Submit All Now' : 'Submit Now';
-  //const elementExists = document.getElementsByClassName("MuiBackdrop-root MuiBackdrop-invisible css-g3hgs1-MuiBackdrop-root-MuiModal-backdrop");
-
-  // React.useEffect(() => {
-
-  //   const handleClickOutside = (event: any) => {
-  //     console.log("esfafasd",elementExists)
-  //     console.log("event target is ",event.target)
-  //     console.log("create task form ref is ",createTaskFormRef)
-  //     console.log("task category picker ref is ", taskCategoryPickerRef);
-  //     //when the user clicks outside the dialog, close the dialog but not when the user clicks on the task category picker or the favourite task picker or the date picker
-  //     if (createTaskFormRef.current && !(createTaskFormRef.current as HTMLElement).contains(event.target) && !(taskCategoryPickerRef.current && taskCategoryPickerRef.current.contains(event.target)))
-  //     {
-  //       console.log("if 1 ", !(createTaskFormRef.current as HTMLElement).contains(event.target));
-  //       console.log("if 2", !(taskCategoryPickerRef.current && taskCategoryPickerRef.current.contains(event.target)));
-  //       console.log("if 3", !elementExists);
-  //       if(elementExists)
-  //       {
-  //         onClose && onClose(event, 'escapeKeyDown');
-  //       }
-  //       else{
-  //         console.log("içerideki else")
-  //       }
-
-  //       // onClose && onClose(event, 'escapeKeyDown');
-  //       // console.log(createTaskFormRef,taskCategoryPickerRef)
-  //     } else {
-  //       console.log("else");
-  //       console.log("else 1 ", !(createTaskFormRef.current as HTMLElement).contains(event.target));
-  //       console.log("else 2", !(taskCategoryPickerRef.current && taskCategoryPickerRef.current.contains(event.target)));
-  //     }
-
-  //   };
-
-  //   document.addEventListener('mousedown', handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener('mousedown', handleClickOutside);
-  //   };
-  // }, [createTaskFormRef,taskCategoryPickerRef,elementExists]);
 
   return (
     <div>
