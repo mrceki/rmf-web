@@ -45,6 +45,13 @@ const useStyles = makeStyles((theme: Theme) =>
     summaryDiv: {
       backgroundColor: theme.palette.mode === 'dark' ? '#7f6c68' : '#d6cdce',
     },
+    inspectButton: {
+      backgroundColor: theme.palette.mode === 'dark' ? '#37474F' : '#ffffff',
+      color: theme.palette.mode === 'dark' ? '#ffffff' : '#000000',
+      '&:hover': {
+        backgroundColor: theme.palette.mode === 'dark' ? '#7f6c68' : '#d6cdce',
+      },
+    },
   }),
 );
 
@@ -287,7 +294,7 @@ export const RobotSummary = React.memo(({ onClose, robot }: RobotSummaryProps) =
         <DialogActions sx={{ justifyContent: 'center' }}>
           <Button
             size="small"
-            variant="contained"
+            className={classes.inspectButton}
             onClick={() => setOpenTaskDetailsLogs(true)}
             autoFocus
             disabled={taskState === null}

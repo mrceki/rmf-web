@@ -29,8 +29,19 @@ const useStyles = makeStyles((theme: Theme) =>
         backgroundColor: theme.palette.background.default,
       },
     },
+    taskText: {
+      color: theme.palette.mode === 'dark' ? '#ffffff' : '#000000',
+    },
     summaryDiv: {
-      backgroundColor: theme.palette.mode === 'dark' ? '#7f6c68' : '#d6cdce',
+      backgroundColor: theme.palette.mode === 'dark' ? '#323232' : '#d6cdce',
+    },
+    inspectButton: {
+      borderRadius: '20px',
+      backgroundColor: theme.palette.mode === 'dark' ? '#37474F' : '#ffffff',
+      color: theme.palette.mode === 'dark' ? '#ffffff' : '#000000',
+      '&:hover': {
+        // hover
+      },
     },
   }),
 );
@@ -48,26 +59,6 @@ const LinearProgressWithLabel = (props: LinearProgressProps & { value: number })
       </Box>
     </Box>
   );
-};
-
-const setTaskDialogColor = (taskStatus: Status | undefined) => {
-  if (!taskStatus) {
-    return base.palette.background.default;
-  }
-
-  switch (taskStatus) {
-    case Status.Failed:
-      return base.palette.grey[400];
-
-    case Status.Underway:
-      return base.palette.grey[400];
-
-    case Status.Queued:
-      return base.palette.grey[400];
-
-    default:
-      return base.palette.grey[400];
-  }
 };
 
 export interface TaskSummaryProps {
@@ -185,7 +176,7 @@ export const TaskSummary = React.memo((props: TaskSummaryProps) => {
       maxWidth="sm"
     >
       <span className="spanDiv">
-        <DialogTitle align="center" className="dialogTitle">
+        <DialogTitle align="center" className={classes.taskText}>
           Task Summary
         </DialogTitle>
         <div>
@@ -203,7 +194,7 @@ export const TaskSummary = React.memo((props: TaskSummaryProps) => {
       </span>
       <Divider />
       {taskState?.status === 'underway' || taskState?.status === 'completed' ? (
-        <DialogTitle align="center" className="dialogTitle">
+        <DialogTitle align="center" className={classes.taskText}>
           <span>Task Status : {taskState?.status}</span>
         </DialogTitle>
       ) : (
@@ -217,7 +208,8 @@ export const TaskSummary = React.memo((props: TaskSummaryProps) => {
       <DialogContent>{returnDialogContent()}</DialogContent>
       <DialogActions sx={{ justifyContent: 'center' }}>
         <Button
-          size="small"
+          size="medium"
+          className={classes.inspectButton}
           variant="contained"
           onClick={() => setOpenTaskDetailsLogs(true)}
           autoFocus
