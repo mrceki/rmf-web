@@ -6,8 +6,6 @@ import {
   DialogContent,
   DialogTitle,
   Divider,
-  Grid,
-  Icon,
   LinearProgress,
   LinearProgressProps,
   TextField,
@@ -35,7 +33,6 @@ import {
   BatteryUnknown,
   Close as CloseIcon,
 } from '@mui/icons-material';
-import { flexbox } from '@mui/system';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -202,6 +199,10 @@ export const RobotSummary = React.memo(({ onClose, robot }: RobotSummaryProps) =
           ? `${new Date(taskState?.unix_millis_finish_time).toLocaleString()}`
           : '-',
       },
+      {
+        title: 'status',
+        value: robotState?.status ? robotState?.status : '-',
+      },
     ];
 
     if (taskState) {
@@ -290,17 +291,23 @@ export const RobotSummary = React.memo(({ onClose, robot }: RobotSummaryProps) =
         </>
       )}
       <DialogContent>{returnDialogContent()}</DialogContent>
-      <DialogActions sx={{ justifyContent: 'center' }}>
-        <Button
-          size="small"
-          variant="contained"
-          onClick={() => setOpenTaskDetailsLogs(true)}
-          autoFocus
-          disabled={taskState === null}
-        >
-          <span className="spanInspect">Inspect Task</span>
-        </Button>
-      </DialogActions>
+      {robotState?.status === 'idle' ||
+      robotState?.status === 'error' ||
+      robotState?.status === 'shutdown' ? (
+        <></>
+      ) : (
+        <DialogActions sx={{ justifyContent: 'center' }}>
+          <Button
+            size="small"
+            variant="contained"
+            onClick={() => setOpenTaskDetailsLogs(true)}
+            autoFocus
+            disabled={taskState === null}
+          >
+            <span className="spanInspect">Inspect Task</span>
+          </Button>
+        </DialogActions>
+      )}
       {openTaskDetailsLogs && taskState && (
         <TaskInspector task={taskState} onClose={() => setOpenTaskDetailsLogs(false)} />
       )}
