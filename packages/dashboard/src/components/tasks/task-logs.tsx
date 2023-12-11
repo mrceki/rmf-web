@@ -108,7 +108,7 @@ export function TaskLogs({ taskLog, taskState, title }: TaskLogProps) {
                                 padding: theme.spacing(1),
                               }}
                             >
-                              <Typography variant="body1">
+                              <Typography variant="body1" sx={{ color: 'black' }}>
                                 {format(new Date(e.unix_millis_time), "hh:mm:ss aaaaa'm'")}
                               </Typography>
                             </Grid>
@@ -122,7 +122,9 @@ export function TaskLogs({ taskLog, taskState, title }: TaskLogProps) {
                                 borderTop: 1,
                               }}
                             >
-                              <Typography variant="body1">{e.text}</Typography>
+                              <Typography variant="body1" sx={{ color: 'black' }}>
+                                {e.text}
+                              </Typography>
                             </Grid>
                           </Grid>
                         );
