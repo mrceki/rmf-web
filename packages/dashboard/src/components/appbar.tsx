@@ -76,6 +76,19 @@ import { formatDistance } from 'date-fns';
 import { useCreateTaskFormData } from '../hooks/useCreateTaskForm';
 import { toApiSchedule } from './tasks/utils';
 import useGetUsername from '../hooks/useFetchUser';
+import { create } from '@mui/material/styles/createTransitions';
+import { makeStyles } from '@mui/styles';
+
+const statusTextColors = {
+  dark: '#ffffff',
+  light: '#000000',
+  default: '#ffffff',
+};
+const statusBackgroundColors = {
+  dark: '#4d6064',
+  light: '#000000',
+  processing: '#F0E666',
+};
 
 export type TabValue = 'infrastructure' | 'robots' | 'tasks' | 'doors' | 'admin' | 'lifts';
 
@@ -337,20 +350,32 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
 
   return (
     <div className="sideBar">
-      <LogoButton src={brandingIconPath} alt="logo" sx={{ width: logoSize, marginTop: '8px' }} />
+      <LogoButton
+        src={brandingIconPath}
+        alt="logo"
+        sx={{ width: logoSize, marginTop: '8px' }}
+        onClick={() => navigate(DashboardRoute)}
+      />
       <div className="navProps">
-        <div className="buttonNewTask">
+        <div className="buttonTab">
           <PlaylistAddOutlined fontSize="large" />
-          <AppBarTab
-            label="New Task"
-            value="newTask"
-            aria-label="NewTask"
-            onTabClick={() => setOpenCreateTaskForm(true)}
-          />
+          <Button
+            className="buttonNewTask"
+            size="large"
+            onClick={() => setOpenCreateTaskForm(true)}
+          >
+            <Typography
+              className="newTask"
+              sx={{ color: curTheme === 2 ? statusTextColors.dark : statusTextColors.light }}
+            >
+              New Task
+            </Typography>
+          </Button>
         </div>
         <div className="buttonTab">
           <MapOutlined fontSize="large" />
           <AppBarTab
+            sx={{ color: curTheme === 2 ? statusTextColors.dark : statusTextColors.light }}
             label="Map Management"
             value="infrastructure"
             aria-label="Map"
@@ -360,6 +385,7 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
         <div className="buttonTab">
           <SmartToyOutlined fontSize="large" />
           <AppBarTab
+            sx={{ color: curTheme === 2 ? statusTextColors.dark : statusTextColors.light }}
             label="Robots and Tasks"
             value="robots"
             aria-label="Robots"
@@ -369,6 +395,7 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
         <div className="buttonTab">
           <SensorDoorOutlined fontSize="large" />
           <AppBarTab
+            sx={{ color: curTheme === 2 ? statusTextColors.dark : statusTextColors.light }}
             label="Doors and Lifts"
             value="doors"
             aria-label="Doors"
