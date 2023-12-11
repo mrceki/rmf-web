@@ -136,8 +136,10 @@ export const TaskSummary = React.memo((props: TaskSummaryProps) => {
       <>
         {contents.map((message, index) => (
           <div key={index}>
+            <Typography variant="body2" fontWeight="bold" ml={1}>
+              {message.title}
+            </Typography>
             <TextField
-              label={message.title}
               id="standard-size-small"
               size="small"
               variant="outlined"
