@@ -38,9 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     textField: {
       background: theme.palette.background.default,
-      '&:hover': {
-        backgroundColor: theme.palette.background.default,
-      },
+      borderRadius: '20px',
     },
     robotText: {
       color: theme.palette.mode === 'dark' ? '#ffffff' : '#000000',
@@ -217,7 +215,7 @@ export const RobotSummary = React.memo(({ onClose, robot }: RobotSummaryProps) =
               label={message.title}
               id="standard-size-small"
               size="small"
-              variant="filled"
+              variant="outlined"
               InputProps={{ readOnly: true, className: classes.textField }}
               fullWidth={true}
               multiline
