@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme: Theme) =>
       background: theme.palette.background.default,
       pointerEvents: 'none',
     },
+    summaryDiv: {
+      backgroundColor: theme.palette.mode === 'dark' ? '#597276' : '#d6cdce',
+    },
   }),
 );
 
@@ -105,6 +108,7 @@ export const AlertDialog = React.memo((props: DialogAlertProps) => {
   return (
     <Dialog
       PaperProps={{
+        className: classes.summaryDiv,
         style: {
           backgroundColor: backgroundColor,
           boxShadow: 'none',

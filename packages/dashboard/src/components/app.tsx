@@ -33,7 +33,7 @@ import useMouseTracker from '../hooks/useMouseTracker';
 const LoadingScreen: React.FC = () => (
   <div className="loading-screen">
     <div className="loader">
-      <p>Loading... Redirecting to the RMF WebApp </p>
+      <p>Loading... Redirecting to the Altınay Fleet Management </p>
     </div>
   </div>
 );

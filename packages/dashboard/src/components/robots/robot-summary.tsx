@@ -42,15 +42,18 @@ const useStyles = makeStyles((theme: Theme) =>
         backgroundColor: theme.palette.background.default,
       },
     },
+    robotText: {
+      color: theme.palette.mode === 'dark' ? '#ffffff' : '#000000',
+    },
     summaryDiv: {
-      backgroundColor: theme.palette.mode === 'dark' ? '#7f6c68' : '#d6cdce',
+      backgroundColor: theme.palette.mode === 'dark' ? '#597276' : '#d6cdce',
     },
     inspectButton: {
-      backgroundColor: theme.palette.mode === 'dark' ? '#37474F' : '#ffffff',
-      color: theme.palette.mode === 'dark' ? '#ffffff' : '#000000',
-      '&:hover': {
-        backgroundColor: theme.palette.mode === 'dark' ? '#7f6c68' : '#d6cdce',
-      },
+      borderRadius: '20px',
+      backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#739BD0',
+    },
+    inspectText: {
+      color: '#ffffff',
     },
   }),
 );
@@ -112,6 +115,7 @@ export const RobotSummary = React.memo(({ onClose, robot }: RobotSummaryProps) =
   const [navigationStart, setNavigationStart] = React.useState<string | null>(null);
   const [navigationDestination, setNavigationDestination] = React.useState<string | null>(null);
 
+  console.log('robotState', robotState);
   React.useEffect(() => {
     if (!rmf) {
       return;
@@ -171,8 +175,8 @@ export const RobotSummary = React.memo(({ onClose, robot }: RobotSummaryProps) =
         waypoints.push(match[1]);
       }
 
-      setNavigationStart(waypoints[0]);
-      setNavigationDestination(waypoints[1]);
+      setNavigationStart(waypoints[-1]);
+      setNavigationDestination(waypoints[0]);
     } else {
       setNavigationStart('-');
       setNavigationDestination('-');
@@ -193,22 +197,16 @@ export const RobotSummary = React.memo(({ onClose, robot }: RobotSummaryProps) =
           : '-',
       },
       {
-        title: 'status',
+        title: 'Status',
         value: robotState?.status ? robotState?.status : '-',
       },
     ];
 
     if (taskState) {
-      contents.push(
-        {
-          title: 'Navigation start',
-          value: navigationStart ? navigationStart : '-',
-        },
-        {
-          title: 'Navigation destination',
-          value: navigationDestination ? navigationDestination : '-',
-        },
-      );
+      contents.push({
+        title: 'Robot Destination',
+        value: navigationDestination ? navigationDestination : '-',
+      });
     }
 
     return (
@@ -261,7 +259,9 @@ export const RobotSummary = React.memo(({ onClose, robot }: RobotSummaryProps) =
           )}
         </span>
         <span className="dialogTitle">
-          <DialogTitle align="center">Robot summary: {robotState?.name}</DialogTitle>
+          <DialogTitle align="center" className={classes.robotText}>
+            Robot summary: {robotState?.name}
+          </DialogTitle>
         </span>
         <IconButton
           className="closeButton"
@@ -293,13 +293,13 @@ export const RobotSummary = React.memo(({ onClose, robot }: RobotSummaryProps) =
       ) : (
         <DialogActions sx={{ justifyContent: 'center' }}>
           <Button
-            size="small"
+            size="medium"
             className={classes.inspectButton}
             onClick={() => setOpenTaskDetailsLogs(true)}
             autoFocus
             disabled={taskState === null}
           >
-            <span className="spanInspect">Inspect Task</span>
+            <span className={classes.inspectText}>Inspect Task</span>
           </Button>
         </DialogActions>
       )}

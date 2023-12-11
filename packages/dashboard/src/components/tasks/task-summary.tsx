@@ -37,11 +37,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     inspectButton: {
       borderRadius: '20px',
-      backgroundColor: theme.palette.mode === 'dark' ? '#37474F' : '#ffffff',
-      color: theme.palette.mode === 'dark' ? '#ffffff' : '#000000',
-      '&:hover': {
-        // hover
-      },
+      backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#739BD0',
+    },
+    inspectText: {
+      color: '#ffffff',
     },
   }),
 );
@@ -214,7 +213,7 @@ export const TaskSummary = React.memo((props: TaskSummaryProps) => {
           onClick={() => setOpenTaskDetailsLogs(true)}
           autoFocus
         >
-          Inspect
+          <span className={classes.inspectText}>Inspect Task</span>
         </Button>
       </DialogActions>
       {openTaskDetailsLogs && (

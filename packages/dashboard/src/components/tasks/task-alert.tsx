@@ -7,7 +7,7 @@ import {
   TaskState,
   Tier,
 } from 'api-client';
-import { AppControllerContext } from '../app-contexts';
+import { AppControllerContext, SettingsContext } from '../app-contexts';
 import { RmfAppContext } from '../rmf-app';
 import { AlertContent, AlertDialog } from 'react-components';
 import { base } from 'react-components';
@@ -125,7 +125,10 @@ export function TaskAlertDialog({ alert, removeAlert }: TaskAlertDialogProps): J
     if (state.status) {
       switch (state.status) {
         case Status.Completed:
-          return base.palette.grey[300];
+          if (curTheme === 2) {
+            return base.palette.background.default;
+          }
+          return base.palette.background.default;
 
         case Status.Error:
         case Status.Failed:
@@ -148,6 +151,7 @@ export function TaskAlertDialog({ alert, removeAlert }: TaskAlertDialogProps): J
   const [taskAlert, setTaskAlert] = React.useState<TaskAlert | null>(null);
   const [openTaskInspector, setOpenTaskInspector] = React.useState(false);
   const [taskState, setTaskState] = React.useState<TaskState | null>(null);
+  const curTheme = React.useContext(SettingsContext).themeMode;
   React.useEffect(() => {
     if (!rmf) {
       return;
