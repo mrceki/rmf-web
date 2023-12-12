@@ -22,7 +22,13 @@ const useStyles = makeStyles((theme: Theme) =>
       pointerEvents: 'none',
     },
     summaryDiv: {
-      backgroundColor: theme.palette.mode === 'dark' ? '#597276' : '#d6cdce',
+      borderRadius: '20px',
+      backgroundColor: theme.palette.mode === 'dark' ? '#597276' : '#8EACCD',
+    },
+    actionBtn: {
+      minWidth: 80,
+      borderRadius: '20px',
+      backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#739BD0',
     },
   }),
 );
@@ -135,18 +141,48 @@ export const AlertDialog = React.memo((props: DialogAlertProps) => {
 
       <DialogActions>
         {onInspect ? (
-          <Button size="small" variant="contained" onClick={onInspect} disabled={false} autoFocus>
-            Inspect
+          <Button
+            size="small"
+            variant="contained"
+            className={classes.actionBtn}
+            onClick={onInspect}
+            disabled={false}
+            autoFocus
+          >
+            <Typography
+              variant="body2"
+              sx={{
+                color: '#ffffff',
+                fontWeight: 'bold',
+              }}
+            >
+              Inspect
+            </Typography>
           </Button>
         ) : null}
         {acknowledged ? (
-          <Button size="small" variant="contained" disabled={true} autoFocus>
-            {acknowledgedBy ? `Acknowledged by ${acknowledgedBy}` : 'Acknowledged'}
+          <Button
+            size="small"
+            variant="contained"
+            disabled={true}
+            autoFocus
+            className={classes.actionBtn}
+          >
+            <Typography
+              variant="body2"
+              sx={{
+                color: '#ffffff',
+                fontWeight: 'bold',
+              }}
+            >
+              {acknowledgedBy ? `Acknowledged by ${acknowledgedBy}` : 'Acknowledged'}
+            </Typography>
           </Button>
         ) : onAcknowledge === undefined ? null : (
           <Button
             size="small"
             variant="contained"
+            className={classes.actionBtn}
             onClick={() => {
               setAcknowledged(true);
               onAcknowledge();
@@ -154,19 +190,36 @@ export const AlertDialog = React.memo((props: DialogAlertProps) => {
             disabled={false}
             autoFocus
           >
-            Acknowledge
+            <Typography
+              variant="body2"
+              sx={{
+                color: '#ffffff',
+                fontWeight: 'bold',
+              }}
+            >
+              Acknowledge
+            </Typography>
           </Button>
         )}
         <Button
           size="small"
           variant="contained"
+          className={classes.actionBtn}
           onClick={() => {
             setIsOpen(false);
             onDismiss();
           }}
           autoFocus
         >
-          {acknowledged ? 'Close' : 'Dismiss'}
+          <Typography
+            variant="body2"
+            sx={{
+              color: '#ffffff',
+              fontWeight: 'bold',
+            }}
+          >
+            {acknowledged ? 'Close' : 'Dismiss'}
+          </Typography>
         </Button>
       </DialogActions>
     </Dialog>

@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.mode === 'dark' ? '#ffffff' : '#000000',
     },
     summaryDiv: {
-      backgroundColor: theme.palette.mode === 'dark' ? '#597276' : '#d6cdce',
+      backgroundColor: theme.palette.mode === 'dark' ? '#597276' : '#D7E5CA',
     },
     inspectButton: {
       borderRadius: '20px',
@@ -113,7 +113,6 @@ export const RobotSummary = React.memo(({ onClose, robot }: RobotSummaryProps) =
   const [navigationStart, setNavigationStart] = React.useState<string | null>(null);
   const [navigationDestination, setNavigationDestination] = React.useState<string | null>(null);
 
-  console.log('robotState', robotState);
   React.useEffect(() => {
     if (!rmf) {
       return;

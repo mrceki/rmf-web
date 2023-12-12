@@ -2,6 +2,9 @@ import UpdateIcon from '@mui/icons-material/Create';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Close from '@mui/icons-material/Close';
 import PlaceOutlined from '@mui/icons-material/PlaceOutlined';
+import CleaningServicesIcon from '@mui/icons-material/CleaningServices';
+import ElectricCarIcon from '@mui/icons-material/ElectricCar';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import {
   Autocomplete,
   Button,
@@ -36,6 +39,7 @@ import React from 'react';
 import { Loading } from '..';
 import { ConfirmationDialog, ConfirmationDialogProps } from '../confirmation-dialog';
 import { PositiveIntField } from '../form-inputs';
+import { borderRadius } from '@mui/system';
 
 // A bunch of manually defined descriptions to avoid using `any`.
 interface Payload {
@@ -99,15 +103,16 @@ const isCleanTaskDescriptionValid = (taskDescription: CleanTaskDescription): boo
 
 const classes = {
   title: 'dialogue-info-value',
-  selectFileBtn: 'create-task-selected-file-btn',
   taskList: 'create-task-task-list',
   selectedTask: 'create-task-selected-task',
   actionBtn: 'dialogue-action-button',
+  createTaskForm: 'create-task-form',
+  textField: 'create-task-text-field',
+  divider: 'create-task-divider',
+  div: 'create-task-div',
+  placeHolder: 'create-task-placeholder',
 };
 const StyledDialog = styled((props: DialogProps) => <Dialog {...props} />)(({ theme }) => ({
-  [`& .${classes.selectFileBtn}`]: {
-    marginBottom: theme.spacing(1),
-  },
   [`& .${classes.taskList}`]: {
     flex: '1 1 auto',
     minHeight: 400,
@@ -122,6 +127,30 @@ const StyledDialog = styled((props: DialogProps) => <Dialog {...props} />)(({ th
   },
   [`& .${classes.actionBtn}`]: {
     minWidth: 80,
+    borderRadius: '20px',
+    backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#739BD0',
+  },
+  [`& .${classes.createTaskForm}`]: {
+    background: theme.palette.mode === 'dark' ? '#2B3C43' : '#D7E5CA',
+    borderRadius: '20px',
+  },
+  [`& .${classes.textField}`]: {
+    display: 'flex',
+    alignItems: 'center',
+    flexdirection: 'row',
+    borderRadius: '20px',
+  },
+  [`& .${classes.divider}`]: {
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+    background: theme.palette.mode === 'dark' ? '#2B3C43' : '#D7E5CA',
+  },
+  [`& .${classes.div}`]: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  [`& .${classes.placeHolder}`]: {
+    borderRadius: '20px',
   },
 }));
 
@@ -152,12 +181,19 @@ function FormToolbar({ onSelectFileClick }: FormToolbarProps) {
   return (
     <Button
       aria-label="Select File"
-      className={classes.selectFileBtn}
+      className={classes.actionBtn}
       variant="contained"
-      color="primary"
       onClick={onSelectFileClick}
     >
-      Select File
+      <Typography
+        variant="body2"
+        fontWeight="bold"
+        sx={{
+          color: '#ffffff',
+        }}
+      >
+        Select File
+      </Typography>
     </Button>
   );
 }
@@ -352,7 +388,7 @@ function PlaceList({ places, onClick }: PlaceListProps) {
     <List
       dense
       sx={{
-        bgcolor: 'background.paper',
+        bgcolor: theme.palette.mode === 'dark' ? '#2B3C43' : '#D7E5CA',
         marginLeft: theme.spacing(3),
         marginRight: theme.spacing(3),
       }}
@@ -393,6 +429,9 @@ function PatrolTaskForm({ taskDesc, patrolWaypoints, onChange, allowSubmit }: Pa
   return (
     <Grid container spacing={theme.spacing(2)} justifyContent="center" alignItems="center">
       <Grid item xs={10}>
+        <Typography variant="body2" fontWeight="bold">
+          Destination:
+        </Typography>
         <Autocomplete
           id="place-input"
           freeSolo
@@ -405,13 +444,18 @@ function PatrolTaskForm({ taskDesc, patrolWaypoints, onChange, allowSubmit }: Pa
               places: taskDesc.places.concat(newValue).filter((el: string) => el),
             })
           }
-          renderInput={(params) => <TextField {...params} label="Place Name" required={true} />}
+          renderInput={(params) => (
+            <TextField {...params} placeholder="Choose Robot Destination..." required={true} />
+          )}
         />
       </Grid>
       <Grid item xs={2}>
+        <Typography variant="body2" fontWeight="bold">
+          Rounds
+        </Typography>
         <PositiveIntField
+          InputProps={{ className: classes.textField }}
           id="loops"
-          label="Loops"
           value={taskDesc.rounds}
           onChange={(_ev, val) => {
             onInputChange({
@@ -949,6 +993,9 @@ export function CreateTaskForm({
   return (
     <div>
       <StyledDialog
+        PaperProps={{
+          className: classes.createTaskForm,
+        }}
         title="Create Task"
         maxWidth="lg"
         fullWidth={taskRequests.length > 1}
@@ -1015,10 +1062,13 @@ export function CreateTaskForm({
               <Grid>
                 <Grid container spacing={theme.spacing(2)}>
                   <Grid item xs={12} id="menu-items" ref={taskCategoryPickerRef}>
+                    <Typography variant="body2" fontWeight="bold">
+                      Task Category
+                    </Typography>
                     <TextField
                       select
                       id="task-type"
-                      label="Task Category"
+                      InputProps={{ className: classes.textField }}
                       variant="outlined"
                       fullWidth
                       margin="normal"
@@ -1026,16 +1076,27 @@ export function CreateTaskForm({
                       onChange={handleTaskTypeChange}
                     >
                       <MenuItem
+                        itemProp={classes.textField}
                         value="clean"
                         disabled={!cleaningZones || cleaningZones.length === 0}
                       >
-                        Clean
+                        <div className={classes.div}>
+                          <ListItemIcon>
+                            <CleaningServicesIcon />
+                          </ListItemIcon>
+                          <ListItemText primary="Clean" />
+                        </div>
                       </MenuItem>
                       <MenuItem
                         value="patrol"
                         disabled={!patrolWaypoints || patrolWaypoints.length === 0}
                       >
-                        Patrol
+                        <div className={classes.div}>
+                          <ListItemIcon>
+                            <ElectricCarIcon />
+                          </ListItemIcon>
+                          <ListItemText primary="Patrol" />
+                        </div>
                       </MenuItem>
                       <MenuItem
                         value="delivery"
@@ -1044,13 +1105,22 @@ export function CreateTaskForm({
                           Object.keys(dropoffPoints).length === 0
                         }
                       >
-                        Delivery
+                        <div className={classes.div}>
+                          <ListItemIcon>
+                            <LocalShippingIcon />
+                          </ListItemIcon>
+                          <ListItemText primary="Delivery" />
+                        </div>
                       </MenuItem>
                     </TextField>
                   </Grid>
                   <Grid item xs={10}>
+                    <Typography variant="body2" fontWeight="bold">
+                      Start Time
+                    </Typography>
                     <DateTimePicker
                       inputFormat={'MM/dd/yyyy HH:mm'}
+                      InputProps={{ className: classes.textField }}
                       value={
                         taskRequest.unix_millis_earliest_start_time
                           ? new Date(taskRequest.unix_millis_earliest_start_time)
@@ -1067,15 +1137,16 @@ export function CreateTaskForm({
                         });
                         updateTasks();
                       }}
-                      label="Start Time"
                       renderInput={(props) => <TextField {...props} />}
                     />
                   </Grid>
                   <Grid item xs={2}>
+                    <Typography variant="body2" fontWeight="bold" ml={1}>
+                      Priority
+                    </Typography>
                     <PositiveIntField
+                      InputProps={{ className: classes.textField }}
                       id="priority"
-                      label="Priority"
-                      // FIXME(AA): The priority object is currently undefined.
                       value={(taskRequest.priority as Record<string, number>)?.value || 0}
                       onChange={(_ev, val) => {
                         taskRequest.priority = { type: 'binary', value: val };
@@ -1098,7 +1169,7 @@ export function CreateTaskForm({
                   <Button
                     aria-label="Save as a favorite task"
                     variant="contained"
-                    color="primary"
+                    className={classes.actionBtn}
                     onClick={() => {
                       !callToUpdateFavoriteTask &&
                         setFavoriteTaskBuffer({ ...favoriteTaskBuffer, name: '', id: '' });
@@ -1106,7 +1177,15 @@ export function CreateTaskForm({
                     }}
                     style={{ marginTop: theme.spacing(2), marginBottom: theme.spacing(2) }}
                   >
-                    {callToUpdateFavoriteTask ? `Confirm edits` : 'Save as a favorite task'}
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: '#ffffff',
+                        fontWeight: 'bold',
+                      }}
+                    >
+                      {callToUpdateFavoriteTask ? `Confirm edits` : 'Save as a favorite task'}
+                    </Typography>
                   </Button>
                 </Grid>
               </Grid>
@@ -1136,33 +1215,57 @@ export function CreateTaskForm({
           </DialogContent>
           <DialogActions>
             <Button
-              variant="outlined"
+              size="medium"
+              variant="contained"
               disabled={submitting}
               className={classes.actionBtn}
               onClick={(ev) => onClose && onClose(ev, 'escapeKeyDown')}
             >
-              Cancel
+              <Typography
+                variant="body2"
+                sx={{
+                  color: '#ffffff',
+                  fontWeight: 'bold',
+                }}
+              >
+                {taskRequests.length > 1 ? 'Cancel All' : 'Cancel'}
+              </Typography>
             </Button>
             <Button
+              size="medium"
               variant="contained"
-              color="primary"
               disabled={submitting || !formFullyFilled}
               className={classes.actionBtn}
               onClick={() => setOpenSchedulingDialog(true)}
             >
-              {scheduleToEdit ? 'Edit schedule' : 'Add to Schedule'}
+              <Typography
+                variant="body2"
+                sx={{
+                  color: '#ffffff',
+                  fontWeight: 'bold',
+                }}
+              >
+                {scheduleToEdit ? 'Edit schedule' : 'Add to Schedule'}
+              </Typography>
             </Button>
             <Button
               variant="contained"
               type="submit"
-              color="primary"
               disabled={submitting || !formFullyFilled || scheduleToEdit !== undefined}
               className={classes.actionBtn}
               aria-label={submitText}
               onClick={handleSubmitNow}
             >
               <Loading hideChildren loading={submitting} size="1.5em" color="inherit">
-                {submitText}
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: '#ffffff',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  {submitText}
+                </Typography>
               </Loading>
             </Button>
           </DialogActions>
