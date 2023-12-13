@@ -30,6 +30,7 @@ import {
   RadioGroup,
   styled,
   TextField,
+  Tooltip,
   Typography,
   useTheme,
 } from '@mui/material';
@@ -547,27 +548,31 @@ function FavoriteTask({
       >
         <ListItemText primary={listItemText} />
         <ListItemSecondaryAction>
-          <IconButton
-            edge="end"
-            aria-label="update"
-            onClick={() => {
-              setCallToUpdate(true);
-              listItemClick();
-            }}
-          >
-            <UpdateIcon />
-          </IconButton>
-          <IconButton
-            edge="end"
-            aria-label="delete"
-            onClick={() => {
-              setOpenDialog(true);
-              setFavoriteTask(favoriteTask);
-              setCallToDelete(true);
-            }}
-          >
-            <DeleteIcon />
-          </IconButton>
+          <Tooltip title="Update">
+            <IconButton
+              edge="end"
+              aria-label="update"
+              onClick={() => {
+                setCallToUpdate(true);
+                listItemClick();
+              }}
+            >
+              <UpdateIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Delete">
+            <IconButton
+              edge="end"
+              aria-label="delete"
+              onClick={() => {
+                setOpenDialog(true);
+                setFavoriteTask(favoriteTask);
+                setCallToDelete(true);
+              }}
+            >
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
         </ListItemSecondaryAction>
       </ListItem>
     </>
@@ -1294,6 +1299,12 @@ export function CreateTaskForm({
               error={favoriteTaskTitleError}
             />
           )}
+          {favoritesTasks.find((task) => task.name === favoriteTaskBuffer.name) &&
+            !callToDeleteFavoriteTask && (
+              <Typography color="error" fontWeight="bold">
+                Name already exists
+              </Typography>
+            )}
           {callToDeleteFavoriteTask && (
             <Typography>{`Are you sure you want to delete "${favoriteTaskBuffer.name}"?`}</Typography>
           )}
