@@ -215,11 +215,7 @@ export function TaskDataGridTable({
             variant="standard"
             value={
               cellValues.row.unix_millis_start_time
-                ? `${new Date(
-                    cellValues.row.unix_millis_start_time,
-                  ).toLocaleDateString()} ${new Date(
-                    cellValues.row.unix_millis_start_time,
-                  ).toLocaleTimeString()}`
+                ? `${new Date(cellValues.row.unix_millis_start_time).toLocaleTimeString()}`
                 : 'unknown'
             }
             InputProps={{ disableUnderline: true }}
@@ -242,11 +238,7 @@ export function TaskDataGridTable({
             variant="standard"
             value={
               cellValues.row.unix_millis_finish_time
-                ? `${new Date(
-                    cellValues.row.unix_millis_finish_time,
-                  ).toLocaleDateString()} ${new Date(
-                    cellValues.row.unix_millis_finish_time,
-                  ).toLocaleTimeString()}`
+                ? `${new Date(cellValues.row.unix_millis_finish_time).toLocaleTimeString()}`
                 : 'unknown'
             }
             InputProps={{ disableUnderline: true }}
