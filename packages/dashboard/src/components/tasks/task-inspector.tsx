@@ -3,10 +3,12 @@ import {
   Button,
   Dialog,
   DialogContent,
+  DialogProps,
   DialogTitle,
   Divider,
   Grid,
   Typography,
+  styled,
 } from '@mui/material';
 import { CardContent, useTheme } from '@mui/material';
 import { TaskEventLog, TaskState } from 'api-client';
@@ -23,6 +25,17 @@ export interface TableDataGridState {
   task: TaskState | null;
   onClose: () => void;
 }
+const classes = {
+  inspectForm: 'create-task-form',
+};
+
+const StyledDialog = styled((props: DialogProps) => <Dialog {...props} />)(({ theme }) => ({
+  [`& .${classes.inspectForm}`]: {
+    '& > *': {
+      background: theme.palette.mode === 'dark' ? '#2B3C43' : '#D7E5CA',
+    },
+  },
+}));
 
 export function TaskInspector({ task, onClose }: TableDataGridState): JSX.Element {
   const theme = useTheme();
@@ -90,7 +103,10 @@ export function TaskInspector({ task, onClose }: TableDataGridState): JSX.Elemen
   return (
     <>
       <Grid container wrap="nowrap" direction="column" height="100%">
-        <Dialog
+        <StyledDialog
+          PaperProps={{
+            className: classes.inspectForm,
+          }}
           open={isOpen}
           onClose={() => {
             setIsOpen(false);
@@ -157,7 +173,7 @@ export function TaskInspector({ task, onClose }: TableDataGridState): JSX.Elemen
               </Grid>
             </Box>
           </DialogContent>
-        </Dialog>
+        </StyledDialog>
       </Grid>
     </>
   );
