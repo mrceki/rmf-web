@@ -39,7 +39,6 @@ import React from 'react';
 import { Loading } from '..';
 import { ConfirmationDialog, ConfirmationDialogProps } from '../confirmation-dialog';
 import { PositiveIntField } from '../form-inputs';
-import { borderRadius } from '@mui/system';
 
 // A bunch of manually defined descriptions to avoid using `any`.
 interface Payload {
