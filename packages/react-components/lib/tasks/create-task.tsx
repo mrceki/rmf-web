@@ -1300,9 +1300,10 @@ export function CreateTaskForm({
             />
           )}
           {favoritesTasks.find((task) => task.name === favoriteTaskBuffer.name) &&
-            !callToDeleteFavoriteTask && (
+            !callToDeleteFavoriteTask &&
+            !callToUpdateFavoriteTask && (
               <Typography color="error" fontWeight="bold">
-                Name already exists
+                Favorite Task already exists
               </Typography>
             )}
           {callToDeleteFavoriteTask && (
