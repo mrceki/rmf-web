@@ -3,12 +3,13 @@ import { Authenticator, AuthenticatorEventType } from './authenticator';
 
 export class StubAuthenticator
   extends EventEmitter<AuthenticatorEventType>
-  implements Authenticator {
+  implements Authenticator
+{
   readonly user: string;
 
   readonly token?: string;
 
-  constructor(user = 'stub', token: string | undefined = undefined) {
+  constructor(user = 'admin', token: string | undefined = undefined) {
     super();
     this.user = user;
     this.token = token;

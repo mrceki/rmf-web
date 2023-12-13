@@ -32,7 +32,7 @@ export const appConfig: AppConfig = (() => {
           JSON.parse(process.env.REACT_APP_KEYCLOAK_CONFIG),
           `${window.location.origin}${BasePath}/silent-check-sso.html`,
         );
-      case 'stub':
+      case 'admin':
         return new StubAuthenticator();
       default:
         throw new Error(`unknown auth provider "${provider}"`);
