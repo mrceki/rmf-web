@@ -16,7 +16,7 @@ import {
 import { makeStyles, createStyles } from '@mui/styles';
 import React from 'react';
 import { RmfAppContext } from '../rmf-app';
-import { RobotTableData, base } from 'react-components';
+import { RobotTableData } from 'react-components';
 import { RobotState, Status2, TaskState } from 'api-client';
 import { EMPTY, combineLatest, mergeMap, of } from 'rxjs';
 import { TaskInspector } from '../tasks/task-inspector';
