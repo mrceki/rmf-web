@@ -44,7 +44,7 @@ const TrajectoryUpdateInterval = 2000;
 // of the whole app when it changes.
 const colorManager = new ColorManager();
 
-const DEFAULT_ZOOM_LEVEL = 20;
+const DEFAULT_ZOOM_LEVEL = 30;
 const DEFAULT_ROBOT_SCALE = 0.003;
 
 function getRobotId(fleetName: string, robotName: string): string {
@@ -418,6 +418,7 @@ export const MapApp = styled(
           }}
           handleZoomIn={() => AppEvents.zoomIn.next()}
           handleZoomOut={() => AppEvents.zoomOut.next()}
+          handleDefaultView={() => AppEvents.zoom.next(DEFAULT_ZOOM_LEVEL)}
         />
         <Canvas
           onCreated={({ camera }) => {

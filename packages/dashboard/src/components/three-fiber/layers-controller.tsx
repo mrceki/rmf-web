@@ -4,6 +4,7 @@ import { AppEvents } from '../app-events';
 import React from 'react';
 import {
   Box,
+  Button,
   Checkbox,
   FormControl,
   FormControlLabel,
@@ -11,11 +12,29 @@ import {
   IconButton,
   MenuItem,
   TextField,
+  Theme,
 } from '@mui/material';
 import LayersIcon from '@mui/icons-material/Layers';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import ZoomOutIcon from '@mui/icons-material/ZoomOut';
 import { RobotData } from 'react-components';
+import { makeStyles, createStyles } from '@mui/styles';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    inspectButton: {
+      minWidth: 100,
+      borderRadius: '20px',
+      backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#739BD0',
+      onHover: {
+        backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#739BD0',
+      },
+    },
+    inspectText: {
+      color: '#ffffff',
+    },
+  }),
+);
 
 interface LayersControllerProps {
   disabledLayers: Record<string, boolean>;
@@ -26,6 +45,7 @@ interface LayersControllerProps {
   currentLevel: Level;
   handleZoomIn: () => void;
   handleZoomOut: () => void;
+  handleDefaultView: () => void;
 }
 
 export const LayersController = ({
@@ -37,8 +57,10 @@ export const LayersController = ({
   currentLevel,
   handleZoomIn,
   handleZoomOut,
+  handleDefaultView,
 }: LayersControllerProps) => {
   const [isHovered, setIsHovered] = React.useState(false);
+  const classes = useStyles();
 
   const robotValue = robots.length === 1 ? robots[0].name : 'Click to see';
 
@@ -101,16 +123,24 @@ export const LayersController = ({
           ))}
         </TextField>
       </FormControl>
-
       <div>
         <IconButton size="small" onClick={handleZoomIn} data-testid="zoom-in">
           <ZoomInIcon fontSize="large" />
         </IconButton>
-      </div>
-      <div>
+
         <IconButton size="small" onClick={handleZoomOut} data-testid="zoom-out">
           <ZoomOutIcon fontSize="large" />
         </IconButton>
+      </div>
+      <div>
+        <Button
+          className={classes.inspectButton}
+          size="small"
+          onClick={handleDefaultView}
+          data-testid="default-view"
+        >
+          <span className={classes.inspectText}>Reset Zoom</span>
+        </Button>
       </div>
       <div onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
         <IconButton size="small" data-testid="layers">
