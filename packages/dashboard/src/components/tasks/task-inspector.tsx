@@ -73,6 +73,7 @@ export function TaskInspector({ task, onClose }: TableDataGridState): JSX.Elemen
   }, [rmf, task]);
 
   const profile = React.useContext(UserProfileContext);
+  const cancelUserProfile = profile?.user.username || 'unknown user';
 
   const taskCancellable =
     taskState &&
@@ -148,6 +149,19 @@ export function TaskInspector({ task, onClose }: TableDataGridState): JSX.Elemen
                         >
                           Cancel Task
                         </Button>
+                        {taskState.status === 'canceled' && (
+                          <Typography
+                            variant="body2"
+                            align="center"
+                            fontWeight="bold"
+                            fontSize="medium"
+                            sx={{
+                              color: theme.palette.mode === 'dark' ? '#ffffff' : '#FF2400',
+                            }}
+                          >
+                            Task has been canceled by {cancelUserProfile}
+                          </Typography>
+                        )}
                       </Grid>
                     </>
                   ) : (
