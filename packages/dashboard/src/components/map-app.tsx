@@ -362,28 +362,28 @@ export const MapApp = styled(
     }, []);
 
     // zoom to robot on select
-    React.useEffect(() => {
-      const sub = AppEvents.robotSelect.subscribe((data) => {
-        if (!data) {
-          return;
-        }
-        const [fleetName, robotName] = data;
+    // React.useEffect(() => {
+    //   const sub = AppEvents.robotSelect.subscribe((data) => {
+    //     if (!data) {
+    //       return;
+    //     }
+    //     const [fleetName, robotName] = data;
 
-        const robotId = getRobotId(fleetName, robotName);
-        const robotLocation = robotLocations[robotId];
-        if (!robotLocation) {
-          console.warn(`Map: Failed to zoom to robot ${robotId} (robot location was not found)`);
-          return;
-        }
+    //     const robotId = getRobotId(fleetName, robotName);
+    //     const robotLocation = robotLocations[robotId];
+    //     if (!robotLocation) {
+    //       console.warn(`Map: Failed to zoom to robot ${robotId} (robot location was not found)`);
+    //       return;
+    //     }
 
-        const mapCoordsLocation: [number, number] = [robotLocation[0], robotLocation[1]];
-        const mapCoords = fromRmfCoords(mapCoordsLocation);
-        const newCenter: L.LatLngTuple = [mapCoords[1], mapCoords[0]];
-        AppEvents.mapCenter.next(newCenter);
-        AppEvents.zoom.next(6);
-      });
-      return () => sub.unsubscribe();
-    }, [robotLocations]);
+    //     const mapCoordsLocation: [number, number] = [robotLocation[0], robotLocation[1]];
+    //     const mapCoords = fromRmfCoords(mapCoordsLocation);
+    //     const newCenter: L.LatLngTuple = [mapCoords[1], mapCoords[0]];
+    //     AppEvents.mapCenter.next(newCenter);
+    //     AppEvents.zoom.next(6);
+    //   });
+    //   return () => sub.unsubscribe();
+    // }, [robotLocations]);
 
     const ready = buildingMap && currentLevel;
 
