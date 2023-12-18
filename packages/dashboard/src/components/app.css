@@ -20,11 +20,6 @@ body,
 .children {
   width: 100%;
 }
-.buttonTabNewTask {
-  display: flex;
-  align-items: center;
-  margin-top: 30px;
-}
 .buttonTab {
   display: flex;
   align-items: center;

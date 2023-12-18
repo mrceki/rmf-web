@@ -32,6 +32,7 @@ import {
   Toolbar,
   Tooltip,
   Typography,
+  Theme,
 } from '@mui/material';
 import {
   ApiServerModelsTortoiseModelsAlertsAlertLeaf as Alert,
@@ -77,18 +78,32 @@ import { useCreateTaskFormData } from '../hooks/useCreateTaskForm';
 import { toApiSchedule } from './tasks/utils';
 import useGetUsername from '../hooks/useFetchUser';
 import { create } from '@mui/material/styles/createTransitions';
-import { makeStyles } from '@mui/styles';
+import { makeStyles, createStyles } from '@mui/styles';
 
 const statusTextColors = {
   dark: '#ffffff',
   light: '#000000',
   default: '#ffffff',
 };
-const statusBackgroundColors = {
-  dark: '#4d6064',
-  light: '#000000',
-  processing: '#F0E666',
-};
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    buttonTabNewTask: {
+      display: 'flex',
+      alignItems: 'center',
+      marginTop: '30px',
+      marginBottom: '30px',
+      backgroundColor: theme.palette.mode === 'dark' ? '#2B3C43' : '#8EACCD',
+      paddingTop: '5px',
+      paddingBottom: '5px',
+      justifyContent: 'center',
+      borderRadius: '30px',
+      '&:hover': {
+        transform: 'scale(1.1)',
+      },
+    },
+  }),
+);
 
 export type TabValue = 'infrastructure' | 'robots' | 'tasks' | 'doors' | 'admin' | 'lifts';
 
@@ -151,6 +166,7 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
   const { showAlert } = React.useContext(AppControllerContext);
   const navigate = useNavigate();
   const location = useLocation();
+  const classes = useStyles();
   const tabValue = React.useMemo(() => locationToTabValue(location.pathname), [location]);
   const logoResourcesContext = React.useContext(ResourcesContext)?.logos;
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
@@ -357,13 +373,9 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
           sx={{ width: logoSize, marginTop: '8px' }}
           onClick={() => navigate(DashboardRoute)}
         />
-        <div className="buttonTabNewTask">
+        <div className={classes.buttonTabNewTask}>
           <PlaylistAddOutlined fontSize="large" />
-          <Button
-            className="buttonNewTask"
-            size="large"
-            onClick={() => setOpenCreateTaskForm(true)}
-          >
+          <Button size="large" onClick={() => setOpenCreateTaskForm(true)}>
             <Typography
               className="newTask"
               sx={{ color: curTheme === 2 ? statusTextColors.dark : statusTextColors.light }}
