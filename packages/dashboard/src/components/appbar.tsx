@@ -350,14 +350,14 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
 
   return (
     <div className="sideBar">
-      <LogoButton
-        src={brandingIconPath}
-        alt="logo"
-        sx={{ width: logoSize, marginTop: '8px' }}
-        onClick={() => navigate(DashboardRoute)}
-      />
       <div className="navProps">
-        <div className="buttonTab">
+        <LogoButton
+          src={brandingIconPath}
+          alt="logo"
+          sx={{ width: logoSize, marginTop: '8px' }}
+          onClick={() => navigate(DashboardRoute)}
+        />
+        <div className="buttonTabNewTask">
           <PlaylistAddOutlined fontSize="large" />
           <Button
             className="buttonNewTask"
