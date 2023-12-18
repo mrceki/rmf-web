@@ -378,7 +378,10 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
           <Button size="large" onClick={() => setOpenCreateTaskForm(true)}>
             <Typography
               className="newTask"
-              sx={{ color: curTheme === 2 ? statusTextColors.dark : statusTextColors.light }}
+              sx={{
+                color: curTheme === 2 ? statusTextColors.dark : statusTextColors.light,
+                fontWeight: 'medium',
+              }}
             >
               New Task
             </Typography>
