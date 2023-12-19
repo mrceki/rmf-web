@@ -1033,9 +1033,6 @@ export function CreateTaskForm({
       setSelectedTaskIdx(0);
     })();
   };
-  React.useEffect(() => {
-    console.log(taskRequests.length);
-  }, [taskRequests]);
 
   const submitText = taskRequests.length > 1 ? 'Submit All Now' : 'Submit Now';
 
