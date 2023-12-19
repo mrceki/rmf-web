@@ -136,6 +136,10 @@ const StyledDialog = styled((props: DialogProps) => <Dialog {...props} />)(({ th
     minWidth: 80,
     borderRadius: '20px',
     backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#739BD0',
+    '&:hover': {
+      transform: 'scale(1.05)',
+      backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#739BD0',
+    },
   },
   [`& .${classes.createTaskForm}`]: {
     background: theme.palette.mode === 'dark' ? '#2B3C43' : '#D7E5CA',
