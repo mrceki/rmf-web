@@ -1,13 +1,8 @@
 import {
-  AccountCircle,
-  AddOutlined,
-  Help,
   Notifications,
   Report,
-  Warning as Issue,
   ModeNightOutlined,
   ModeNight,
-  AlignHorizontalCenter,
   PlaylistAddOutlined,
   MapOutlined,
   SmartToyOutlined,
@@ -15,24 +10,17 @@ import {
 } from '@mui/icons-material';
 import {
   Badge,
-  Button,
   CardContent,
-  Divider,
   FormControl,
   FormControlLabel,
   FormLabel,
   IconButton,
-  InputLabel,
   Menu,
   MenuItem,
   Radio,
   RadioGroup,
-  Select,
-  SelectChangeEvent,
-  Toolbar,
   Tooltip,
   Typography,
-  Theme,
 } from '@mui/material';
 import {
   ApiServerModelsTortoiseModelsAlertsAlertLeaf as Alert,
@@ -44,11 +32,7 @@ import {
   AppBarTab,
   CreateTaskForm,
   CreateTaskFormProps,
-  HeaderBar,
   LogoButton,
-  NavigationBar,
-  rmfDark,
-  rmfLight,
   useAsync,
 } from 'react-components';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -77,33 +61,13 @@ import { formatDistance } from 'date-fns';
 import { useCreateTaskFormData } from '../hooks/useCreateTaskForm';
 import { toApiSchedule } from './tasks/utils';
 import useGetUsername from '../hooks/useFetchUser';
-import { create } from '@mui/material/styles/createTransitions';
-import { makeStyles, createStyles } from '@mui/styles';
+import CustomButton from './CustomButtonComponent';
 
 const statusTextColors = {
   dark: '#ffffff',
   light: '#000000',
   default: '#ffffff',
 };
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    buttonTabNewTask: {
-      display: 'flex',
-      alignItems: 'center',
-      marginTop: '30px',
-      marginBottom: '30px',
-      backgroundColor: theme.palette.mode === 'dark' ? '#2B3C43' : '#8EACCD',
-      paddingTop: '5px',
-      paddingBottom: '5px',
-      justifyContent: 'center',
-      borderRadius: '30px',
-      '&:hover': {
-        transform: 'scale(1.1)',
-      },
-    },
-  }),
-);
 
 export type TabValue = 'infrastructure' | 'robots' | 'tasks' | 'doors' | 'admin' | 'lifts';
 
@@ -166,7 +130,6 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
   const { showAlert } = React.useContext(AppControllerContext);
   const navigate = useNavigate();
   const location = useLocation();
-  const classes = useStyles();
   const tabValue = React.useMemo(() => locationToTabValue(location.pathname), [location]);
   const logoResourcesContext = React.useContext(ResourcesContext)?.logos;
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
@@ -373,20 +336,22 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
           sx={{ width: logoSize, marginTop: '8px' }}
           onClick={() => navigate(DashboardRoute)}
         />
-        <div className={classes.buttonTabNewTask}>
-          <PlaylistAddOutlined fontSize="large" />
-          <Button size="large" onClick={() => setOpenCreateTaskForm(true)}>
-            <Typography
-              className="newTask"
-              sx={{
-                color: curTheme === 2 ? statusTextColors.dark : statusTextColors.light,
-                fontWeight: 'medium',
-              }}
-            >
-              New Task
-            </Typography>
-          </Button>
-        </div>
+        <CustomButton
+          color={curTheme === 2 ? '#2B3C43' : '#8EACCD'}
+          height="50px"
+          onClick={() => setOpenCreateTaskForm(true)}
+          radius="30px"
+          width="200px"
+          border="none"
+          title="New Task"
+          property={['1rem', '1rem']}
+        >
+          {curTheme === 2 ? (
+            <PlaylistAddOutlined sx={{ color: '#ffffff' }} fontSize="large" />
+          ) : (
+            <PlaylistAddOutlined sx={{ color: '#000000' }} fontSize="large" />
+          )}
+        </CustomButton>
         <div className="buttonTab">
           <MapOutlined fontSize="large" />
           <AppBarTab

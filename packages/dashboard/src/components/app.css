@@ -12,6 +12,11 @@ body,
   border-radius: 10px;
   justify-content: space-between;
 }
+.navProps {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 .divAppBase {
   width: 100%;
   height: 100%;
