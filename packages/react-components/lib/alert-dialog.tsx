@@ -28,7 +28,11 @@ const useStyles = makeStyles((theme: Theme) =>
     actionBtn: {
       minWidth: 80,
       borderRadius: '20px',
-      backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#739BD0',
+      backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#CE172D',
+      '&:hover': {
+        transform: 'scale(1.05)',
+        backgroundColor: theme.palette.mode === 'dark' ? '#CE172D' : '#CE172D',
+      },
     },
   }),
 );

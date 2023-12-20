@@ -134,11 +134,24 @@ export function TaskInspector({ task, onClose }: TableDataGridState): JSX.Elemen
                       <CardContent sx={{ overflow: 'auto' }}>
                         <TaskInfo task={taskState} title="Details" />
                       </CardContent>
-                      <Grid item paddingLeft={2} paddingRight={2}>
+                      <Grid
+                        item
+                        paddingLeft={2}
+                        paddingRight={2}
+                        sx={{
+                          display: 'flex',
+                          justifyContent: 'center',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                        }}
+                      >
                         <Button
                           style={{
                             marginTop: theme.spacing(1),
                             marginBottom: theme.spacing(1),
+                            backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#CE172D',
+                            borderRadius: '20px',
+                            width: '200px',
                           }}
                           fullWidth
                           variant="contained"
@@ -147,7 +160,13 @@ export function TaskInspector({ task, onClose }: TableDataGridState): JSX.Elemen
                           disabled={!taskCancellable}
                           onClick={handleCancelTaskClick}
                         >
-                          Cancel Task
+                          <Typography
+                            sx={{
+                              color: theme.palette.mode === 'dark' ? '#ffffff' : '#ffffff',
+                            }}
+                          >
+                            Cancel Task
+                          </Typography>
                         </Button>
                         {taskState.status === 'canceled' && (
                           <Typography

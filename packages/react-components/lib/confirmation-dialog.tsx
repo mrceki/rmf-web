@@ -28,7 +28,7 @@ const StyledDialog = styled((props: DialogProps) => <Dialog {...props} />)(({ th
   [`& .${dialogClasses.actionBtn}`]: {
     minWidth: 80,
     borderRadius: '20px',
-    backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#739BD0',
+    backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#CE172D',
   },
   [`& .${dialogClasses.textField}`]: {
     borderRadius: '20px',

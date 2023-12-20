@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     inspectButton: {
       borderRadius: '20px',
-      backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#739BD0',
+      backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#CE172D',
     },
     inspectText: {
       color: '#ffffff',

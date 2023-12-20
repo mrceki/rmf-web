@@ -25,9 +25,9 @@ const useStyles = makeStyles((theme: Theme) =>
     inspectButton: {
       minWidth: 100,
       borderRadius: '20px',
-      backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#739BD0',
+      backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#CE172D',
       onHover: {
-        backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#739BD0',
+        backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#CE172D',
       },
     },
     inspectText: {
