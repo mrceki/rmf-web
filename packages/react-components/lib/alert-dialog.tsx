@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     summaryDiv: {
       borderRadius: '20px',
-      backgroundColor: theme.palette.mode === 'dark' ? '#597276' : '#8EACCD',
+      backgroundColor: theme.palette.mode === 'dark' ? '#597276' : '#CE172D',
     },
     actionBtn: {
       minWidth: 80,

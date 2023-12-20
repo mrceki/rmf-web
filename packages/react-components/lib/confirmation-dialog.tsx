@@ -32,7 +32,7 @@ const StyledDialog = styled((props: DialogProps) => <Dialog {...props} />)(({ th
   },
   [`& .${dialogClasses.textField}`]: {
     borderRadius: '20px',
-    backgroundColor: theme.palette.mode === 'dark' ? '#597276' : '#D7E5CA',
+    backgroundColor: theme.palette.mode === 'dark' ? '#597276' : '#ecece7',
   },
 }));
 

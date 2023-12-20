@@ -337,7 +337,7 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
           onClick={() => navigate(DashboardRoute)}
         />
         <CustomButton
-          color={curTheme === 2 ? '#2B3C43' : '#8EACCD'}
+          color={curTheme === 2 ? '#2B3C43' : '#CE172D'}
           height="50px"
           onClick={() => setOpenCreateTaskForm(true)}
           radius="30px"
@@ -349,7 +349,7 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
           {curTheme === 2 ? (
             <PlaylistAddOutlined sx={{ color: '#ffffff' }} fontSize="large" />
           ) : (
-            <PlaylistAddOutlined sx={{ color: '#000000' }} fontSize="large" />
+            <PlaylistAddOutlined sx={{ color: '#ffffff' }} fontSize="large" />
           )}
         </CustomButton>
         <div className="buttonTab">

@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.mode === 'dark' ? '#ffffff' : '#000000',
     },
     summaryDiv: {
-      backgroundColor: theme.palette.mode === 'dark' ? '#597276' : '#D7E5CA',
+      backgroundColor: theme.palette.mode === 'dark' ? '#597276' : '#ecece7',
     },
     inspectButton: {
       borderRadius: '20px',

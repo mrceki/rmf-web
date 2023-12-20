@@ -7,13 +7,13 @@ export const base = createTheme({
     ...commonTheme,
     mode: 'light',
     primary: {
-      main: '#8EACCD', // mini maps background
+      main: '#CE172D', // mini maps background
       light: '#ECEFF1',
       dark: '#B0BEC5',
     },
     background: {
       //Cultured, White
-      default: '#D7E5CA', // main background
+      default: '#ecece7', // main background
       paper: '#FFFFFF',
     },
     secondary: {

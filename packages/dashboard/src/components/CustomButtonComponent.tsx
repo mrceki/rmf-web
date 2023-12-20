@@ -54,7 +54,7 @@ const Button: React.FC<Props> = ({
       <Typography
         className="newTask"
         sx={{
-          color: curTheme === 2 ? '#ffffff' : '#000000',
+          color: curTheme === 2 ? '#ffffff' : '#ffffff',
           fontWeight: 'medium',
           fontSize: '1.2rem',
         }}

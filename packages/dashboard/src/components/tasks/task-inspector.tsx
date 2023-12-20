@@ -32,7 +32,7 @@ const classes = {
 const StyledDialog = styled((props: DialogProps) => <Dialog {...props} />)(({ theme }) => ({
   [`& .${classes.inspectForm}`]: {
     '& > *': {
-      background: theme.palette.mode === 'dark' ? '#2B3C43' : '#D7E5CA',
+      background: theme.palette.mode === 'dark' ? '#2B3C43' : '#ecece7',
     },
   },
 }));

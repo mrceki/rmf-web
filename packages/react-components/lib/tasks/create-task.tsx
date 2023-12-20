@@ -135,14 +135,14 @@ const StyledDialog = styled((props: DialogProps) => <Dialog {...props} />)(({ th
   [`& .${classes.actionBtn}`]: {
     minWidth: 80,
     borderRadius: '20px',
-    backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#739BD0',
+    backgroundColor: theme.palette.mode === 'dark' ? '#CE172D' : '#CE172D',
     '&:hover': {
       transform: 'scale(1.05)',
-      backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#739BD0',
+      backgroundColor: theme.palette.mode === 'dark' ? '#CE172D' : '#CE172D',
     },
   },
   [`& .${classes.createTaskForm}`]: {
-    background: theme.palette.mode === 'dark' ? '#2B3C43' : '#D7E5CA',
+    background: theme.palette.mode === 'dark' ? '#2B3C43' : '#ecece7',
     borderRadius: '20px',
   },
   [`& .${classes.textField}`]: {
@@ -154,7 +154,7 @@ const StyledDialog = styled((props: DialogProps) => <Dialog {...props} />)(({ th
   [`& .${classes.divider}`]: {
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
-    background: theme.palette.mode === 'dark' ? '#2B3C43' : '#D7E5CA',
+    background: theme.palette.mode === 'dark' ? '#2B3C43' : '#ecece7',
   },
   [`& .${classes.div}`]: {
     display: 'flex',
@@ -434,7 +434,7 @@ function PlaceList({ places, onClick }: PlaceListProps) {
     <List
       dense
       sx={{
-        bgcolor: theme.palette.mode === 'dark' ? '#2B3C43' : '#D7E5CA',
+        bgcolor: theme.palette.mode === 'dark' ? '#2B3C43' : '#ecece7',
         marginLeft: theme.spacing(3),
         marginRight: theme.spacing(3),
       }}
