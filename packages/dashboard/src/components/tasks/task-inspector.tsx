@@ -20,6 +20,8 @@ import { TaskInfo } from 'react-components';
 import { UserProfileContext } from 'rmf-auth';
 import { Enforcer } from '../permissions';
 import { TaskLogs } from './task-logs';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
 
 export interface TableDataGridState {
   task: TaskState | null;
@@ -119,10 +121,27 @@ export function TaskInspector({ task, onClose }: TableDataGridState): JSX.Elemen
           maxWidth="md"
         >
           <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <DialogTitle id="scroll-dialog-title" align="center">
-                Task: {task?.booking.id}
-              </DialogTitle>
+            <Grid
+              item
+              xs={12}
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                paddingRight: '20px',
+              }}
+            >
+              <DialogTitle id="scroll-dialog-title">Task: {task?.booking.id}</DialogTitle>
+              <IconButton
+                className="closeButton"
+                aria-label="close"
+                onClick={() => {
+                  setIsOpen(false);
+                  onClose();
+                }}
+              >
+                <CloseIcon />
+              </IconButton>
             </Grid>
           </Grid>
           <DialogContent style={{ height: 700 }} dividers={true}>
@@ -145,29 +164,44 @@ export function TaskInspector({ task, onClose }: TableDataGridState): JSX.Elemen
                           alignItems: 'center',
                         }}
                       >
-                        <Button
-                          style={{
-                            marginTop: theme.spacing(1),
-                            marginBottom: theme.spacing(1),
-                            backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#CE172D',
-                            borderRadius: '20px',
-                            width: '200px',
-                          }}
-                          fullWidth
-                          variant="contained"
-                          color="secondary"
-                          aria-label="Cancel Task"
-                          disabled={!taskCancellable}
-                          onClick={handleCancelTaskClick}
-                        >
+                        {taskState.status === 'completed' ? (
                           <Typography
+                            variant="body2"
+                            align="center"
+                            fontWeight="bold"
+                            fontSize="medium"
                             sx={{
-                              color: theme.palette.mode === 'dark' ? '#ffffff' : '#ffffff',
+                              color: theme.palette.mode === 'dark' ? '#ffffff' : '#CE172D',
                             }}
                           >
-                            Cancel Task
+                            Task has been completed !
                           </Typography>
-                        </Button>
+                        ) : (
+                          <Button
+                            style={{
+                              marginTop: theme.spacing(1),
+                              marginBottom: theme.spacing(1),
+                              backgroundColor:
+                                theme.palette.mode === 'dark' ? '#739BD0' : '#CE172D',
+                              borderRadius: '20px',
+                              width: '200px',
+                            }}
+                            fullWidth
+                            variant="contained"
+                            color="secondary"
+                            aria-label="Cancel Task"
+                            disabled={!taskCancellable}
+                            onClick={handleCancelTaskClick}
+                          >
+                            <Typography
+                              sx={{
+                                color: theme.palette.mode === 'dark' ? '#ffffff' : '#ffffff',
+                              }}
+                            >
+                              {taskState.status === 'canceled' ? 'Task Canceled' : 'Cancel Task'}
+                            </Typography>
+                          </Button>
+                        )}
                         {taskState.status === 'canceled' && (
                           <Typography
                             variant="body2"
