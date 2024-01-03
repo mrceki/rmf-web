@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
       minWidth: 100,
       borderRadius: '20px',
       backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#CE172D',
-      onHover: {
+      '&:hover': {
         backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#CE172D',
       },
     },
