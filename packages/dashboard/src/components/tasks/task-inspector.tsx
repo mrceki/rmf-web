@@ -127,21 +127,24 @@ export function TaskInspector({ task, onClose }: TableDataGridState): JSX.Elemen
               sx={{
                 display: 'flex',
                 flexDirection: 'row',
+                alignItems: 'center',
                 justifyContent: 'space-between',
                 paddingRight: '20px',
               }}
             >
               <DialogTitle id="scroll-dialog-title">Task: {task?.booking.id}</DialogTitle>
-              <IconButton
-                className="closeButton"
-                aria-label="close"
-                onClick={() => {
-                  setIsOpen(false);
-                  onClose();
-                }}
-              >
-                <CloseIcon />
-              </IconButton>
+              <div>
+                <IconButton
+                  className="closeButton"
+                  aria-label="close"
+                  onClick={() => {
+                    setIsOpen(false);
+                    onClose();
+                  }}
+                >
+                  <CloseIcon />
+                </IconButton>
+              </div>
             </Grid>
           </Grid>
           <DialogContent style={{ height: 700 }} dividers={true}>
