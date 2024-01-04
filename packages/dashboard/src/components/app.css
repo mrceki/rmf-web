@@ -25,13 +25,6 @@ body,
 .children {
   width: 100%;
 }
-.buttonTab {
-  display: flex;
-  align-items: center;
-}
-.buttonTab:hover {
-  transform: scale(1.1) perspective(1px);
-}
 .buttonNewTask {
   display: flex;
   align-items: center;
