@@ -2,14 +2,14 @@
 config = {
     # ip or hostname to bind the socket to, this only applies when running the server in
     # standalone mode.
-    "host": "0.0.0.0",
+    "host": "127.0.0.1",
     # port to bind to, this only applies when running the server in standalone mode.
     "port": 8000,
     "db_url": "sqlite://:memory:",
     # url that rmf-server is being served on.
     # When being a proxy, this must be the url that rmf-server is mounted on.
     # E.g. https://example.com/rmf/api/v1
-    "public_url": "http://10.120.66.143:8000",  # ip address of the computer running the api server
+    "public_url": "http://localhost:8000",
     "cache_directory": "run/cache",  # The directory where cached files should be stored.
     "log_level": "WARNING",  # https://docs.python.org/3.8/library/logging.html#levels
     # a user that is automatically given admin privileges, note that this does not guarantee that the user exists in the identity provider.
