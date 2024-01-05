@@ -150,7 +150,7 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
       border: 'none',
       title: 'Maps',
       property: ['1rem', '0rem', '#000000de'],
-      icon: <MapOutlined sx={{ color: '#000000' }} fontSize="large" />,
+      icon: <MapOutlined sx={{ color: curTheme === 2 ? '#ffffff' : '#000000' }} fontSize="large" />,
     },
     {
       id: 2,
@@ -164,7 +164,9 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
       border: 'none',
       title: 'Robots and Tasks',
       property: ['0.5rem', '0rem', '#000000de'],
-      icon: <SmartToyOutlined sx={{ color: '#000000' }} fontSize="large" />,
+      icon: (
+        <SmartToyOutlined sx={{ color: curTheme === 2 ? '#ffffff' : '#000000' }} fontSize="large" />
+      ),
     },
     {
       id: 3,
@@ -178,7 +180,12 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
       border: 'none',
       title: 'Doors and Lifts',
       property: ['0.5rem', '0rem', '#000000de'],
-      icon: <SensorDoorOutlined sx={{ color: '#000000' }} fontSize="large" />,
+      icon: (
+        <SensorDoorOutlined
+          sx={{ color: curTheme === 2 ? '#ffffff' : '#000000' }}
+          fontSize="large"
+        />
+      ),
     },
   ];
 
