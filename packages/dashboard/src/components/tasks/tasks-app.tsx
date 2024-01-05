@@ -38,8 +38,7 @@ import {
   TaskFavoritePydantic as TaskFavorite,
   TaskRequest,
 } from 'api-client';
-import { toApiSchedule } from '../tasks/utils';
-import { parseTasksFile } from '../tasks/utils';
+import { toApiSchedule, parseTasksFile } from '../tasks/utils';
 import { AppControllerContext } from '../app-contexts';
 
 const RefreshTaskQueueTableInterval = 5000;
@@ -376,6 +375,16 @@ export const TasksApp = React.memo(
           toolbar={
             <Toolbar variant="dense">
               <div>
+                <Tooltip title="New Task" color="inherit" placement="top">
+                  <IconButton
+                    onClick={() => {
+                      setOpenCreateTaskForm(true);
+                    }}
+                    aria-label="NewTask"
+                  >
+                    <PlaylistAddOutlined sx={{ color: '#ffffff' }} fontSize="large" />
+                  </IconButton>
+                </Tooltip>
                 <Tooltip title="Download" placement="top">
                   <IconButton
                     id="export-button"
@@ -425,16 +434,6 @@ export const TasksApp = React.memo(
                   aria-label="Refresh"
                 >
                   <RefreshIcon />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="New Task" color="inherit" placement="top">
-                <IconButton
-                  onClick={() => {
-                    setOpenCreateTaskForm(true);
-                  }}
-                  aria-label="NewTask"
-                >
-                  <PlaylistAddOutlined sx={{ color: '#ffffff' }} fontSize="large" />
                 </IconButton>
               </Tooltip>
             </Toolbar>
