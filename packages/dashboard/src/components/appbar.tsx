@@ -133,7 +133,7 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
   const [alertListAnchor, setAlertListAnchor] = React.useState<HTMLElement | null>(null);
   const [unacknowledgedAlertsNum, setUnacknowledgedAlertsNum] = React.useState(0);
   const [unacknowledgedAlertList, setUnacknowledgedAlertList] = React.useState<Alert[]>([]);
-  const [activeButton, setActiveButton] = useState(null || Number);
+  const [activeButton, setActiveButton] = useState(1);
 
   const curTheme = React.useContext(SettingsContext).themeMode;
 
