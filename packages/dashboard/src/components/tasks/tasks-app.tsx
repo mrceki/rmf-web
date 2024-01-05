@@ -1,5 +1,6 @@
 import DownloadIcon from '@mui/icons-material/Download';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import PlaylistAddOutlined from '@mui/icons-material/PlaylistAddOutlined';
 import {
   Box,
   IconButton,
@@ -18,8 +19,10 @@ import {
   MuiMouseEvent,
   SortFields,
   TaskDataGridTable,
+  CreateTaskForm,
   Tasks,
   Window,
+  CreateTaskFormProps,
 } from 'react-components';
 import { Subscription } from 'rxjs';
 import { AppEvents } from '../app-events';
@@ -28,6 +31,16 @@ import { RmfAppContext } from '../rmf-app';
 import { TaskSchedule } from './task-schedule';
 import { TaskSummary } from './task-summary';
 import { downloadCsvFull, downloadCsvMinimal } from './utils';
+import useGetUsername from '../../hooks/useFetchUser';
+import { useCreateTaskFormData } from '../../hooks/useCreateTaskForm';
+import {
+  ApiServerModelsTortoiseModelsAlertsAlertLeaf as Alert,
+  TaskFavoritePydantic as TaskFavorite,
+  TaskRequest,
+} from 'api-client';
+import { toApiSchedule } from '../tasks/utils';
+import { parseTasksFile } from '../tasks/utils';
+import { AppControllerContext } from '../app-contexts';
 
 const RefreshTaskQueueTableInterval = 5000;
 
@@ -78,6 +91,12 @@ export const TasksApp = React.memo(
       const rmf = React.useContext(RmfAppContext);
       const [autoRefresh, setAutoRefresh] = React.useState(true);
       const [refreshTaskAppCount, setRefreshTaskAppCount] = React.useState(0);
+      const [openCreateTaskForm, setOpenCreateTaskForm] = React.useState(false);
+      const username = useGetUsername(rmf);
+      const { waypointNames, pickupPoints, dropoffPoints, cleaningZoneNames } =
+        useCreateTaskFormData(rmf);
+      const [favoritesTasks, setFavoritesTasks] = React.useState<TaskFavorite[]>([]);
+      const { showAlert } = React.useContext(AppControllerContext);
 
       const uploadFileInputRef = React.useRef<HTMLInputElement>(null);
       const [openTaskSummary, setOpenTaskSummary] = React.useState(false);
@@ -248,6 +267,106 @@ export const TasksApp = React.memo(
         setSelectedPanelIndex(newSelectedTabIndex);
         setAutoRefresh(newSelectedTabIndex === TaskTablePanel.QueueTable);
       };
+      const submitTasks = React.useCallback<Required<CreateTaskFormProps>['submitTasks']>(
+        async (taskRequests, schedule) => {
+          if (!rmf) {
+            throw new Error('tasks api not available');
+          }
+          if (!schedule) {
+            await Promise.all(
+              taskRequests.map((request) =>
+                rmf.tasksApi.postDispatchTaskTasksDispatchTaskPost({
+                  type: 'dispatch_task_request',
+                  request,
+                }),
+              ),
+            );
+          } else {
+            const scheduleRequests = taskRequests.map((req) => toApiSchedule(req, schedule));
+            await Promise.all(
+              scheduleRequests.map((req) => rmf.tasksApi.postScheduledTaskScheduledTasksPost(req)),
+            );
+          }
+          AppEvents.refreshTaskApp.next();
+        },
+        [rmf],
+      );
+
+      const tasksFromFile = (): Promise<TaskRequest[]> => {
+        return new Promise((res) => {
+          const fileInputEl = uploadFileInputRef.current;
+          if (!fileInputEl) {
+            return [];
+          }
+          let taskFiles: TaskRequest[];
+          const listener = async () => {
+            try {
+              if (!fileInputEl.files || fileInputEl.files.length === 0) {
+                return res([]);
+              }
+              try {
+                taskFiles = parseTasksFile(await fileInputEl.files[0].text());
+              } catch (err) {
+                showAlert('error', (err as Error).message, 5000);
+                return res([]);
+              }
+              // only submit tasks when all tasks are error free
+              return res(taskFiles);
+            } finally {
+              fileInputEl.removeEventListener('input', listener);
+              fileInputEl.value = '';
+            }
+          };
+          fileInputEl.addEventListener('input', listener);
+          fileInputEl.click();
+        });
+      };
+
+      React.useEffect(() => {
+        if (!rmf) {
+          return;
+        }
+        (async () => {
+          const resp = await rmf.tasksApi.getFavoritesTasksFavoriteTasksGet();
+
+          const results = resp.data as TaskFavorite[];
+          setFavoritesTasks(results);
+        })();
+
+        return () => {
+          setFavoritesTasks([]);
+        };
+      }, [rmf, refreshTaskAppCount]);
+
+      const submitFavoriteTask = React.useCallback<
+        Required<CreateTaskFormProps>['submitFavoriteTask']
+      >(
+        async (taskFavoriteRequest) => {
+          if (!rmf) {
+            throw new Error('tasks api not available');
+          }
+          await rmf.tasksApi.postFavoriteTaskFavoriteTasksPost(taskFavoriteRequest);
+          AppEvents.refreshTaskApp.next();
+        },
+        [rmf],
+      );
+
+      const deleteFavoriteTask = React.useCallback<
+        Required<CreateTaskFormProps>['deleteFavoriteTask']
+      >(
+        async (favoriteTask) => {
+          if (!rmf) {
+            throw new Error('tasks api not available');
+          }
+          if (!favoriteTask.id) {
+            throw new Error('Id is needed');
+          }
+
+          await rmf.tasksApi.deleteFavoriteTaskFavoriteTasksFavoriteTaskIdDelete(favoriteTask.id);
+          AppEvents.refreshTaskApp.next();
+        },
+        [rmf],
+      );
 
       return (
         <Window
@@ -308,6 +427,16 @@ export const TasksApp = React.memo(
                   <RefreshIcon />
                 </IconButton>
               </Tooltip>
+              <Tooltip title="New Task" color="inherit" placement="top">
+                <IconButton
+                  onClick={() => {
+                    setOpenCreateTaskForm(true);
+                  }}
+                  aria-label="NewTask"
+                >
+                  <PlaylistAddOutlined sx={{ color: '#ffffff' }} fontSize="large" />
+                </IconButton>
+              </Tooltip>
             </Toolbar>
           }
           {...otherProps}
@@ -351,6 +480,42 @@ export const TasksApp = React.memo(
             <TaskSummary task={selectedTask} onClose={() => setOpenTaskSummary(false)} />
           )}
           {children}
+          {openCreateTaskForm && (
+            <CreateTaskForm
+              user={username ? username : 'unknown user'}
+              patrolWaypoints={waypointNames}
+              cleaningZones={cleaningZoneNames}
+              pickupPoints={pickupPoints}
+              dropoffPoints={dropoffPoints}
+              favoritesTasks={favoritesTasks}
+              open={openCreateTaskForm}
+              onClose={() => setOpenCreateTaskForm(false)}
+              submitTasks={submitTasks}
+              submitFavoriteTask={submitFavoriteTask}
+              deleteFavoriteTask={deleteFavoriteTask}
+              tasksFromFile={tasksFromFile}
+              onSuccess={() => {
+                setOpenCreateTaskForm(false);
+                showAlert('success', 'Successfully created task');
+              }}
+              onFail={(e) => {
+                showAlert('error', `Failed to create task: ${e.message}`);
+              }}
+              onSuccessFavoriteTask={(message) => {
+                showAlert('success', message);
+              }}
+              onFailFavoriteTask={(e) => {
+                showAlert('error', `Failed to create or delete favorite task: ${e.message}`);
+              }}
+              onSuccessScheduling={() => {
+                setOpenCreateTaskForm(false);
+                showAlert('success', 'Successfully created schedule');
+              }}
+              onFailScheduling={(e) => {
+                showAlert('error', `Failed to submit schedule: ${e.message}`);
+              }}
+            />
+          )}
         </Window>
       );
     },
