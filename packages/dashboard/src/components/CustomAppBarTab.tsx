@@ -46,7 +46,8 @@ const AppBarTab: React.FC<Props> = ({
         handleClick();
       }}
       style={{
-        backgroundColor: isActive ? '#c1c1b4' : color,
+        backgroundColor:
+          curTheme === 2 ? (isActive ? '#2B3C43' : color) : isActive ? '#C1C1B4' : color,
         border: border,
         borderRadius: radius,
         height,
