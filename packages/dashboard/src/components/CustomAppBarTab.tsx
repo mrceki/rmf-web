@@ -6,10 +6,10 @@ interface Props {
   border: string;
   color: string;
   children?: React.ReactNode;
-  height: string;
   onClick: (id: number) => void;
   radius: string;
-  width: string;
+  // height: string;
+  // width: string;
   title: string;
   property: string[];
   id: number;
@@ -21,10 +21,10 @@ const AppBarTab: React.FC<Props> = ({
   border,
   color,
   children,
-  height,
   onClick,
   radius,
-  width,
+  // height,
+  // width,
   title,
   property,
   id,
@@ -50,14 +50,15 @@ const AppBarTab: React.FC<Props> = ({
           curTheme === 2 ? (isActive ? '#2B3C43' : color) : isActive ? '#C1C1B4' : color,
         border: border,
         borderRadius: radius,
-        height,
-        width,
+        // height,
+        // width,
         display: 'flex',
         alignItems: 'center',
         gap: '0.5rem',
         marginTop: property[0],
         marginBottom: property[1],
         cursor: 'pointer',
+        padding: '0.5rem',
       }}
       onMouseOver={(e) => {
         e.currentTarget.style.transform = 'scale(1.05)';

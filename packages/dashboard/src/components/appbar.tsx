@@ -143,10 +143,10 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
       setActiveButton: { setActiveButton },
       activeButton: { activeButton },
       color: curTheme === 2 ? '#597276' : '#ecece7',
-      height: '50px',
       onClick: () => navigate(DashboardRoute),
       radius: '20px',
-      width: '200px',
+      // height: '50px',
+      // width: '200px',
       border: 'none',
       title: 'Maps',
       property: ['1rem', '0rem', '#000000de'],
@@ -157,10 +157,10 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
       setActiveButton: { setActiveButton },
       activeButton: { activeButton },
       color: curTheme === 2 ? '#597276' : '#ecece7',
-      height: '50px',
       onClick: () => navigate(RobotsRoute),
       radius: '20px',
-      width: '200px',
+      // height: '50px',
+      // width: '200px',
       border: 'none',
       title: 'Robots and Tasks',
       property: ['0.5rem', '0rem', '#000000de'],
@@ -173,10 +173,10 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
       setActiveButton: { setActiveButton },
       activeButton: { activeButton },
       color: curTheme === 2 ? '#597276' : '#ecece7',
-      height: '50px',
       onClick: () => navigate(DoorsRoute),
       radius: '20px',
-      width: '200px',
+      // height: '50px',
+      // width: '200px',
       border: 'none',
       title: 'Doors and Lifts',
       property: ['0.5rem', '0rem', '#000000de'],
@@ -402,10 +402,10 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
             setActiveButton={setActiveButton}
             activeButton={activeButton}
             color={tab.color}
-            height={tab.height}
             onClick={tab.onClick}
             radius={tab.radius}
-            width={tab.width}
+            // height={tab.height}
+            // width={tab.width}
             border={tab.border}
             title={tab.title}
             property={tab.property}
