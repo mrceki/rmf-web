@@ -114,7 +114,6 @@ export const AlertDialog = React.memo((props: DialogAlertProps) => {
   const classes = useStyles();
   const [isOpen, setIsOpen] = React.useState(true);
   const [acknowledged, setAcknowledged] = React.useState(acknowledgedBy !== undefined);
-  console.log(acknowledgedBy);
   return (
     <Dialog
       PaperProps={{
