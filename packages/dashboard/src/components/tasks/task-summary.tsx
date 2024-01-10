@@ -6,7 +6,6 @@ import {
   LinearProgressProps,
   Theme,
   Typography,
-  Divider,
   TextField,
   IconButton,
 } from '@mui/material';
@@ -17,7 +16,6 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { makeStyles, createStyles } from '@mui/styles';
 import { Status, TaskState } from 'api-client';
-import { base } from 'react-components';
 import { TaskInspector } from './task-inspector';
 import { RmfAppContext } from '../rmf-app';
 
