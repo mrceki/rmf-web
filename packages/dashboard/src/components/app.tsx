@@ -16,6 +16,7 @@ import {
   RobotsRoute,
   TasksRoute,
   LiftsRoute,
+  LogsRoute,
 } from '../util/url';
 import { AdminRouter } from './admin';
 import { AppBase } from './app-base';
@@ -28,6 +29,7 @@ import { tasksWorkspace } from './tasks/tasks-workspace';
 import { ManagedWorkspace, Workspace } from './workspace';
 import { doorsWorkspace } from './doors/doors-workspace';
 import { liftsWorkspace } from './lifts/lifts-workspace';
+import { logsWorkspace } from './logs/logs-workspace';
 
 const LoadingScreen: React.FC = () => (
   <div className="loading-screen">
@@ -130,6 +132,14 @@ export default function App(): JSX.Element | null {
                 element={
                   <PrivateRoute unauthorizedComponent={loginRedirect} user={user}>
                     <Workspace key="lifts" state={liftsWorkspace} />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path={LogsRoute}
+                element={
+                  <PrivateRoute unauthorizedComponent={loginRedirect} user={user}>
+                    <Workspace key="logs" state={logsWorkspace} />
                   </PrivateRoute>
                 }
               />

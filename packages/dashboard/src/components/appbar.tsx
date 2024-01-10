@@ -7,6 +7,7 @@ import {
   MapOutlined,
   SmartToyOutlined,
   SensorDoorOutlined,
+  TaskAlt,
 } from '@mui/icons-material';
 import {
   Badge,
@@ -40,6 +41,7 @@ import {
   LiftsRoute,
   RobotsRoute,
   TasksRoute,
+  LogsRoute,
 } from '../util/url';
 import {
   AppConfigContext,
@@ -186,6 +188,20 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
           fontSize="large"
         />
       ),
+    },
+    {
+      id: 4,
+      setActiveButton: { setActiveButton },
+      activeButton: { activeButton },
+      color: curTheme === 2 ? '#597276' : '#ecece7',
+      onClick: () => navigate(LogsRoute),
+      radius: '20px',
+      // height: '50px',
+      // width: '200px',
+      border: 'none',
+      title: 'Task Logs',
+      property: ['0.5rem', '0rem', '#000000de'],
+      icon: <TaskAlt sx={{ color: curTheme === 2 ? '#ffffff' : '#000000' }} fontSize="large" />,
     },
   ];
 
