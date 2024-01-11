@@ -6,15 +6,15 @@ interface Props {
   border: string;
   color: string;
   children?: React.ReactNode;
-  onClick: (id: number) => void;
+  onClick: (id: string) => void;
   radius: string;
   // height: string;
   // width: string;
   title: string;
   property: string[];
-  id: number;
-  setActiveButton: (id: number) => void;
-  activeButton: number;
+  id: string;
+  setActiveButton: (id: string) => void;
+  activeButton: string;
 }
 
 const AppBarTab: React.FC<Props> = ({

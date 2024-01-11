@@ -60,7 +60,7 @@ import useGetUsername from '../hooks/useFetchUser';
 import CustomButton from './CustomButtonComponent';
 import AppBarTab from './CustomAppBarTab';
 
-export type TabValue = 'infrastructure' | 'robots' | 'tasks' | 'doors' | 'admin' | 'lifts';
+export type TabValue = 'infrastructure' | 'robots' | 'tasks' | 'doors' | 'admin' | 'lifts' | 'logs';
 
 const locationToTabValue = (pathname: string): TabValue | undefined => {
   const routes: { prefix: string; tabValue: TabValue }[] = [
@@ -68,6 +68,7 @@ const locationToTabValue = (pathname: string): TabValue | undefined => {
     { prefix: TasksRoute, tabValue: 'tasks' },
     { prefix: DoorsRoute, tabValue: 'doors' },
     { prefix: LiftsRoute, tabValue: 'lifts' },
+    { prefix: LogsRoute, tabValue: 'logs' },
     { prefix: AdminRoute.replace(/\*/g, ''), tabValue: 'admin' },
     { prefix: DashboardRoute, tabValue: 'infrastructure' },
   ];
@@ -135,13 +136,16 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
   const [alertListAnchor, setAlertListAnchor] = React.useState<HTMLElement | null>(null);
   const [unacknowledgedAlertsNum, setUnacknowledgedAlertsNum] = React.useState(0);
   const [unacknowledgedAlertList, setUnacknowledgedAlertList] = React.useState<Alert[]>([]);
-  const [activeButton, setActiveButton] = useState(1);
+
+  const [activeButton, setActiveButton] = useState('/');
+
+  //const [activeButton, setActiveButton] = useState();
 
   const curTheme = React.useContext(SettingsContext).themeMode;
 
   const AppBarTabs = [
     {
-      id: 1,
+      id: '/',
       setActiveButton: { setActiveButton },
       activeButton: { activeButton },
       color: curTheme === 2 ? '#597276' : '#ecece7',
@@ -155,7 +159,7 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
       icon: <MapOutlined sx={{ color: curTheme === 2 ? '#ffffff' : '#000000' }} fontSize="large" />,
     },
     {
-      id: 2,
+      id: '/robots',
       setActiveButton: { setActiveButton },
       activeButton: { activeButton },
       color: curTheme === 2 ? '#597276' : '#ecece7',
@@ -171,7 +175,7 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
       ),
     },
     {
-      id: 3,
+      id: '/doors',
       setActiveButton: { setActiveButton },
       activeButton: { activeButton },
       color: curTheme === 2 ? '#597276' : '#ecece7',
@@ -190,7 +194,7 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
       ),
     },
     {
-      id: 4,
+      id: '/logs',
       setActiveButton: { setActiveButton },
       activeButton: { activeButton },
       color: curTheme === 2 ? '#597276' : '#ecece7',
@@ -204,6 +208,26 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
       icon: <TaskAlt sx={{ color: curTheme === 2 ? '#ffffff' : '#000000' }} fontSize="large" />,
     },
   ];
+
+  React.useEffect(() => {
+    switch (tabValue) {
+      case 'infrastructure':
+        setActiveButton('/');
+        break;
+      case 'robots':
+        setActiveButton('/robots');
+        break;
+      case 'tasks':
+        setActiveButton('/tasks');
+        break;
+      case 'doors':
+        setActiveButton('/doors');
+        break;
+      case 'logs':
+        setActiveButton('/logs');
+        break;
+    }
+  }, [tabValue]);
 
   const { waypointNames, pickupPoints, dropoffPoints, cleaningZoneNames } =
     useCreateTaskFormData(rmf);
