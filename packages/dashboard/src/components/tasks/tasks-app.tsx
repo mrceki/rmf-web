@@ -11,6 +11,7 @@ import {
   TableContainer,
   Toolbar,
   Tooltip,
+  Typography,
 } from '@mui/material';
 import { TaskState } from 'api-client';
 import React from 'react';
@@ -24,6 +25,7 @@ import {
   Window,
   CreateTaskFormProps,
 } from 'react-components';
+import { useNavigate } from 'react-router-dom';
 import { Subscription } from 'rxjs';
 import { AppEvents } from '../app-events';
 import { MicroAppProps } from '../micro-app';
@@ -40,6 +42,7 @@ import {
 } from 'api-client';
 import { toApiSchedule, parseTasksFile } from '../tasks/utils';
 import { AppControllerContext } from '../app-contexts';
+import { LogsRoute } from '../../util/url';
 
 const RefreshTaskQueueTableInterval = 5000;
 
@@ -96,7 +99,7 @@ export const TasksApp = React.memo(
         useCreateTaskFormData(rmf);
       const [favoritesTasks, setFavoritesTasks] = React.useState<TaskFavorite[]>([]);
       const { showAlert } = React.useContext(AppControllerContext);
-
+      const navigate = useNavigate();
       const uploadFileInputRef = React.useRef<HTMLInputElement>(null);
       const [openTaskSummary, setOpenTaskSummary] = React.useState(false);
       const [selectedTask, setSelectedTask] = React.useState<TaskState | null>(null);
@@ -137,7 +140,7 @@ export const TasksApp = React.memo(
       }, [autoRefresh]);
 
       // TODO: parameterize this variable
-      const GET_LIMIT = 10;
+      const GET_LIMIT = 5;
       React.useEffect(() => {
         if (!rmf) {
           return;
@@ -434,6 +437,18 @@ export const TasksApp = React.memo(
                   aria-label="Refresh"
                 >
                   <RefreshIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Go to Logs" color="inherit" placement="top">
+                <IconButton
+                  onClick={() => {
+                    navigate(LogsRoute);
+                  }}
+                  aria-label="Logs"
+                >
+                  <Typography variant="body1" sx={{ color: '#ffffff', fontWeight: 'medium' }}>
+                    Task Logs
+                  </Typography>
                 </IconButton>
               </Tooltip>
             </Toolbar>
