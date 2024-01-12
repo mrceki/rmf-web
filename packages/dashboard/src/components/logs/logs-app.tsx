@@ -372,7 +372,7 @@ export const LogsApp = React.memo(
       return (
         <Window
           ref={ref}
-          title="Task Logs"
+          title="Task History"
           onClose={onClose}
           toolbar={
             <Toolbar variant="dense">

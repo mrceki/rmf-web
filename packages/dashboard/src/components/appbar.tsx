@@ -203,7 +203,7 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
       // height: '50px',
       // width: '200px',
       border: 'none',
-      title: 'Task Logs',
+      title: 'Task History',
       property: ['0.5rem', '0rem', '#000000de'],
       icon: <TaskAlt sx={{ color: curTheme === 2 ? '#ffffff' : '#000000' }} fontSize="large" />,
     },

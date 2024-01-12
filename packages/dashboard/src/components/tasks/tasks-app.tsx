@@ -439,18 +439,6 @@ export const TasksApp = React.memo(
                   <RefreshIcon />
                 </IconButton>
               </Tooltip>
-              <Tooltip title="Go to Logs" color="inherit" placement="top">
-                <IconButton
-                  onClick={() => {
-                    navigate(LogsRoute);
-                  }}
-                  aria-label="Logs"
-                >
-                  <Typography variant="body1" sx={{ color: '#ffffff', fontWeight: 'medium' }}>
-                    Task Logs
-                  </Typography>
-                </IconButton>
-              </Tooltip>
             </Toolbar>
           }
           {...otherProps}
