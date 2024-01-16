@@ -8,6 +8,7 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import { LoginPage, PrivateRoute } from 'rmf-auth';
 import appConfig from '../app-config';
 import ResourceManager from '../managers/resource-manager';
+import { useNavigate } from 'react-router-dom';
 import {
   AdminRoute,
   DoorsRoute,
@@ -46,6 +47,8 @@ export default function App(): JSX.Element | null {
   const resourceManager = React.useRef<ResourceManager | undefined>(undefined);
   const [appReady, setAppReady] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
+  const [userLoggedin, setuserLoggedin] = React.useState(false);
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     let cancel = false;
@@ -85,13 +88,16 @@ export default function App(): JSX.Element | null {
     return () => clearTimeout(timeout);
   }, []);
 
+  const userLogin = () => {
+    setuserLoggedin(true);
+    navigate(DashboardRoute);
+  };
+
   const loginRedirect = React.useMemo(() => <Navigate to={LoginRoute} />, []);
 
-  return loading ? (
-    <LoadingScreen />
-  ) : authInitialized && appReady ? (
+  return authInitialized && appReady ? (
     <ResourcesContext.Provider value={resourceManager.current}>
-      {user ? (
+      {userLoggedin ? (
         <RmfApp>
           <AppBase>
             <Routes>
@@ -160,11 +166,9 @@ export default function App(): JSX.Element | null {
             path={LoginRoute}
             element={
               <LoginPage
-                title={'Dashboard'}
+                title={'Altınay Fleet Management'}
                 logo="assets/altınay.png"
-                onLoginClick={() =>
-                  authenticator.login(`${window.location.origin}${DashboardRoute}`)
-                }
+                onLoginClick={() => userLogin()}
               />
             }
           />

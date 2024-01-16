@@ -13,7 +13,7 @@ const StyledDiv = styled('div')(({ theme }) => ({
     position: 'absolute',
     left: 0,
     top: 0,
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: '#ECECE7',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
