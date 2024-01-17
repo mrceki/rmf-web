@@ -12,7 +12,6 @@ const classes = {
   spinner: `${prefix}-spinner`,
   loadingContainer: `${prefix}-loading-container`,
   loadingText: `${prefix}-loading-text`,
-  buttonLoading: `${prefix}-button-loading`,
 };
 const StyledDiv = styled('div')(({ theme }) => ({
   [`&.${classes.container}`]: {
@@ -88,6 +87,7 @@ const StyledDiv = styled('div')(({ theme }) => ({
   },
   [`& .${classes.loadingContainer}`]: {
     display: 'flex',
+    justifyContent: 'center',
     width: '120px',
     height: '40px',
     alignItems: 'center',
@@ -96,16 +96,6 @@ const StyledDiv = styled('div')(({ theme }) => ({
   [`& .${classes.loadingText}`]: {
     color: '#CE172D',
     fontSize: '14px',
-  },
-  [`& .${classes.buttonLoading}`]: {
-    backgroundColor: '#ecece7',
-    width: '120px',
-    height: '30px',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: '20px',
   },
 }));
 
@@ -156,14 +146,9 @@ export const LoginCard = React.forwardRef(
         />
 
         {/* <img src="/rmf_demos_ws/src/rmf-web/packages/dashboard/src/assets/defaultLogo.png" /> */}
-        <Button
-          className={loading ? classes.buttonLoading : classes.button}
-          disabled={loading}
-          onClick={handleLoginClick}
-        >
+        <Button className={classes.button} disabled={loading} onClick={handleLoginClick}>
           {loading ? (
             <div className={classes.loadingContainer}>
-              <Typography className={classes.loadingText}>Loading...</Typography>
               <div className={classes.spinner}></div>
             </div>
           ) : (
