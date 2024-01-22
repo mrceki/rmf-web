@@ -1,6 +1,7 @@
 import EventEmitter from 'eventemitter3';
 import { Authenticator, AuthenticatorEventType } from './authenticator';
 
+const allowedUsers = ['admin', 'ufuk'];
 export class StubAuthenticator
   extends EventEmitter<AuthenticatorEventType>
   implements Authenticator
@@ -19,8 +20,13 @@ export class StubAuthenticator
     return Promise.resolve();
   }
 
-  login(): Promise<never> {
-    throw new Error('not supported');
+  login(): Promise<void> {
+    // check if user is allowed
+    if (allowedUsers.includes(this.user)) {
+      return Promise.resolve();
+    } else {
+      return Promise.reject();
+    }
   }
 
   logout(): Promise<never> {

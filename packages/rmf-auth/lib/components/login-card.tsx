@@ -1,5 +1,6 @@
 import { Button, Typography, styled } from '@mui/material';
 import React from 'react';
+import { StubAuthenticator } from '../stub';
 
 const prefix = 'login-card';
 const classes = {
@@ -112,23 +113,25 @@ export const LoginCard = React.forwardRef(
   ): JSX.Element => {
     const [username, setUsername] = React.useState('');
     const [loading, setLoading] = React.useState(false);
-    // !!! This function has to be removed in production !!!
-    const handleUsernameCheck = () => {
-      return username === 'admin';
-    };
-    const handleLoginClick = (event: React.MouseEvent) => {
-      const isUsernameValid = handleUsernameCheck();
-      if (isUsernameValid) {
-        setLoading(true);
-        setTimeout(() => {
-          onLoginClick?.(event);
-          setLoading(false);
-        }, 2000);
-      } else {
-        alert('Invalid username');
-      }
-    };
 
+    const handleUsernameCheck = (event: React.MouseEvent) => {
+      const auth = new StubAuthenticator(username);
+      auth.init();
+      const resp = auth.login();
+
+      resp.then(
+        (value) => {
+          setLoading(true);
+          setTimeout(() => {
+            onLoginClick?.(event);
+            setLoading(false);
+          }, 2000);
+        },
+        (error) => {
+          alert('Invalid username');
+        },
+      );
+    };
     return (
       <StyledDiv ref={ref} className={classes.container}>
         <Typography variant="h4" className={classes.title}>
@@ -146,7 +149,7 @@ export const LoginCard = React.forwardRef(
         />
 
         {/* <img src="/rmf_demos_ws/src/rmf-web/packages/dashboard/src/assets/defaultLogo.png" /> */}
-        <Button className={classes.button} disabled={loading} onClick={handleLoginClick}>
+        <Button className={classes.button} disabled={loading} onClick={handleUsernameCheck}>
           {loading ? (
             <div className={classes.loadingContainer}>
               <div className={classes.spinner}></div>
