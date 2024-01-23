@@ -35,14 +35,9 @@ import { TaskSummary } from './task-summary';
 import { downloadCsvFull, downloadCsvMinimal } from './utils';
 import useGetUsername from '../../hooks/useFetchUser';
 import { useCreateTaskFormData } from '../../hooks/useCreateTaskForm';
-import {
-  ApiServerModelsTortoiseModelsAlertsAlertLeaf as Alert,
-  TaskFavoritePydantic as TaskFavorite,
-  TaskRequest,
-} from 'api-client';
+import { TaskFavoritePydantic as TaskFavorite, TaskRequest } from 'api-client';
 import { toApiSchedule, parseTasksFile } from '../tasks/utils';
 import { AppControllerContext } from '../app-contexts';
-import { LogsRoute } from '../../util/url';
 
 const RefreshTaskQueueTableInterval = 5000;
 
