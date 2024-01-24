@@ -203,6 +203,12 @@ export const LogsApp = React.memo(
                 ? tasksState.page * GET_LIMIT + 1
                 : tasksState.page * GET_LIMIT - 9,
           }));
+          setTasksState((old) => ({
+            ...old,
+            data: old.data.filter(
+              (task) => task.status !== 'underway' && task.status !== 'standby',
+            ),
+          }));
 
           subs.push(
             ...newTasks.map((task) =>
