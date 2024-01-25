@@ -8,6 +8,7 @@ import {
   SmartToyOutlined,
   SensorDoorOutlined,
   TaskAlt,
+  AccountCircle,
 } from '@mui/icons-material';
 import {
   Badge,
@@ -42,6 +43,7 @@ import {
   RobotsRoute,
   TasksRoute,
   LogsRoute,
+  LoginRoute,
 } from '../util/url';
 import {
   AppConfigContext,
@@ -235,7 +237,9 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
 
   async function handleLogout(): Promise<void> {
     try {
-      await authenticator.logout();
+      // await authenticator.logout();
+      window.location.reload();
+      navigate(LoginRoute);
     } catch (e) {
       console.error(`error logging out: ${(e as Error).message}`);
     }
@@ -526,40 +530,40 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
         >
           {curTheme === 2 ? <ModeNight /> : <ModeNightOutlined />}
         </IconButton>
+        {profile && (
+          <>
+            <Tooltip title="Profile">
+              <IconButton
+                id="user-btn"
+                aria-label={'user-btn'}
+                color="inherit"
+                onClick={(event) => setAnchorEl(event.currentTarget)}
+              >
+                <AccountCircle />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={!!anchorEl}
+              onClose={() => setAnchorEl(null)}
+            >
+              <MenuItem id="logout-btn" onClick={handleLogout}>
+                Logout
+              </MenuItem>
+            </Menu>
+          </>
+        )}
       </div>
       {/* <Typography variant="caption">Altınay Robot Teknolojileri</Typography> */}
       {extraToolbarItems}
-      {/* {profile && (
-                <>
-                  <Tooltip title="Profile">
-                    <IconButton
-                      id="user-btn"
-                      aria-label={'user-btn'}
-                      color="inherit"
-                      onClick={(event) => setAnchorEl(event.currentTarget)}
-                    >
-                      <AccountCircle />
-                    </IconButton>
-                  </Tooltip>
-                  <Menu
-                    anchorEl={anchorEl}
-                    anchorOrigin={{
-                      vertical: 'bottom',
-                      horizontal: 'right',
-                    }}
-                    transformOrigin={{
-                      vertical: 'top',
-                      horizontal: 'right',
-                    }}
-                    open={!!anchorEl}
-                    onClose={() => setAnchorEl(null)}
-                  >
-                    <MenuItem id="logout-btn" onClick={handleLogout}>
-                      Logout
-                    </MenuItem>
-                  </Menu>
-                </>
-              )} */}
 
       <Menu
         anchorEl={settingsAnchor}
