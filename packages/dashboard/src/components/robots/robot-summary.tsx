@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     inspectButton: {
       borderRadius: '20px',
-      backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#739BD0',
+      backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#CE172D',
     },
     inspectText: {
       color: '#ffffff',
@@ -101,7 +101,8 @@ const showBatteryIcon = (robot: RobotState, robotBattery: number) => {
   }
   return <BatteryUnknown />;
 };
-
+//define string array to store all destinations
+export const allDestinations: string[] = [];
 export const RobotSummary = React.memo(({ onClose, robot }: RobotSummaryProps) => {
   const classes = useStyles();
   const rmf = React.useContext(RmfAppContext);
@@ -181,6 +182,32 @@ export const RobotSummary = React.memo(({ onClose, robot }: RobotSummaryProps) =
     }
   }, [taskState]);
 
+  React.useEffect(() => {
+    if (!taskState || !taskState.phases || !taskState.active) {
+      return;
+    }
+
+    const robotLastLocation = Object.values(taskState.phases)[taskState.active - 1]?.events?.[0]
+      .name;
+
+    if (robotLastLocation) {
+      const regex = /\[place:(.*?)\]/g;
+
+      let match;
+      const waypoints = [];
+
+      // Iterate over all matches found by the regular expression
+      while ((match = regex.exec(robotLastLocation.toString()))) {
+        waypoints.push(match[1]);
+      }
+
+      if (!allDestinations.includes(waypoints[0])) {
+        allDestinations.push(waypoints[0]);
+      }
+      console.log(allDestinations);
+    }
+  }, [taskState]);
+
   const returnDialogContent = () => {
     const contents = [
       {
@@ -203,6 +230,14 @@ export const RobotSummary = React.memo(({ onClose, robot }: RobotSummaryProps) =
       contents.push({
         title: 'Robot Destination',
         value: navigationDestination ? navigationDestination : '-',
+      });
+    }
+    if (!taskState?.active) {
+      contents.push({
+        title: 'Robot Last Location',
+        value: allDestinations[allDestinations.length - 1]
+          ? allDestinations[allDestinations.length - 1]
+          : '-',
       });
     }
 
