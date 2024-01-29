@@ -1047,7 +1047,7 @@ export function CreateTaskForm({
       favoritesTasks.some((favoriteTask) => favoriteTask.name === favoriteTaskBuffer.name),
     );
   }, [favoriteTaskBuffer.name, favoritesTasks]);
-
+  console.log(callToUpdateFavoriteTask);
   return (
     <div>
       <StyledDialog
@@ -1348,7 +1348,7 @@ export function CreateTaskForm({
             setCallToDeleteFavoriteTask(false);
           }}
           onSubmit={callToDeleteFavoriteTask ? handleDeleteFavoriteTask : handleSubmitFavoriteTask}
-          disableButtons={favoriteTaskExist}
+          disableButtons={favoriteTaskExist && !callToUpdateFavoriteTask}
         >
           {!callToDeleteFavoriteTask && (
             <TextField
