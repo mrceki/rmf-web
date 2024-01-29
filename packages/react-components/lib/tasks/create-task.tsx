@@ -747,7 +747,7 @@ const defaultFavoriteTask = (): TaskFavorite => {
     name: '',
     category: 'patrol',
     description: defaultPatrolTask(),
-    unix_millis_earliest_start_time: 0,
+    unix_millis_earliest_start_time: Date.now(),
     priority: { type: 'binary', value: 0 },
     user: '',
   };
