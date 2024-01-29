@@ -45,6 +45,7 @@ export interface ConfirmationDialogProps extends DialogProps {
   classes?: DialogActionsProps['classes'] & { button: string };
   toolbar?: React.ReactNode;
   onSubmit?: React.FormEventHandler;
+  disableButtons?: boolean;
 }
 
 export function ConfirmationDialog({
@@ -57,6 +58,7 @@ export function ConfirmationDialog({
   toolbar,
   onClose,
   children,
+  disableButtons,
   ...otherProps
 }: ConfirmationDialogProps): JSX.Element {
   return (
@@ -85,24 +87,26 @@ export function ConfirmationDialog({
         </DialogTitle>
         <DialogContent>{children}</DialogContent>
         <DialogActions>
-          <Button
-            variant="contained"
-            type="submit"
-            disabled={submitting}
-            className={clsx(dialogClasses.actionBtn, classes?.button)}
-          >
-            <Loading hideChildren loading={submitting} size="1.5em" color="inherit">
-              <Typography
-                variant="body2"
-                sx={{
-                  color: '#ffffff',
-                  fontWeight: 'bold',
-                }}
-              >
-                {confirmText}
-              </Typography>
-            </Loading>
-          </Button>
+          {disableButtons && confirmText !== 'Delete' ? null : (
+            <Button
+              variant="contained"
+              type="submit"
+              disabled={submitting}
+              className={clsx(dialogClasses.actionBtn, classes?.button)}
+            >
+              <Loading hideChildren loading={submitting} size="1.5em" color="inherit">
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: '#ffffff',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  {confirmText}
+                </Typography>
+              </Loading>
+            </Button>
+          )}
         </DialogActions>
       </form>
     </StyledDialog>

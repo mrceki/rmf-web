@@ -830,6 +830,7 @@ export function CreateTaskForm({
   const [formFullyFilled, setFormFullyFilled] = React.useState(requestTask !== undefined || false);
   const taskRequest = taskRequests[selectedTaskIdx];
   const [openSchedulingDialog, setOpenSchedulingDialog] = React.useState(false);
+  const [favoriteTaskExist, setFavoriteTaskExist] = React.useState(false);
   const [schedule, setSchedule] = React.useState<Schedule>(
     scheduleToEdit ?? {
       startOn: new Date(),
@@ -1040,6 +1041,13 @@ export function CreateTaskForm({
 
   const submitText = taskRequests.length > 1 ? 'Submit All Now' : 'Submit Now';
 
+  // if the value of favoriteTaskBuffername is in the list of favorite tasks, then set the favoriteTaskExist to true
+  React.useEffect(() => {
+    setFavoriteTaskExist(
+      favoritesTasks.some((favoriteTask) => favoriteTask.name === favoriteTaskBuffer.name),
+    );
+  }, [favoriteTaskBuffer.name, favoritesTasks]);
+
   return (
     <div>
       <StyledDialog
@@ -1078,36 +1086,30 @@ export function CreateTaskForm({
                     <Typography variant="h6" component="div">
                       Favorite tasks
                     </Typography>
-                    {favoritesTasks.length === 0 ? (
-                      <Typography variant="body2" component="div">
-                        You have no favorite tasks saved
-                      </Typography>
-                    ) : (
-                      <List>
-                        {favoritesTasks.map((favoriteTask, index) => (
-                          <FavoriteTask
-                            listItemText={favoriteTask.name}
-                            key={index}
-                            setFavoriteTask={setFavoriteTaskBuffer}
-                            favoriteTask={favoriteTask}
-                            setCallToDelete={setCallToDeleteFavoriteTask}
-                            setCallToUpdate={setCallToUpdateFavoriteTask}
-                            setOpenDialog={setOpenFavoriteDialog}
-                            listItemClick={() => {
-                              setFavoriteTaskBuffer(favoriteTask);
-                              setTaskRequests([
-                                {
-                                  category: favoriteTask.category,
-                                  description: favoriteTask.description,
-                                  unix_millis_earliest_start_time: Date.now(),
-                                  priority: favoriteTask.priority,
-                                },
-                              ]);
-                            }}
-                          />
-                        ))}
-                      </List>
-                    )}
+                    <List>
+                      {favoritesTasks.map((favoriteTask, index) => (
+                        <FavoriteTask
+                          listItemText={favoriteTask.name}
+                          key={index}
+                          setFavoriteTask={setFavoriteTaskBuffer}
+                          favoriteTask={favoriteTask}
+                          setCallToDelete={setCallToDeleteFavoriteTask}
+                          setCallToUpdate={setCallToUpdateFavoriteTask}
+                          setOpenDialog={setOpenFavoriteDialog}
+                          listItemClick={() => {
+                            setFavoriteTaskBuffer(favoriteTask);
+                            setTaskRequests([
+                              {
+                                category: favoriteTask.category,
+                                description: favoriteTask.description,
+                                unix_millis_earliest_start_time: Date.now(),
+                                priority: favoriteTask.priority,
+                              },
+                            ]);
+                          }}
+                        />
+                      ))}
+                    </List>
                   </div>
                   <Divider
                     orientation="vertical"
@@ -1345,6 +1347,7 @@ export function CreateTaskForm({
             setCallToDeleteFavoriteTask(false);
           }}
           onSubmit={callToDeleteFavoriteTask ? handleDeleteFavoriteTask : handleSubmitFavoriteTask}
+          disableButtons={favoriteTaskExist}
         >
           {!callToDeleteFavoriteTask && (
             <TextField
