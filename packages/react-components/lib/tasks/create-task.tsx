@@ -1236,6 +1236,7 @@ export function CreateTaskForm({
                           setOpenFavoriteDialog(true);
                         }}
                         style={{ marginTop: theme.spacing(2), marginBottom: theme.spacing(2) }}
+                        disabled={taskRequest.description.places.length === 0}
                       >
                         <Typography
                           variant="body2"
