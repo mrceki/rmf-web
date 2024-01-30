@@ -491,6 +491,7 @@ function PatrolTaskForm({ taskDesc, patrolWaypoints, onChange, allowSubmit }: Pa
           options={patrolWaypoints}
           onChange={(_ev, newValue) =>
             newValue !== null &&
+            taskDesc.places[taskDesc.places.length - 1] !== newValue &&
             onInputChange({
               ...taskDesc,
               places: taskDesc.places.concat(newValue).filter((el: string) => el),
@@ -1053,7 +1054,6 @@ export function CreateTaskForm({
       favoritesTasks.some((favoriteTask) => favoriteTask.name === favoriteTaskBuffer.name),
     );
   }, [favoriteTaskBuffer.name, favoritesTasks]);
-  console.log(callToUpdateFavoriteTask);
   return (
     <div>
       <StyledDialog
