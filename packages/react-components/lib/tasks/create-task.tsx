@@ -586,7 +586,7 @@ function FavoriteTask({
         sx={{ width: theme.spacing(30) }}
         onClick={() => {
           listItemClick();
-          setCallToUpdate(false);
+          setCallToUpdate(true);
         }}
         role="listitem button"
         button
@@ -1236,7 +1236,9 @@ export function CreateTaskForm({
                           setOpenFavoriteDialog(true);
                         }}
                         style={{ marginTop: theme.spacing(2), marginBottom: theme.spacing(2) }}
-                        disabled={taskRequest.description.places.length === 0}
+                        disabled={
+                          taskRequest.description.places.length === 0 && !callToUpdateFavoriteTask
+                        }
                       >
                         <Typography
                           variant="body2"
