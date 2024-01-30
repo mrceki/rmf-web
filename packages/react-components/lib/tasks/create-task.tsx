@@ -703,7 +703,7 @@ interface DaySelectorSwitchProps {
   value: RecurringDays;
 }
 
-const DaySelectorSwitch: React.VFC<DaySelectorSwitchProps> = ({ disabled, onChange, value }) => {
+const DaySelectorSwitch: React.FC<DaySelectorSwitchProps> = ({ disabled, onChange, value }) => {
   const theme = useTheme();
   const renderChip = (idx: number, text: string) => (
     <Chip
