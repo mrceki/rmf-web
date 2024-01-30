@@ -439,21 +439,27 @@ function PlaceList({ places, onClick }: PlaceListProps) {
         marginRight: theme.spacing(3),
       }}
     >
-      {places.map((value, index) => (
-        <ListItem
-          key={`${value}-${index}`}
-          secondaryAction={
-            <IconButton edge="end" aria-label="delete" onClick={() => onClick(index)}>
-              <DeleteIcon />
-            </IconButton>
-          }
-        >
-          <ListItemIcon>
-            <PlaceOutlined />
-          </ListItemIcon>
-          <ListItemText primary={`Place Name:   ${value}`} />
+      {places.length === 0 ? (
+        <ListItem>
+          <ListItemText primary="No destination found for Robot" />
         </ListItem>
-      ))}
+      ) : (
+        places.map((value, index) => (
+          <ListItem
+            key={`${value}-${index}`}
+            secondaryAction={
+              <IconButton edge="end" aria-label="delete" onClick={() => onClick(index)}>
+                <DeleteIcon />
+              </IconButton>
+            }
+          >
+            <ListItemIcon>
+              <PlaceOutlined />
+            </ListItemIcon>
+            <ListItemText primary={`Place Name:   ${value}`} />
+          </ListItem>
+        ))
+      )}
     </List>
   );
 }
