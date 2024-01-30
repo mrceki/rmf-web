@@ -97,7 +97,7 @@ export default function App(): JSX.Element | null {
 
   return authInitialized && appReady ? (
     <ResourcesContext.Provider value={resourceManager.current}>
-      {userLoggedin ? (
+      {user ? (
         <RmfApp>
           <AppBase>
             <Routes>
