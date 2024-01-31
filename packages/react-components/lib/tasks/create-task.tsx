@@ -1057,6 +1057,10 @@ export function CreateTaskForm({
       favoritesTasks.some((favoriteTask) => favoriteTask.name === favoriteTaskBuffer.name),
     );
   }, [favoriteTaskBuffer.name, favoritesTasks]);
+  //integrate the other tasks when it is needed for disabling the submit button
+  const taskRequestEmpty = React.useMemo(() => {
+    return taskRequests[0].description.places.length === 0;
+  }, [taskRequests]);
   return (
     <div>
       <StyledDialog
@@ -1308,7 +1312,7 @@ export function CreateTaskForm({
                 <Button
                   size="medium"
                   variant="contained"
-                  disabled={submitting || !formFullyFilled}
+                  disabled={taskRequestEmpty}
                   className={classes.actionBtn}
                   onClick={() => setOpenSchedulingDialog(true)}
                 >
@@ -1325,7 +1329,7 @@ export function CreateTaskForm({
                 <Button
                   variant="contained"
                   type="submit"
-                  disabled={submitting || !formFullyFilled || scheduleToEdit !== undefined}
+                  disabled={taskRequestEmpty}
                   className={classes.actionBtn}
                   aria-label={submitText}
                   onClick={handleSubmitNow}
