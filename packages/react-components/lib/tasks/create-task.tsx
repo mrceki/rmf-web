@@ -489,6 +489,9 @@ function PatrolTaskForm({ taskDesc, patrolWaypoints, onChange, allowSubmit }: Pa
           freeSolo
           fullWidth
           options={patrolWaypoints}
+          filterOptions={(options, state) =>
+            options.filter((el) => el !== taskDesc.places[taskDesc.places.length - 1])
+          }
           onChange={(_ev, newValue) =>
             newValue !== null &&
             taskDesc.places[taskDesc.places.length - 1] !== newValue &&
