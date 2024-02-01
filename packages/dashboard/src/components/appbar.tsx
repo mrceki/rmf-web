@@ -141,8 +141,6 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
 
   const [activeButton, setActiveButton] = useState('/');
 
-  //const [activeButton, setActiveButton] = useState();
-
   const curTheme = React.useContext(SettingsContext).themeMode;
 
   const AppBarTabs = [
