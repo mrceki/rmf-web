@@ -1406,6 +1406,37 @@ export default {
           },
         },
       },
+      get: {
+        tags: ['Tasks'],
+        summary: 'Get Favorite Task',
+        operationId: 'get_favorite_task_favorite_tasks__favorite_task_id__get',
+        parameters: [
+          {
+            required: true,
+            schema: { title: 'Favorite Task Id', type: 'string' },
+            name: 'favorite_task_id',
+            in: 'path',
+          },
+        ],
+        responses: {
+          '200': {
+            description: 'Successful Response',
+            content: {
+              'application/json': {
+                schema: {
+                  $ref: '#/components/schemas/api_server.models.tortoise_models.tasks.TaskFavorite.leaf',
+                },
+              },
+            },
+          },
+          '422': {
+            description: 'Validation Error',
+            content: {
+              'application/json': { schema: { $ref: '#/components/schemas/HTTPValidationError' } },
+            },
+          },
+        },
+      },
     },
     '/dispensers': {
       get: {
