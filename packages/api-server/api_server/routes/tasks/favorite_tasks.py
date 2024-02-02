@@ -80,3 +80,25 @@ async def delete_favorite_task(
             404, f"Favorite task with id {favorite_task_id} does not exists"
         )
     await favorite_task.delete()
+
+
+@router.get("/{favorite_task_id}", response_model=TaskFavoritePydantic)
+async def get_favorite_task(
+    favorite_task_id: str,
+):
+    favorite_task = await ttm.TaskFavorite.get_or_none(id=favorite_task_id)
+    if favorite_task is None:
+        raise HTTPException(
+            404, f"Favorite task with id {favorite_task_id} does not exists"
+        )
+    return TaskFavoritePydantic(
+        id=favorite_task.id,
+        name=favorite_task.name,
+        unix_millis_earliest_start_time=int(
+            favorite_task.unix_millis_earliest_start_time.strftime("%Y%m%d%H%M%S")
+        ),
+        priority=favorite_task.priority if favorite_task.priority else None,
+        category=favorite_task.category,
+        description=favorite_task.description if favorite_task.description else None,
+        user=favorite_task.user,
+    )
