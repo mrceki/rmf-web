@@ -34,6 +34,7 @@ import { Canvas, useLoader } from '@react-three/fiber';
 import { Line } from '@react-three/drei';
 import { CameraControl, LayersController } from './three-fiber';
 import { Lifts, Door, RobotThree } from './three-fiber';
+import { useMediaQuery } from 'react-responsive';
 
 type FleetState = ApiServerModelsRmfApiFleetStateFleetState;
 
@@ -44,7 +45,6 @@ const TrajectoryUpdateInterval = 2000;
 // of the whole app when it changes.
 const colorManager = new ColorManager();
 
-const DEFAULT_ZOOM_LEVEL = 30;
 const DEFAULT_ROBOT_SCALE = 0.003;
 
 function getRobotId(fleetName: string, robotName: string): string {
@@ -76,7 +76,8 @@ export const MapApp = styled(
 
     const [dispensers, setDispensers] = React.useState<Dispenser[]>([]);
     const [dispensersData, setDispensersData] = React.useState<WorkcellData[]>([]);
-
+    const isTablet = useMediaQuery({ query: '(max-width: 1224px) and (min-height: 500px)' });
+    const DEFAULT_ZOOM_LEVEL = isTablet ? 20 : 30;
     React.useEffect(() => {
       if (!currentLevel) {
         return;

@@ -12,6 +12,7 @@ import {
   IconButton,
   MenuItem,
   TextField,
+  useTheme,
   Theme,
 } from '@mui/material';
 import LayersIcon from '@mui/icons-material/Layers';
@@ -19,19 +20,13 @@ import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import ZoomOutIcon from '@mui/icons-material/ZoomOut';
 import { RobotData } from 'react-components';
 import { makeStyles, createStyles } from '@mui/styles';
+import { useMediaQuery } from 'react-responsive';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    inspectButton: {
-      minWidth: 100,
-      borderRadius: '20px',
-      backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#CE172D',
-      '&:hover': {
-        backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#CE172D',
-      },
-    },
     inspectText: {
       color: '#ffffff',
+      fontSize: '10px',
     },
   }),
 );
@@ -61,8 +56,9 @@ export const LayersController = ({
 }: LayersControllerProps) => {
   const [isHovered, setIsHovered] = React.useState(false);
   const classes = useStyles();
-
+  const isTablet = useMediaQuery({ query: '(max-width: 1224px) and (min-height: 500px)' });
   const robotValue = robots.length === 1 ? robots[0].name : 'Click to see';
+  const theme = useTheme();
 
   const handleRobotClick = () => {
     const RobotLocations = Object.values(robotLocations);
@@ -134,7 +130,14 @@ export const LayersController = ({
       </div>
       <div>
         <Button
-          className={classes.inspectButton}
+          sx={{
+            width: isTablet ? '80px' : '100px',
+            borderRadius: '20px',
+            backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#CE172D',
+            '&:hover': {
+              backgroundColor: theme.palette.mode === 'dark' ? '#739BD0' : '#CE172D',
+            },
+          }}
           size="small"
           onClick={handleDefaultView}
           data-testid="default-view"
