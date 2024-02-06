@@ -61,6 +61,8 @@ import { toApiSchedule } from './tasks/utils';
 import useGetUsername from '../hooks/useFetchUser';
 import CustomButton from './CustomButtonComponent';
 import AppBarTab from './CustomAppBarTab';
+import { useMediaQuery } from 'react-responsive';
+import logo from '../assets/logoTablet.png';
 
 export type TabValue = 'infrastructure' | 'robots' | 'tasks' | 'doors' | 'admin' | 'lifts' | 'logs';
 
@@ -138,6 +140,7 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
   const [alertListAnchor, setAlertListAnchor] = React.useState<HTMLElement | null>(null);
   const [unacknowledgedAlertsNum, setUnacknowledgedAlertsNum] = React.useState(0);
   const [unacknowledgedAlertList, setUnacknowledgedAlertList] = React.useState<Alert[]>([]);
+  const isTablet = useMediaQuery({ query: '(max-height: 1224px)' });
 
   const [activeButton, setActiveButton] = useState('/');
 
@@ -415,18 +418,25 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
   return (
     <div className="sideBar">
       <div className="navProps">
-        <LogoButton
-          src={brandingIconPath}
-          alt="logo"
-          sx={{ width: logoSize, marginTop: '8px' }}
-          onClick={() => navigate(DashboardRoute)}
-        />
+        {isTablet ? (
+          <img
+            src={logo}
+            alt="logo"
+            style={{ marginTop: '8px' }}
+            onClick={() => navigate(DashboardRoute)}
+          />
+        ) : (
+          <LogoButton
+            src={brandingIconPath}
+            alt="logo"
+            sx={{ width: logoSize, marginTop: '8px' }}
+            onClick={() => navigate(DashboardRoute)}
+          />
+        )}
         <CustomButton
           color={curTheme === 2 ? '#2B3C43' : '#CE172D'}
-          height="50px"
           onClick={() => setOpenCreateTaskForm(true)}
           radius="30px"
-          width="200px"
           border="none"
           title="New Task"
           property={['1rem', '1rem', '#ffffff']}
@@ -528,7 +538,7 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
         >
           {curTheme === 2 ? <ModeNight /> : <ModeNightOutlined />}
         </IconButton>
-        {profile && (
+        {/* {profile && (
           <>
             <Tooltip title="Profile">
               <IconButton
@@ -558,7 +568,7 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
               </MenuItem>
             </Menu>
           </>
-        )}
+        )} */}
       </div>
       {/* <Typography variant="caption">Altınay Robot Teknolojileri</Typography> */}
       {extraToolbarItems}

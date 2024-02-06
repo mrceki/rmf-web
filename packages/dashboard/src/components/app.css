@@ -77,3 +77,14 @@ body,
 .loader {
   margin-top: 50px;
 }
+@media (max-height: 1224px) {
+  .sideBar {
+    width: 60px;
+    margin-left: 3px;
+    justify-content: space-between;
+  }
+  .navProps {
+    display: flex;
+    flex-direction: column;
+  }
+}

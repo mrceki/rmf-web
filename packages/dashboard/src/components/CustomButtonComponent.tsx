@@ -1,15 +1,14 @@
 import { Typography } from '@mui/material';
 import React from 'react';
 import { SettingsContext } from './app-contexts';
+import { useMediaQuery } from 'react-responsive';
 
 interface Props {
   border: string;
   color: string;
   children?: React.ReactNode;
-  height: string;
   onClick: () => void;
   radius: string;
-  width: string;
   title: string;
   property: string[];
 }
@@ -18,14 +17,16 @@ const Button: React.FC<Props> = ({
   border,
   color,
   children,
-  height,
+
   onClick,
   radius,
-  width,
+
   title,
   property,
 }) => {
   const curTheme = React.useContext(SettingsContext).themeMode;
+  const isTablet = useMediaQuery({ query: '(max-height:1224px)' });
+
   return (
     <button
       onClick={onClick}
@@ -33,12 +34,11 @@ const Button: React.FC<Props> = ({
         backgroundColor: color,
         border: border,
         borderRadius: radius,
-        height,
-        width,
+        padding: '0.5rem',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        gap: '0.5rem',
+        gap: isTablet ? '0rem' : '0.5rem',
         marginTop: property[0],
         marginBottom: property[1],
         cursor: 'pointer',
@@ -59,7 +59,7 @@ const Button: React.FC<Props> = ({
           fontSize: '1.2rem',
         }}
       >
-        {title}
+        {isTablet ? null : title}
       </Typography>
     </button>
   );

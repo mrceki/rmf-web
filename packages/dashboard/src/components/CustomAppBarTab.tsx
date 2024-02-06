@@ -1,6 +1,7 @@
 import { Typography } from '@mui/material';
 import React from 'react';
 import { SettingsContext } from './app-contexts';
+import { useMediaQuery } from 'react-responsive';
 
 interface Props {
   border: string;
@@ -32,14 +33,14 @@ const AppBarTab: React.FC<Props> = ({
   activeButton,
 }) => {
   const curTheme = React.useContext(SettingsContext).themeMode;
-
+  const isTablet = useMediaQuery({ query: '(max-height: 1224px) ' });
   const isActive = id === activeButton;
 
   const handleClick = () => {
     onClick(id);
     setActiveButton(id);
   };
-
+  console.log('isTablet', isTablet);
   return (
     <button
       onClick={() => {
@@ -54,11 +55,12 @@ const AppBarTab: React.FC<Props> = ({
         // width,
         display: 'flex',
         alignItems: 'center',
-        gap: '0.5rem',
+        gap: isTablet ? '0rem' : '0.5rem',
         marginTop: property[0],
         marginBottom: property[1],
         cursor: 'pointer',
         padding: '0.5rem',
+        justifyContent: isTablet ? 'center' : 'flex-start',
       }}
       onMouseOver={(e) => {
         e.currentTarget.style.transform = 'scale(1.05)';
@@ -75,7 +77,7 @@ const AppBarTab: React.FC<Props> = ({
           fontSize: '1.1rem',
         }}
       >
-        {title}
+        {isTablet ? null : title}
       </Typography>
     </button>
   );
