@@ -40,7 +40,6 @@ const AppBarTab: React.FC<Props> = ({
     onClick(id);
     setActiveButton(id);
   };
-  console.log('isTablet', isTablet);
   return (
     <button
       onClick={() => {
