@@ -25,7 +25,7 @@ const Button: React.FC<Props> = ({
   property,
 }) => {
   const curTheme = React.useContext(SettingsContext).themeMode;
-  const isTablet = useMediaQuery({ query: '(max-height:1224px)' });
+  const isTablet = useMediaQuery({ query: '(max-width: 1224px) and (min-height: 500px)' });
 
   return (
     <button

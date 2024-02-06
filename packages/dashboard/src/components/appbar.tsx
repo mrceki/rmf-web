@@ -140,7 +140,7 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
   const [alertListAnchor, setAlertListAnchor] = React.useState<HTMLElement | null>(null);
   const [unacknowledgedAlertsNum, setUnacknowledgedAlertsNum] = React.useState(0);
   const [unacknowledgedAlertList, setUnacknowledgedAlertList] = React.useState<Alert[]>([]);
-  const isTablet = useMediaQuery({ query: '(max-height: 1224px)' });
+  const isTablet = useMediaQuery({ query: '(max-width: 1224px) and (min-height: 500px)' });
 
   const [activeButton, setActiveButton] = useState('/');
 

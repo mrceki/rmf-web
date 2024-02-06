@@ -77,7 +77,7 @@ body,
 .loader {
   margin-top: 50px;
 }
-@media (max-height: 1224px) {
+@media (max-width: 1224px) {
   .sideBar {
     width: 60px;
     margin-left: 3px;

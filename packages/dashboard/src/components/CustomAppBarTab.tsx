@@ -33,7 +33,7 @@ const AppBarTab: React.FC<Props> = ({
   activeButton,
 }) => {
   const curTheme = React.useContext(SettingsContext).themeMode;
-  const isTablet = useMediaQuery({ query: '(max-height: 1224px) ' });
+  const isTablet = useMediaQuery({ query: '(max-width: 1224px) and (min-height: 500px)' });
   const isActive = id === activeButton;
 
   const handleClick = () => {
