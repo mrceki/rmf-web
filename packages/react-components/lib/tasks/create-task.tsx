@@ -489,9 +489,15 @@ function PatrolTaskForm({ taskDesc, patrolWaypoints, onChange, allowSubmit }: Pa
           freeSolo
           fullWidth
           options={patrolWaypoints}
-          filterOptions={(options, state) =>
-            options.filter((el) => el !== taskDesc.places[taskDesc.places.length - 1])
-          }
+          getOptionLabel={(option) => option}
+          filterOptions={(options, state) => {
+            const inputValue = state.inputValue.toLowerCase();
+            return options.filter(
+              (option) =>
+                option.toLowerCase().includes(inputValue) &&
+                option !== 'Choose Robot Destination...', // Filter out the placeholder
+            );
+          }}
           onChange={(_ev, newValue) =>
             newValue !== null &&
             taskDesc.places[taskDesc.places.length - 1] !== newValue &&
@@ -500,6 +506,7 @@ function PatrolTaskForm({ taskDesc, patrolWaypoints, onChange, allowSubmit }: Pa
               places: taskDesc.places.concat(newValue).filter((el: string) => el),
             })
           }
+          filterSelectedOptions
           renderInput={(params) => (
             <TextField {...params} placeholder="Choose Robot Destination..." required={true} />
           )}
