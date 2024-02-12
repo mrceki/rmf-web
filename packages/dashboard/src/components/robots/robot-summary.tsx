@@ -204,7 +204,6 @@ export const RobotSummary = React.memo(({ onClose, robot }: RobotSummaryProps) =
       if (!allDestinations.includes(waypoints[0])) {
         allDestinations.push(waypoints[0]);
       }
-      console.log(allDestinations);
     }
   }, [taskState]);
 
