@@ -55,34 +55,26 @@ class AlertRepository:
     async def acknowledge_alert(self, alert_id: str) -> Optional[ttm.AlertPydantic]:
         alert = await ttm.Alert.get_or_none(id=alert_id)
         if alert is None:
-            acknowledged_alert = await ttm.Alert.filter(original_id=alert_id).first()
-            if acknowledged_alert is None:
-                logger.error(f"No existing or past alert with ID {alert_id} found.")
-                return None
-            acknowledged_alert_pydantic = await ttm.AlertPydantic.from_tortoise_orm(
-                acknowledged_alert
+            # If there's no alert in the database, create a new one
+            ack_time = datetime.now()
+            epoch = datetime.utcfromtimestamp(0)
+            ack_unix_millis = round((ack_time - epoch).total_seconds() * 1000)
+            new_id = f"{alert_id}__{ack_unix_millis}"
+
+            alert = ttm.Alert(id=new_id)
+            alert._custom_generated_pk = True  # pylint: disable=W0212
+        else:
+            # If an alert already exists in the database, update it
+            ack_time = datetime.now()
+            unix_millis_acknowledged_time = round(ack_time.timestamp() * 1e3)
+            alert.update_from_dict(
+                {
+                    "acknowledged_by": self.user.username,
+                    "unix_millis_acknowledged_time": unix_millis_acknowledged_time,
+                }
             )
-            return acknowledged_alert_pydantic
 
-        ack_time = datetime.now()
-        epoch = datetime.utcfromtimestamp(0)
-        ack_unix_millis = round((ack_time - epoch).total_seconds() * 1000)
-        new_id = f"{alert_id}__{ack_unix_millis}"
-
-        ack_alert = alert.clone(pk=new_id)
-        # TODO(aaronchongth): remove the following line once we bump
-        # tortoise-orm to include
-        # https://github.com/tortoise/tortoise-orm/pull/1131. This is a
-        # temporary workaround.
-        ack_alert._custom_generated_pk = True  # pylint: disable=W0212
-        unix_millis_acknowledged_time = round(ack_time.timestamp() * 1e3)
-        ack_alert.update_from_dict(
-            {
-                "acknowledged_by": self.user.username,
-                "unix_millis_acknowledged_time": unix_millis_acknowledged_time,
-            }
-        )
-        await ack_alert.save()
+        await alert.save()
 
         # Save in logs who was the user that acknowledged the task
         try:
@@ -94,9 +86,8 @@ class AlertRepository:
                 f"Error in save_log_acknowledged_task_completion {e}"
             ) from e
 
-        await alert.delete()
-        ack_alert_pydantic = await ttm.AlertPydantic.from_tortoise_orm(ack_alert)
-        return ack_alert_pydantic
+        alert_pydantic = await ttm.AlertPydantic.from_tortoise_orm(alert)
+        return alert_pydantic
 
 
 def alert_repo_dep(
