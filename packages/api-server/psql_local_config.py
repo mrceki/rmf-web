@@ -14,7 +14,7 @@ run_dir = f"{here}/run"
 
 config.update(
     {
-        "db_url": "postgres://admin:admin@127.0.0.1:5432/rmf",  # change ugurgen depending on your username and password after port/{db_name}
+        "db_url": "postgres://admin:admin@127.0.0.1:5432/dockerdb",  # change ugurgen depending on your username and password after port/{db_name}
         "cache_directory": f"{run_dir}/cache",  # The directory where cached files should be stored.
     }
 )
