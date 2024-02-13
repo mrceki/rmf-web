@@ -119,6 +119,7 @@ export interface AppBarProps {
   // service working properly in the backend
   alarmState?: boolean | null;
 }
+const ALERT_FETCH_INTERVAL_MS = 1000;
 
 export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.ReactElement => {
   const rmf = React.useContext(RmfAppContext);
@@ -265,33 +266,21 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
       return;
     }
 
-    const subs: Subscription[] = [];
-    subs.push(
-      AppEvents.refreshAlert.subscribe({
-        next: () => {
-          (async () => {
-            const resp = await rmf.alertsApi.getAlertsAlertsGet();
-            const alerts = resp.data as Alert[];
-            setUnacknowledgedAlertsNum(
-              alerts.filter(
-                (alert) => !(alert.acknowledged_by && alert.unix_millis_acknowledged_time),
-              ).length,
-            );
-          })();
-        },
-      }),
-    );
-
-    // Get the initial number of unacknowledged alerts
-    (async () => {
-      const resp = await rmf.alertsApi.getAlertsAlertsGet();
-      const alerts = resp.data as Alert[];
+    const fetchAlerts = async () => {
+      const { data: alerts } = await rmf.alertsApi.getAlertsAlertsGet();
       setUnacknowledgedAlertsNum(
         alerts.filter((alert) => !(alert.acknowledged_by && alert.unix_millis_acknowledged_time))
           .length,
       );
-    })();
-    return () => subs.forEach((s) => s.unsubscribe());
+    };
+
+    fetchAlerts();
+
+    const intervalId = setInterval(fetchAlerts, ALERT_FETCH_INTERVAL_MS);
+
+    return () => {
+      clearInterval(intervalId);
+    };
   }, [rmf]);
 
   const submitTasks = React.useCallback<Required<CreateTaskFormProps>['submitTasks']>(
