@@ -13,7 +13,7 @@ from fastapi.openapi.docs import (
     get_swagger_ui_oauth2_redirect_html,
 )
 from fastapi.staticfiles import StaticFiles
-from tortoise import Tortoise
+from motor.motor_asyncio import AsyncIOMotorClient
 
 from . import gateway, ros, routes
 from .app_config import app_config
@@ -51,13 +51,16 @@ async def on_sio_connect(sid: str, _environ: dict, auth: Optional[dict] = None):
         return False
 
 
+async def connect_to_mongodb():
+    return AsyncIOMotorClient(app_config.db_url)
+
+
 app = FastIO(
     title="RMF API Server",
     socketio_connect=on_sio_connect,
     docs_url=None,
     redoc_url=None,
 )
-
 
 app.add_middleware(
     CORSMiddleware,
@@ -82,7 +85,6 @@ app.mount(
     name="cache",
 )
 
-# will be called in reverse order on app shutdown
 shutdown_cbs: List[Union[Coroutine[Any, Any, Any], Callable[[], None]]] = []
 
 rmf_bookkeeper = RmfBookKeeper(rmf_events, logger=logger.getChild("BookKeeper"))
@@ -134,23 +136,11 @@ app.include_router(routes.internal_router, prefix="/_internal")
 @app.on_event("startup")
 async def on_startup():
     loop = asyncio.get_event_loop()
-
-    await Tortoise.init(
-        db_url=app_config.db_url,
-        modules={"models": ["api_server.models.tortoise_models"]},
-    )
-    # FIXME: do this outside the app as recommended by the docs
-    await Tortoise.generate_schemas()
-    shutdown_cbs.append(Tortoise.close_connections())
-
     ros.startup()
     shutdown_cbs.append(ros.shutdown)
 
     gateway.startup()
 
-    # shutdown event is not called when the app crashes, this can cause the app to be
-    # "locked up" as some dependencies like tortoise does not allow python to exit until
-    # it is closed "gracefully".
     def on_signal(sig, frame):
         task = loop.create_task(on_shutdown())
         if not loop.is_running():
@@ -168,13 +158,9 @@ async def on_startup():
         {"is_admin": True}, username=app_config.builtin_admin
     )
 
-    # Order is important here
-    # 1. load states from db, this populate the sio/fast_io rooms with the latest data
-    await _load_states()
+    mongo_client = await connect_to_mongodb()
 
-    # 2. start the services after loading states so that the loaded states are not
-    # used. Failing to do so will cause for example, book keeper to save the loaded states
-    # back into the db and mess up health watchdog's heartbeat system.
+    await _load_states()
 
     await rmf_bookkeeper.start()
     shutdown_cbs.append(rmf_bookkeeper.stop())

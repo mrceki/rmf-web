@@ -5,7 +5,7 @@ config = {
     "host": "127.0.0.1",
     # port to bind to, this only applies when running the server in standalone mode.
     "port": 8000,
-    "db_url": "postgres://admin:admin@127.0.0.1:5432/dockerdb",
+    "db_url": "mongodb://admin:admin@localhost:27017/rmf",
     # url that rmf-server is being served on.
     # When being a proxy, this must be the url that rmf-server is mounted on.
     # E.g. https://example.com/rmf/api/v1
