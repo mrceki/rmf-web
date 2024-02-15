@@ -495,7 +495,8 @@ function PatrolTaskForm({ taskDesc, patrolWaypoints, onChange, allowSubmit }: Pa
             return options.filter(
               (option) =>
                 option.toLowerCase().includes(inputValue) &&
-                option !== 'Choose Robot Destination...', // Filter out the placeholder
+                option !== 'Choose Robot Destination...' &&
+                taskDesc.places[taskDesc.places.length - 1] !== option, // Filter out the placeholder
             );
           }}
           onChange={(_ev, newValue) =>
