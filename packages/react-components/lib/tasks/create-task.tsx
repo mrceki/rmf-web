@@ -1122,6 +1122,7 @@ export function CreateTaskForm({
                                 priority: favoriteTask.priority,
                               },
                             ]);
+                            setFormFullyFilled(true);
                           }}
                         />
                       ))}
