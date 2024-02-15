@@ -12,6 +12,7 @@ import * as React from 'react';
 import { Status2 } from 'api-client';
 import { RobotTableData } from './robot-table';
 import { robotStatusToUpperCase } from './utils';
+import { useTranslation } from 'react-i18next';
 
 export interface RobotDataGridTableProps {
   onRobotClick?(ev: MuiEvent<React.MouseEvent<HTMLElement>>, robotName: RobotTableData): void;
@@ -71,11 +72,11 @@ export function RobotDataGridTable({ onRobotClick, robots }: RobotDataGridTableP
       </Box>
     );
   };
-
+  const { t } = useTranslation();
   const columns: GridColDef[] = [
     {
       field: 'name',
-      headerName: 'Name',
+      headerName: t('Name'),
       width: 150,
       editable: false,
       valueGetter: (params: GridValueGetterParams) => params.row.name,

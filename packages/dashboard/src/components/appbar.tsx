@@ -63,6 +63,8 @@ import CustomButton from './CustomButtonComponent';
 import AppBarTab from './CustomAppBarTab';
 import { useMediaQuery } from 'react-responsive';
 import logo from '../assets/logoTablet.png';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './languageSwitch';
 
 export type TabValue = 'infrastructure' | 'robots' | 'tasks' | 'doors' | 'admin' | 'lifts' | 'logs';
 
@@ -146,7 +148,7 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
   const [activeButton, setActiveButton] = useState('/');
 
   const curTheme = React.useContext(SettingsContext).themeMode;
-
+  const { t } = useTranslation();
   const AppBarTabs = [
     {
       id: '/',
@@ -158,7 +160,7 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
       // height: '50px',
       // width: '200px',
       border: 'none',
-      title: 'Maps',
+      title: t('map'),
       property: ['1rem', '0rem', '#000000de'],
       icon: <MapOutlined sx={{ color: curTheme === 2 ? '#ffffff' : '#000000' }} fontSize="large" />,
     },
@@ -454,6 +456,7 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
             {tab.icon}
           </AppBarTab>
         ))}
+        <LanguageSwitcher />
       </div>
       <div className="bottomDiv">
         <IconButton
