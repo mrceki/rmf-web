@@ -65,7 +65,7 @@
     "date-fns": "^2.21.3",
     "debug": "^4.2.0",
     "eventemitter3": "^4.0.7",
-    "i18next": "^23.8.2",
+    "i18next": "^23.9.0",
     "keycloak-js": "^11.0.2",
     "leaflet": "^1.7.1",
     "node-vibrant": "^3.1.6",

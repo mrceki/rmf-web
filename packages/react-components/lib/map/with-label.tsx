@@ -31,7 +31,7 @@ export const withLabel =
     return (
       <g>
         <>
-          <Component {...(componentProps as unknown as P)} />
+          <Component extends {...(componentProps as unknown as P)} />
           {!hideLabel &&
             labelsPortal &&
             ReactDOM.createPortal(
