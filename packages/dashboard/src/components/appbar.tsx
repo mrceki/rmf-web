@@ -87,14 +87,15 @@ const locationToTabValue = (pathname: string): TabValue | undefined => {
 function AppSettings() {
   const settings = React.useContext(SettingsContext);
   const appController = React.useContext(AppControllerContext);
+  const { t } = useTranslation();
   return (
     <FormControl>
-      <FormLabel id="theme-label">Theme</FormLabel>
+      <FormLabel id="theme-label">{t('theme')}</FormLabel>
       <RadioGroup row aria-labelledby="theme-label">
         <FormControlLabel
           value={ThemeMode.Default}
           control={<Radio />}
-          label="Light Mode"
+          label={t('lightMode')}
           checked={settings.themeMode === ThemeMode.RmfLight}
           onChange={() =>
             appController.updateSettings({ ...settings, themeMode: ThemeMode.RmfLight })
@@ -103,7 +104,7 @@ function AppSettings() {
         <FormControlLabel
           value={ThemeMode.RmfDark}
           control={<Radio />}
-          label="Dark Mode"
+          label={t('darkMode')}
           checked={settings.themeMode === ThemeMode.RmfDark}
           onChange={() =>
             appController.updateSettings({ ...settings, themeMode: ThemeMode.RmfDark })
@@ -174,7 +175,7 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
       // height: '50px',
       // width: '200px',
       border: 'none',
-      title: 'Robots and Tasks',
+      title: t('robotsandTasks'),
       property: ['0.5rem', '0rem', '#000000de'],
       icon: (
         <SmartToyOutlined sx={{ color: curTheme === 2 ? '#ffffff' : '#000000' }} fontSize="large" />
@@ -190,7 +191,7 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
       // height: '50px',
       // width: '200px',
       border: 'none',
-      title: 'Doors and Lifts',
+      title: t('doorsandLifts'),
       property: ['0.5rem', '0rem', '#000000de'],
       icon: (
         <SensorDoorOutlined
@@ -209,7 +210,7 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
       // height: '50px',
       // width: '200px',
       border: 'none',
-      title: 'Task History',
+      title: t('history'),
       property: ['0.5rem', '0rem', '#000000de'],
       icon: <TaskAlt sx={{ color: curTheme === 2 ? '#ffffff' : '#000000' }} fontSize="large" />,
     },
@@ -429,7 +430,7 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
           onClick={() => setOpenCreateTaskForm(true)}
           radius="30px"
           border="none"
-          title="New Task"
+          title={t('newTask')}
           property={['1rem', '1rem', '#ffffff']}
         >
           {curTheme === 2 ? (
@@ -485,7 +486,7 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
           {unacknowledgedAlertList.length === 0 ? (
             <MenuItem dense disabled>
               <Typography variant="body2" noWrap>
-                No unacknowledged alerts
+                {t('noUnackALert')}
               </Typography>
             </MenuItem>
           ) : (

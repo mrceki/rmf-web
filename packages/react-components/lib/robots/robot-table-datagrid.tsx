@@ -76,7 +76,7 @@ export function RobotDataGridTable({ onRobotClick, robots }: RobotDataGridTableP
   const columns: GridColDef[] = [
     {
       field: 'name',
-      headerName: t('Name'),
+      headerName: t('name'),
       width: 150,
       editable: false,
       valueGetter: (params: GridValueGetterParams) => params.row.name,
@@ -85,7 +85,7 @@ export function RobotDataGridTable({ onRobotClick, robots }: RobotDataGridTableP
     },
     {
       field: 'fleet',
-      headerName: 'Fleet',
+      headerName: t('fleet'),
       width: 90,
       valueGetter: (params: GridValueGetterParams) => params.row.fleet,
       flex: 1,
@@ -93,7 +93,7 @@ export function RobotDataGridTable({ onRobotClick, robots }: RobotDataGridTableP
     },
     {
       field: 'estFinishTime',
-      headerName: 'Est. Task Finish Time',
+      headerName: t('estFinishTime'),
       width: 150,
       editable: false,
       valueGetter: (params: GridValueGetterParams) =>
@@ -103,7 +103,7 @@ export function RobotDataGridTable({ onRobotClick, robots }: RobotDataGridTableP
     },
     {
       field: 'level',
-      headerName: 'Level',
+      headerName: t('level'),
       width: 150,
       editable: false,
       valueGetter: (params: GridValueGetterParams) => params.row.level,
@@ -112,7 +112,7 @@ export function RobotDataGridTable({ onRobotClick, robots }: RobotDataGridTableP
     },
     {
       field: 'battery',
-      headerName: 'Battery',
+      headerName: t('battery'),
       width: 150,
       editable: false,
       valueGetter: (params: GridValueGetterParams) => `${params.row.battery * 100}%`,
@@ -121,7 +121,7 @@ export function RobotDataGridTable({ onRobotClick, robots }: RobotDataGridTableP
     },
     {
       field: 'lastUpdateTime',
-      headerName: 'Last Updated',
+      headerName: t('lastUpdated'),
       width: 150,
       editable: false,
       valueGetter: (params: GridValueGetterParams) =>
@@ -131,7 +131,7 @@ export function RobotDataGridTable({ onRobotClick, robots }: RobotDataGridTableP
     },
     {
       field: 'status',
-      headerName: 'Status',
+      headerName: t('status'),
       editable: false,
       flex: 1,
       renderCell: Status,

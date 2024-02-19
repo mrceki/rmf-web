@@ -1,3 +1,67 @@
 {
-    "map": "map"
-  }
+  "map": "Maps",
+  "name": "Robot Name",
+  "robotsandTasks": "Robots and Tasks",
+  "doorsandLifts": "Doors and Lifts",
+  "history": "Task History",
+  "newTask": "New Task",
+  "noUnackALert": "No unacknowledged alerts",
+  "robots": "Robots",
+  "fleet": "Fleet",
+  "estFinishTime": "Est. Task Finish Time",
+  "level": "Level",
+  "battery": "Battery",
+  "lastUpdated": "Last Updated",
+  "status": "Status",
+  "date": "Date",
+  "requester": "Requester",
+  "id": "ID",
+  "category": "Category",
+  "assignee": "Assignee",
+  "startTime": "Start Time",
+  "endTime": "End Time",
+  "createTask": "Create Task",
+  "favoriteTasks": "Favorite Tasks",
+  "taskCategory": "Task Category",
+  "priority": "Priority",
+  "destination": "Destination:",
+  "rounds": "Rounds",
+  "chooseDestination": "Choose Robot Destination",
+  "noDestination": "No Destination found for Robot",
+  "saveFavTask": "Save as a Favorite Task",
+  "cancel": "Cancel",
+  "addToSchedule": "Add to Schedule",
+  "submitNow": "Submit Now",
+  "selectFile": "Select File",
+  "editSchedule": "Edit Schedule",
+  "confirmEdits": "Confirm Edits",
+  "submitText": "Submit",
+  "taskSummary": "Task Summary",
+  "taskStatus": "Task Status: ",
+  "currentPhase": "Current Phase: ",
+  "inspectTask": "Inspect Task",
+  "delete": "Delete",
+  "save": "Save",
+  "confirmDelete": "Confirm Delete",
+  "favTask": "Favorite Task",
+  "placeName": "Place Name: ",
+  "robotSummary": "Robot Summary: ",
+  "assignedTasks": "Assigned Tasks: ",
+  "robotDestinations": "Robot Destination: ",
+  "robotLastLocation": "Robot Last Location: ",
+  "queue": "Queue",
+  "schedule": "Schedule",
+  "theme": "Theme",
+  "lightMode": "Light Mode",
+  "darkMode": "Dark Mode"
+
+
+
+
+
+
+
+
+
+
+}

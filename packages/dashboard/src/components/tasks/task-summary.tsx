@@ -18,6 +18,7 @@ import { makeStyles, createStyles } from '@mui/styles';
 import { Status, TaskState } from 'api-client';
 import { TaskInspector } from './task-inspector';
 import { RmfAppContext } from '../rmf-app';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -64,7 +65,7 @@ export interface TaskSummaryProps {
 export const TaskSummary = React.memo((props: TaskSummaryProps) => {
   const classes = useStyles();
   const rmf = React.useContext(RmfAppContext);
-
+  const { t } = useTranslation();
   const { onClose, task } = props;
 
   const [openTaskDetailsLogs, setOpenTaskDetailsLogs] = React.useState(false);
@@ -121,11 +122,11 @@ export const TaskSummary = React.memo((props: TaskSummaryProps) => {
   const returnDialogContent = () => {
     const contents = [
       {
-        title: 'ID',
+        title: t('id'),
         value: taskState ? taskState.booking.id : 'Invalid task state.',
       },
       {
-        title: 'Current phase',
+        title: t('currentPhase'),
         value: taskState ? getTaskPhaseDetails(taskState) : 'Invalid task state.',
       },
     ];
@@ -174,7 +175,7 @@ export const TaskSummary = React.memo((props: TaskSummaryProps) => {
     >
       <span className="spanDiv">
         <DialogTitle align="center" className={classes.taskText}>
-          Task Summary
+          {t('taskSummary')}
         </DialogTitle>
         <div>
           <IconButton
@@ -191,7 +192,9 @@ export const TaskSummary = React.memo((props: TaskSummaryProps) => {
       </span>
       {taskState?.status === 'underway' || taskState?.status === 'completed' ? (
         <DialogTitle align="center" className={classes.taskText}>
-          <span>Task Status : {taskState?.status}</span>
+          <span>
+            {t('taskStatus')} {taskState?.status}
+          </span>
         </DialogTitle>
       ) : (
         <></>
@@ -210,7 +213,7 @@ export const TaskSummary = React.memo((props: TaskSummaryProps) => {
           onClick={() => setOpenTaskDetailsLogs(true)}
           autoFocus
         >
-          <span className={classes.inspectText}>Inspect Task</span>
+          <span className={classes.inspectText}>{t('inspectTask')}</span>
         </Button>
       </DialogActions>
       {openTaskDetailsLogs && (

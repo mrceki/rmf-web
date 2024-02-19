@@ -15,6 +15,7 @@ import { styled, TextField, Stack, Typography, Tooltip } from '@mui/material';
 import * as React from 'react';
 import { TaskState, Status } from 'api-client';
 import { InsertInvitation as ScheduleIcon, Person as UserIcon } from '@mui/icons-material/';
+import { useTranslation } from 'react-i18next';
 
 const classes = {
   taskActiveCell: 'MuiDataGrid-cell-active-cell',
@@ -110,7 +111,6 @@ const TaskRequester = (requester: string | null): JSX.Element => {
     </Stack>
   );
 };
-
 export function TaskDataGridTable({
   tasks,
   onTaskClick,
@@ -136,11 +136,12 @@ export function TaskDataGridTable({
   const getMinimalDateOperators = getGridDateOperators(true).filter(
     (operator) => operator.value === 'onOrAfter' || operator.value === 'onOrBefore',
   );
+  const { t } = useTranslation();
 
   const columns: GridColDef[] = [
     {
       field: 'unix_millis_request_time',
-      headerName: 'Date',
+      headerName: t('date'),
       width: 150,
       editable: false,
       renderCell: (cellValues) => {
@@ -165,7 +166,7 @@ export function TaskDataGridTable({
     },
     {
       field: 'requester',
-      headerName: 'Requester',
+      headerName: t('requester'),
       minWidth: 160,
       editable: false,
       renderCell: (cellValues) => TaskRequester(cellValues.row.booking.requester),
@@ -175,7 +176,7 @@ export function TaskDataGridTable({
     },
     {
       field: 'id_',
-      headerName: 'ID',
+      headerName: t('id'),
       width: 90,
       valueGetter: (params: GridValueGetterParams) => params.row.booking.id,
       flex: 1,
@@ -184,7 +185,7 @@ export function TaskDataGridTable({
     },
     {
       field: 'category',
-      headerName: 'Category',
+      headerName: t('category'),
       width: 150,
       editable: false,
       valueGetter: (params: GridValueGetterParams) =>
@@ -195,7 +196,7 @@ export function TaskDataGridTable({
     },
     {
       field: 'assigned_to',
-      headerName: 'Assignee',
+      headerName: t('assignee'),
       width: 150,
       editable: false,
       valueGetter: (params: GridValueGetterParams) =>
@@ -206,7 +207,7 @@ export function TaskDataGridTable({
     },
     {
       field: 'unix_millis_start_time',
-      headerName: 'Start Time',
+      headerName: t('startTime'),
       width: 150,
       editable: false,
       renderCell: (cellValues) => {
@@ -229,7 +230,7 @@ export function TaskDataGridTable({
     },
     {
       field: 'unix_millis_finish_time',
-      headerName: 'End Time',
+      headerName: t('endTime'),
       width: 150,
       editable: false,
       renderCell: (cellValues) => {
@@ -252,7 +253,7 @@ export function TaskDataGridTable({
     },
     {
       field: 'status',
-      headerName: 'State',
+      headerName: t('status'),
       editable: false,
       valueGetter: (params: GridValueGetterParams) =>
         params.row.status ? params.row.status : 'unknown',

@@ -38,6 +38,7 @@ import { useCreateTaskFormData } from '../../hooks/useCreateTaskForm';
 import { TaskFavoritePydantic as TaskFavorite, TaskRequest } from 'api-client';
 import { toApiSchedule, parseTasksFile } from '../tasks/utils';
 import { AppControllerContext } from '../app-contexts';
+import { useTranslation } from 'react-i18next';
 
 const RefreshTaskQueueTableInterval = 5000;
 
@@ -107,7 +108,7 @@ export const TasksApp = React.memo(
       });
       const [filterFields, setFilterFields] = React.useState<FilterFields>({ model: undefined });
       const [sortFields, setSortFields] = React.useState<SortFields>({ model: undefined });
-
+      const { t } = useTranslation();
       React.useEffect(() => {
         const sub = AppEvents.refreshTaskApp.subscribe({
           next: () => {
@@ -440,12 +441,12 @@ export const TasksApp = React.memo(
         >
           <Tabs value={selectedPanelIndex} onChange={handlePanelChange} aria-label="Task App Tabs">
             <Tab
-              label="Queue"
+              label={t('queue')}
               id={tabId(TaskTablePanel.QueueTable)}
               aria-controls={tabPanelId(TaskTablePanel.QueueTable)}
             />
             <Tab
-              label="Schedule"
+              label={t('schedule')}
               id={tabId(TaskTablePanel.Schedule)}
               aria-controls={tabPanelId(TaskTablePanel.Schedule)}
             />

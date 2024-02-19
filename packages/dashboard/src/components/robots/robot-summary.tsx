@@ -33,6 +33,7 @@ import {
   BatteryUnknown,
   Close as CloseIcon,
 } from '@mui/icons-material';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -106,7 +107,7 @@ export const allDestinations: string[] = [];
 export const RobotSummary = React.memo(({ onClose, robot }: RobotSummaryProps) => {
   const classes = useStyles();
   const rmf = React.useContext(RmfAppContext);
-
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = React.useState(true);
   const [robotState, setRobotState] = React.useState<RobotState | null>(null);
   const [taskState, setTaskState] = React.useState<TaskState | null>(null);
@@ -210,30 +211,30 @@ export const RobotSummary = React.memo(({ onClose, robot }: RobotSummaryProps) =
   const returnDialogContent = () => {
     const contents = [
       {
-        title: 'Assigned tasks',
+        title: t('assignedTasks'),
         value: taskState ? taskState.booking.id : 'No task',
       },
       {
-        title: 'Est. end time',
+        title: t('estFinishTime'),
         value: taskState?.unix_millis_finish_time
           ? `${new Date(taskState?.unix_millis_finish_time).toLocaleString()}`
           : '-',
       },
       {
-        title: 'Status',
+        title: t('status'),
         value: robotState?.status ? robotState?.status : '-',
       },
     ];
 
     if (taskState) {
       contents.push({
-        title: 'Robot Destination',
+        title: t('robotDestinations'),
         value: navigationDestination ? navigationDestination : '-',
       });
     }
     if (!taskState?.active) {
       contents.push({
-        title: 'Robot Last Location',
+        title: t('robotLastLocation'),
         value: allDestinations[allDestinations.length - 1]
           ? allDestinations[allDestinations.length - 1]
           : '-',
@@ -292,7 +293,7 @@ export const RobotSummary = React.memo(({ onClose, robot }: RobotSummaryProps) =
         </span>
         <span className="dialogTitle">
           <DialogTitle align="center" className={classes.robotText}>
-            Robot summary: {robotState?.name}
+            {t('robotSummary')} {robotState?.name}
           </DialogTitle>
         </span>
         <IconButton

@@ -40,6 +40,7 @@ import React from 'react';
 import { Loading } from '..';
 import { ConfirmationDialog, ConfirmationDialogProps } from '../confirmation-dialog';
 import { PositiveIntField } from '../form-inputs';
+import { useTranslation } from 'react-i18next';
 
 // A bunch of manually defined descriptions to avoid using `any`.
 interface Payload {
@@ -224,6 +225,8 @@ interface FormToolbarProps {
 }
 
 function FormToolbar({ onSelectFileClick }: FormToolbarProps) {
+  const { t } = useTranslation();
+
   return (
     <Button
       aria-label="Select File"
@@ -238,7 +241,7 @@ function FormToolbar({ onSelectFileClick }: FormToolbarProps) {
           color: '#ffffff',
         }}
       >
-        Select File
+        {t('selectFile')}
       </Typography>
     </Button>
   );
@@ -429,6 +432,7 @@ interface PlaceListProps {
 }
 
 function PlaceList({ places, onClick }: PlaceListProps) {
+  const { t } = useTranslation();
   const theme = useTheme();
   return (
     <List
@@ -441,7 +445,7 @@ function PlaceList({ places, onClick }: PlaceListProps) {
     >
       {places.length === 0 ? (
         <ListItem>
-          <ListItemText primary="No destination found for Robot" />
+          <ListItemText primary={t('noDestination')} />
         </ListItem>
       ) : (
         places.map((value, index) => (
@@ -456,7 +460,7 @@ function PlaceList({ places, onClick }: PlaceListProps) {
             <ListItemIcon>
               <PlaceOutlined />
             </ListItemIcon>
-            <ListItemText primary={`Place Name:   ${value}`} />
+            <ListItemText primary={`${t('placeName')}   ${value}`} />
           </ListItem>
         ))
       )}
@@ -477,12 +481,12 @@ function PatrolTaskForm({ taskDesc, patrolWaypoints, onChange, allowSubmit }: Pa
     allowSubmit(isPatrolTaskDescriptionValid(desc));
     onChange(desc);
   };
-
+  const { t } = useTranslation();
   return (
     <Grid container spacing={theme.spacing(2)} justifyContent="center" alignItems="center">
       <Grid item xs={10}>
         <Typography variant="body2" fontWeight="bold">
-          Destination:
+          {t('destination')}
         </Typography>
         <Autocomplete
           id="place-input"
@@ -509,13 +513,13 @@ function PatrolTaskForm({ taskDesc, patrolWaypoints, onChange, allowSubmit }: Pa
           }
           filterSelectedOptions
           renderInput={(params) => (
-            <TextField {...params} placeholder="Choose Robot Destination..." required={true} />
+            <TextField {...params} placeholder={t('chooseDestination')} required={true} />
           )}
         />
       </Grid>
       <Grid item xs={2}>
         <Typography variant="body2" fontWeight="bold">
-          Rounds
+          {t('rounds')}
         </Typography>
         <PositiveIntField
           InputProps={{ className: classes.textField }}
@@ -820,9 +824,9 @@ export function CreateTaskForm({
   ...otherProps
 }: CreateTaskFormProps): JSX.Element {
   const theme = useTheme();
+  const { t } = useTranslation();
 
   const taskCategoryPickerRef = React.useRef<HTMLInputElement>(null);
-
   //const favouriteTaskPickerRef = React.useRef(null);
 
   const [openFavoriteDialog, setOpenFavoriteDialog] = React.useState(false);
@@ -1057,8 +1061,6 @@ export function CreateTaskForm({
     })();
   };
 
-  const submitText = taskRequests.length > 1 ? 'Submit All Now' : 'Submit Now';
-
   // if the value of favoriteTaskBuffername is in the list of favorite tasks, then set the favoriteTaskExist to true
   React.useEffect(() => {
     setFavoriteTaskExist(
@@ -1071,7 +1073,7 @@ export function CreateTaskForm({
         PaperProps={{
           className: classes.createTaskForm,
         }}
-        title="Create Task"
+        title={t('createTask')}
         maxWidth="lg"
         disableEnforceFocus
         {...otherProps}
@@ -1086,7 +1088,7 @@ export function CreateTaskForm({
             <div>
               <DialogTitle>
                 <div className={classes.titleDiv}>
-                  <span className={classes.title}>Create Task</span>
+                  <span className={classes.title}>{t('createTask')}</span>
                   <div className={classes.titleEndDiv}>
                     <FormToolbar onSelectFileClick={handleSelectFileClick} />
                     <IconButton onClick={(ev) => onClose && onClose(ev, 'escapeKeyDown')}>
@@ -1101,7 +1103,7 @@ export function CreateTaskForm({
                 <Grid container direction="row" wrap="nowrap">
                   <div className="">
                     <Typography variant="h6" component="div">
-                      Favorite tasks
+                      {t('favoriteTasks')}
                     </Typography>
                     <List>
                       {favoritesTasks.map((favoriteTask, index) => (
@@ -1139,7 +1141,7 @@ export function CreateTaskForm({
                     <div className={classes.dialogContent}>
                       <div className="" id="menu-items" ref={taskCategoryPickerRef}>
                         <Typography variant="body2" fontWeight="bold">
-                          Task Category
+                          {t('taskCategory')}
                         </Typography>
                         <TextField
                           select
@@ -1193,7 +1195,7 @@ export function CreateTaskForm({
                       <div className={classes.contentDiv}>
                         <div className={classes.dateDiv} id="time-arrange-div">
                           <Typography variant="body2" fontWeight="bold">
-                            Start Time
+                            {t('startTime')}
                           </Typography>
                           <DateTimePicker
                             inputFormat={'MM/dd/yyyy HH:mm'}
@@ -1219,7 +1221,7 @@ export function CreateTaskForm({
                         </div>
                         <div className={classes.priority} id="priority-div">
                           <Typography variant="body2" fontWeight="bold" ml={1}>
-                            Priority
+                            {t('priority')}
                           </Typography>
                           <PositiveIntField
                             InputProps={{ className: classes.textField }}
@@ -1262,7 +1264,7 @@ export function CreateTaskForm({
                             fontWeight: 'bold',
                           }}
                         >
-                          {callToUpdateFavoriteTask ? `Confirm edits` : 'Save as a favorite task'}
+                          {callToUpdateFavoriteTask ? t('confirmEdits') : t('saveFavTask')}
                         </Typography>
                       </Button>
                     </Grid>
@@ -1308,7 +1310,7 @@ export function CreateTaskForm({
                       fontWeight: 'bold',
                     }}
                   >
-                    {taskRequests.length > 1 ? 'Cancel All' : 'Cancel'}
+                    {t('cancel')}
                   </Typography>
                 </Button>
                 <Button
@@ -1325,7 +1327,7 @@ export function CreateTaskForm({
                       fontWeight: 'bold',
                     }}
                   >
-                    {scheduleToEdit ? 'Edit schedule' : 'Add to Schedule'}
+                    {scheduleToEdit ? t('editSchedule') : t('addToSchedule')}
                   </Typography>
                 </Button>
                 <Button
@@ -1333,7 +1335,7 @@ export function CreateTaskForm({
                   type="submit"
                   disabled={submitting || !formFullyFilled || scheduleToEdit !== undefined}
                   className={classes.actionBtn}
-                  aria-label={submitText}
+                  aria-label={'Submit'}
                   onClick={handleSubmitNow}
                 >
                   <Loading hideChildren loading={submitting} size="1.5em" color="inherit">
@@ -1344,7 +1346,7 @@ export function CreateTaskForm({
                         fontWeight: 'bold',
                       }}
                     >
-                      {submitText}
+                      {t('submitText')}
                     </Typography>
                   </Loading>
                 </Button>
@@ -1355,10 +1357,10 @@ export function CreateTaskForm({
       </StyledDialog>
       {openFavoriteDialog && (
         <ConfirmationDialog
-          confirmText={callToDeleteFavoriteTask ? 'Delete' : 'Save'}
+          confirmText={callToDeleteFavoriteTask ? t('delete') : t('save')}
           cancelText="Back"
           open={openFavoriteDialog}
-          title={callToDeleteFavoriteTask ? 'Confirm Delete' : 'Favorite Task'}
+          title={callToDeleteFavoriteTask ? t('confirmDelete') : t('favTask')}
           submitting={callToDeleteFavoriteTask ? deletingFavoriteTask : savingFavoriteTask}
           onClose={() => {
             setOpenFavoriteDialog(false);
