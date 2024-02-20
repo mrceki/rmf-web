@@ -12,6 +12,7 @@ import { RmfAppContext } from '../rmf-app';
 import { AlertContent, AlertDialog } from 'react-components';
 import { base } from 'react-components';
 import { TaskInspector } from './task-inspector';
+import { useTranslation } from 'react-i18next';
 
 type Alert = ApiServerModelsTortoiseModelsAlertsAlertLeaf;
 
@@ -29,6 +30,7 @@ export interface TaskAlertDialogProps {
 }
 
 export function TaskAlertDialog({ alert, removeAlert }: TaskAlertDialogProps): JSX.Element {
+  const { t } = useTranslation();
   const getErrorLogEntries = (logs: TaskEventLog) => {
     let errorLogs: LogEntry[] = [];
     if (logs.log) {
@@ -52,12 +54,12 @@ export function TaskAlertDialog({ alert, removeAlert }: TaskAlertDialogProps): J
 
   const getAlertTitle = (state: TaskState, errorLogEntries: LogEntry[]) => {
     if (state.status && state.status === Status.Completed) {
-      return 'Task completed';
+      return t('taskCompleted');
     }
     if (errorLogEntries.length !== 0) {
-      return 'Task error';
+      return t('taskError');
     }
-    return 'Task alert';
+    return t('taskAlert');
   };
 
   const getTaskProgress = (state: TaskState) => {
@@ -78,7 +80,7 @@ export function TaskAlertDialog({ alert, removeAlert }: TaskAlertDialogProps): J
     // First field to be the taks ID
     let content: AlertContent[] = [
       {
-        title: 'ID',
+        title: t('id'),
         value: state.booking.id,
       },
     ];
@@ -96,7 +98,7 @@ export function TaskAlertDialog({ alert, removeAlert }: TaskAlertDialogProps): J
       content = [
         ...content,
         {
-          title: 'Error logs',
+          title: t('errorLogs'),
           value: consolidatedErrorMessages,
         },
       ];
@@ -112,8 +114,8 @@ export function TaskAlertDialog({ alert, removeAlert }: TaskAlertDialogProps): J
       content = [
         ...content,
         {
-          title: 'Logs',
-          value: `${completionTimeString}Task completed!`,
+          title: t('logs'),
+          value: `${completionTimeString}${t('taskCompleted')}`,
         },
       ];
     }

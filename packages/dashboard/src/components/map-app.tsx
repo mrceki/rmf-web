@@ -234,7 +234,7 @@ export const MapApp = styled(
         setZoom(currentValue ?? DEFAULT_ZOOM_LEVEL);
       });
       return () => sub.unsubscribe();
-    }, []);
+    }, [DEFAULT_ZOOM_LEVEL]);
 
     React.useEffect(() => {
       const sub = AppEvents.levelSelect.subscribe((currentValue) => {

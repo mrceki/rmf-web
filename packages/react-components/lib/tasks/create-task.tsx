@@ -1375,7 +1375,7 @@ export function CreateTaskForm({
               onChange={(e) =>
                 setFavoriteTaskBuffer({ ...favoriteTaskBuffer, name: e.target.value })
               }
-              helperText="Required"
+              helperText={t('reqired')}
               error={favoriteTaskTitleError}
             />
           )}
@@ -1383,11 +1383,11 @@ export function CreateTaskForm({
             !callToDeleteFavoriteTask &&
             !callToUpdateFavoriteTask && (
               <Typography color="error" fontWeight="bold">
-                Favorite Task already exists
+                {t('favTaskExists')}
               </Typography>
             )}
           {callToDeleteFavoriteTask && (
-            <Typography>{`Are you sure you want to delete "${favoriteTaskBuffer.name}"?`}</Typography>
+            <Typography>{`${t('sureToDelete')} "${favoriteTaskBuffer.name}"?`}</Typography>
           )}
         </ConfirmationDialog>
       )}

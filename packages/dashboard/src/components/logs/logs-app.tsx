@@ -41,6 +41,7 @@ import {
 } from 'api-client';
 import { toApiSchedule, parseTasksFile } from '../tasks/utils';
 import { AppControllerContext } from '../app-contexts';
+import { useTranslation } from 'react-i18next';
 
 const RefreshTaskQueueTableInterval = 5000;
 
@@ -111,7 +112,7 @@ export const LogsApp = React.memo(
       const [filterFields, setFilterFields] = React.useState<FilterFields>({ model: undefined });
       const [sortFields, setSortFields] = React.useState<SortFields>({ model: undefined });
       const curTheme = React.useContext(SettingsContext).themeMode;
-
+      const { t } = useTranslation();
       React.useEffect(() => {
         const sub = AppEvents.refreshTaskApp.subscribe({
           next: () => {
@@ -450,13 +451,13 @@ export const LogsApp = React.memo(
         >
           <Tabs value={selectedPanelIndex} onChange={handlePanelChange} aria-label="Task App Tabs">
             <Tab
-              label="Queue"
+              label={t('queue')}
               sx={{ color: curTheme === 2 ? '#ffffff' : '#CE172D' }}
               id={tabId(TaskTablePanel.QueueTable)}
               aria-controls={tabPanelId(TaskTablePanel.QueueTable)}
             />
             <Tab
-              label="Schedule"
+              label={t('schedule')}
               sx={{ color: curTheme === 2 ? '#ffffff' : '#CE172D' }}
               id={tabId(TaskTablePanel.Schedule)}
               aria-controls={tabPanelId(TaskTablePanel.Schedule)}
@@ -505,23 +506,23 @@ export const LogsApp = React.memo(
               tasksFromFile={tasksFromFile}
               onSuccess={() => {
                 setOpenCreateTaskForm(false);
-                showAlert('success', 'Successfully created task');
+                showAlert('success', t('succesfullyCreated'));
               }}
               onFail={(e) => {
-                showAlert('error', `Failed to create task: ${e.message}`);
+                showAlert('error', `${t('failedTaskCreation')} ${e.message}`);
               }}
               onSuccessFavoriteTask={(message) => {
                 showAlert('success', message);
               }}
               onFailFavoriteTask={(e) => {
-                showAlert('error', `Failed to create or delete favorite task: ${e.message}`);
+                showAlert('error', `${t('failedtoDeleteFavTask')} ${e.message}`);
               }}
               onSuccessScheduling={() => {
                 setOpenCreateTaskForm(false);
-                showAlert('success', 'Successfully created schedule');
+                showAlert('success', t('succesfulCreateSchedule'));
               }}
               onFailScheduling={(e) => {
-                showAlert('error', `Failed to submit schedule: ${e.message}`);
+                showAlert('error', `${t('failedToSubmitSchedule')} ${e.message}`);
               }}
             />
           )}

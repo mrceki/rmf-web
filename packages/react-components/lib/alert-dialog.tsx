@@ -14,6 +14,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { makeStyles, createStyles } from '@mui/styles';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -63,6 +64,7 @@ export interface DialogAlertProps {
 }
 
 export const AlertDialog = React.memo((props: DialogAlertProps) => {
+  const { t } = useTranslation();
   const LinearProgressWithLabel = (props: LinearProgressProps & { value: number }) => {
     return (
       <Box component="div" sx={{ display: 'flex', alignItems: 'center' }}>
@@ -133,7 +135,7 @@ export const AlertDialog = React.memo((props: DialogAlertProps) => {
       {progress ? (
         <>
           <Typography variant="body2" fontWeight="bold" ml={3} mt={1}>
-            Task progress
+            {t('taskProgress')}
           </Typography>
           <Box component="div" width={0.95} ml={3}>
             <LinearProgressWithLabel value={progress} />
@@ -159,7 +161,7 @@ export const AlertDialog = React.memo((props: DialogAlertProps) => {
                 fontWeight: 'bold',
               }}
             >
-              Inspect
+              {t('inspect')}
             </Typography>
           </Button>
         ) : null}
@@ -178,7 +180,7 @@ export const AlertDialog = React.memo((props: DialogAlertProps) => {
                 fontWeight: 'bold',
               }}
             >
-              {acknowledgedBy ? `Acknowledged by ${acknowledgedBy}` : 'Acknowledged'}
+              {acknowledgedBy ? `Acknowledged by ${acknowledgedBy}` : t('acknowledged')}
             </Typography>
           </Button>
         ) : onAcknowledge === undefined ? null : (
@@ -200,7 +202,7 @@ export const AlertDialog = React.memo((props: DialogAlertProps) => {
                 fontWeight: 'bold',
               }}
             >
-              Acknowledge
+              {t('acknowledge')}
             </Typography>
           </Button>
         )}
@@ -221,7 +223,7 @@ export const AlertDialog = React.memo((props: DialogAlertProps) => {
               fontWeight: 'bold',
             }}
           >
-            {acknowledged ? 'Close' : 'Dismiss'}
+            {acknowledged ? t('close') : t('dismiss')}
           </Typography>
         </Button>
       </DialogActions>

@@ -3,6 +3,7 @@ import { styled } from '@mui/material';
 import type { TaskState } from 'api-client';
 import React from 'react';
 import { TaskTimeline } from './task-timeline';
+import { useTranslation } from 'react-i18next';
 
 const classes = {
   infoValue: 'task-info-info-value',
@@ -33,7 +34,7 @@ export interface TaskInfoProps {
 
 export function TaskInfo({ task, title }: TaskInfoProps): JSX.Element {
   const theme = useTheme();
-
+  const { t } = useTranslation();
   const [startWaypoint, setStartWaypoint] = React.useState('');
   const [finishWaypoint, setFinishWaypoint] = React.useState('');
 
@@ -75,15 +76,15 @@ export function TaskInfo({ task, title }: TaskInfoProps): JSX.Element {
       <Divider />
       <div style={{ marginBottom: theme.spacing(1) }}></div>
       <InfoLine>
-        <span>Status:</span>
+        <span>{t('taskStatus')}</span>
         <InfoValue>{task.status || 'unknown'}</InfoValue>
       </InfoLine>
       <InfoLine>
-        <span>Start Waypoint:</span>
+        <span>{t('startWaypoint')}</span>
         <InfoValue>{startWaypoint}</InfoValue>
       </InfoLine>
       <InfoLine>
-        <span>Finish Waypoint</span>
+        <span>{t('finishWaypoint')}</span>
         <InfoValue>{finishWaypoint}</InfoValue>
       </InfoLine>
       <div style={{ padding: '4px' }}>

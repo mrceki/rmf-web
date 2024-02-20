@@ -494,23 +494,23 @@ export const TasksApp = React.memo(
               tasksFromFile={tasksFromFile}
               onSuccess={() => {
                 setOpenCreateTaskForm(false);
-                showAlert('success', 'Successfully created task');
+                showAlert('success', t('succesfullyCreated'));
               }}
               onFail={(e) => {
-                showAlert('error', `Failed to create task: ${e.message}`);
+                showAlert('error', `${t('failedTaskCreation')} ${e.message}`);
               }}
               onSuccessFavoriteTask={(message) => {
                 showAlert('success', message);
               }}
               onFailFavoriteTask={(e) => {
-                showAlert('error', `Failed to create or delete favorite task: ${e.message}`);
+                showAlert('error', `${t('failedtoDeleteFavTask')} ${e.message}`);
               }}
               onSuccessScheduling={() => {
                 setOpenCreateTaskForm(false);
-                showAlert('success', 'Successfully created schedule');
+                showAlert('success', t('succesfulCreateSchedule'));
               }}
               onFailScheduling={(e) => {
-                showAlert('error', `Failed to submit schedule: ${e.message}`);
+                showAlert('error', `${t('failedToSubmitSchedule')} ${e.message}`);
               }}
             />
           )}

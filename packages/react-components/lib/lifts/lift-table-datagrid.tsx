@@ -8,6 +8,7 @@ import { LiftState as LiftStateModel } from 'rmf-models';
 import { doorStateToString, motionStateToString } from './lift-utils';
 import { HealthStatus, healthStatusToOpMode } from '../utils';
 import { LiftControls } from './lift-controls';
+import { useTranslation } from 'react-i18next';
 
 export interface LiftTableData {
   index: number;
@@ -140,11 +141,11 @@ export function LiftDataGridTable({ lifts }: LiftDataGridTableProps): JSX.Elemen
       />
     );
   };
-
+  const { t } = useTranslation();
   const columns: GridColDef[] = [
     {
       field: 'name',
-      headerName: 'Name',
+      headerName: t('liftName'),
       width: 90,
       valueGetter: (params: GridValueGetterParams) => params.row.name,
       flex: 1,
@@ -152,7 +153,7 @@ export function LiftDataGridTable({ lifts }: LiftDataGridTableProps): JSX.Elemen
     },
     {
       field: 'opMode',
-      headerName: 'Op. Mode',
+      headerName: t('operationMode'),
       width: 90,
       flex: 1,
       renderCell: OpModeState,
@@ -160,7 +161,7 @@ export function LiftDataGridTable({ lifts }: LiftDataGridTableProps): JSX.Elemen
     },
     {
       field: 'currentFloor',
-      headerName: 'Current Floor',
+      headerName: t('currentFloor'),
       width: 150,
       editable: false,
       valueGetter: (params: GridValueGetterParams) =>
@@ -170,7 +171,7 @@ export function LiftDataGridTable({ lifts }: LiftDataGridTableProps): JSX.Elemen
     },
     {
       field: 'destinationFloor',
-      headerName: 'Destination Floor',
+      headerName: t('destinationFloor'),
       width: 150,
       editable: false,
       valueGetter: (params: GridValueGetterParams) =>
@@ -180,7 +181,7 @@ export function LiftDataGridTable({ lifts }: LiftDataGridTableProps): JSX.Elemen
     },
     {
       field: 'liftState',
-      headerName: 'Lift State',
+      headerName: t('liftState'),
       width: 150,
       editable: false,
       flex: 1,
@@ -210,7 +211,7 @@ export function LiftDataGridTable({ lifts }: LiftDataGridTableProps): JSX.Elemen
         columns={columns}
         rowsPerPageOptions={[5]}
         localeText={{
-          noRowsLabel: 'No lifts available.',
+          noRowsLabel: t('noLiftsAvailable'),
         }}
         initialState={{
           sorting: {

@@ -5,6 +5,7 @@ import { DoorState } from 'api-client';
 import { DoorMode } from 'rmf-models';
 import { doorModeToString, doorTypeToString } from './door-utils';
 import { HealthStatus, healthStatusToOpMode } from '../utils';
+import { useTranslation } from 'react-i18next';
 
 export interface DoorTableData {
   index: number;
@@ -133,11 +134,12 @@ export function DoorDataGridTable({ doors }: DoorDataGridTableProps): JSX.Elemen
       </Box>
     );
   };
+  const { t } = useTranslation();
 
   const columns: GridColDef[] = [
     {
       field: 'doorName',
-      headerName: 'Name',
+      headerName: t('doorName'),
       width: 90,
       valueGetter: (params: GridValueGetterParams) => params.row.doorName,
       flex: 1,
@@ -145,7 +147,7 @@ export function DoorDataGridTable({ doors }: DoorDataGridTableProps): JSX.Elemen
     },
     {
       field: 'opMode',
-      headerName: 'Op. Mode',
+      headerName: t('operationMode'),
       width: 150,
       editable: false,
       flex: 1,
@@ -155,7 +157,7 @@ export function DoorDataGridTable({ doors }: DoorDataGridTableProps): JSX.Elemen
     },
     {
       field: 'levelName',
-      headerName: 'Current Floor',
+      headerName: t('currentFloor'),
       width: 150,
       editable: false,
       valueGetter: (params: GridValueGetterParams) => params.row.levelName,
@@ -165,7 +167,7 @@ export function DoorDataGridTable({ doors }: DoorDataGridTableProps): JSX.Elemen
     },
     {
       field: 'doorType',
-      headerName: 'Type',
+      headerName: t('doorType'),
       width: 150,
       editable: false,
       valueGetter: (params: GridValueGetterParams) => doorTypeToString(params.row.doorType),
@@ -175,7 +177,7 @@ export function DoorDataGridTable({ doors }: DoorDataGridTableProps): JSX.Elemen
     },
     {
       field: 'doorState',
-      headerName: 'Door State',
+      headerName: t('doorState'),
       width: 150,
       editable: false,
       flex: 1,
@@ -206,7 +208,7 @@ export function DoorDataGridTable({ doors }: DoorDataGridTableProps): JSX.Elemen
         columns={columns}
         rowsPerPageOptions={[5]}
         localeText={{
-          noRowsLabel: 'No doors available.',
+          noRowsLabel: t('noDoorsAvailable'),
         }}
         initialState={{
           sorting: {

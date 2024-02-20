@@ -495,11 +495,16 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
                 key={alert.id}
                 title={
                   <React.Fragment>
-                    <Typography>Alert</Typography>
-                    <Typography>ID: {alert.original_id}</Typography>
-                    <Typography>Type: {alert.category.toUpperCase()}</Typography>
+                    <Typography>{t('alert')}</Typography>
                     <Typography>
-                      Created: {new Date(alert.unix_millis_created_time).toLocaleString()}
+                      {t('id')} {alert.original_id}
+                    </Typography>
+                    <Typography>
+                      {t('alertType')} {alert.category.toUpperCase()}
+                    </Typography>
+                    <Typography>
+                      {t('alertCreated')}{' '}
+                      {new Date(alert.unix_millis_created_time).toLocaleString()}
                     </Typography>
                   </React.Fragment>
                 }
@@ -591,23 +596,23 @@ export const AppBar = React.memo(({ extraToolbarItems }: AppBarProps): React.Rea
           tasksFromFile={tasksFromFile}
           onSuccess={() => {
             setOpenCreateTaskForm(false);
-            showAlert('success', 'Successfully created task');
+            showAlert('success', t('succesfullyCreated'));
           }}
           onFail={(e) => {
-            showAlert('error', `Failed to create task: ${e.message}`);
+            showAlert('error', `${t('failedTaskCreation')} ${e.message}`);
           }}
           onSuccessFavoriteTask={(message) => {
             showAlert('success', message);
           }}
           onFailFavoriteTask={(e) => {
-            showAlert('error', `Failed to create or delete favorite task: ${e.message}`);
+            showAlert('error', `${t('failedtoDeleteFavTask')} ${e.message}`);
           }}
           onSuccessScheduling={() => {
             setOpenCreateTaskForm(false);
-            showAlert('success', 'Successfully created schedule');
+            showAlert('success', t('succesfulCreateSchedule'));
           }}
           onFailScheduling={(e) => {
-            showAlert('error', `Failed to submit schedule: ${e.message}`);
+            showAlert('error', `${t('failedToSubmitSchedule')} ${e.message}`);
           }}
         />
       )}

@@ -22,6 +22,7 @@ import { Enforcer } from '../permissions';
 import { TaskLogs } from './task-logs';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
+import { useTranslation } from 'react-i18next';
 
 export interface TableDataGridState {
   task: TaskState | null;
@@ -47,7 +48,7 @@ export function TaskInspector({ task, onClose }: TableDataGridState): JSX.Elemen
   const [taskState, setTaskState] = React.useState<TaskState | null>(null);
   const [taskLogs, setTaskLogs] = React.useState<TaskEventLog | null>(null);
   const [isOpen, setIsOpen] = React.useState(true);
-
+  const { t } = useTranslation();
   React.useEffect(() => {
     if (!rmf || !task) {
       setTaskState(null);
@@ -132,7 +133,9 @@ export function TaskInspector({ task, onClose }: TableDataGridState): JSX.Elemen
                 paddingRight: '20px',
               }}
             >
-              <DialogTitle id="scroll-dialog-title">Task: {task?.booking.id}</DialogTitle>
+              <DialogTitle id="scroll-dialog-title">
+                {t('task')} {task?.booking.id}
+              </DialogTitle>
               <div>
                 <IconButton
                   className="closeButton"
@@ -154,7 +157,7 @@ export function TaskInspector({ task, onClose }: TableDataGridState): JSX.Elemen
                   {taskState ? (
                     <>
                       <CardContent sx={{ overflow: 'auto' }}>
-                        <TaskInfo task={taskState} title="Details" />
+                        <TaskInfo task={taskState} title={t('details')} />
                       </CardContent>
                       <Grid
                         item
@@ -177,7 +180,7 @@ export function TaskInspector({ task, onClose }: TableDataGridState): JSX.Elemen
                               color: theme.palette.mode === 'dark' ? '#ffffff' : '#CE172D',
                             }}
                           >
-                            Task has been completed !
+                            {t('taskHasBeenCompleted')}
                           </Typography>
                         ) : (
                           <Button

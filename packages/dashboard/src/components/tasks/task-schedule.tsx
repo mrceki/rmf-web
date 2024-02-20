@@ -30,6 +30,7 @@ import {
   scheduleToEvents,
   scheduleWithSelectedDay,
 } from './task-schedule-utils';
+import { useTranslation } from 'react-i18next';
 
 enum EventScopes {
   ALL = 'all',
@@ -84,7 +85,7 @@ export const TaskSchedule = () => {
     until: undefined,
     at: new Date(),
   });
-
+  const { t } = useTranslation();
   React.useEffect(() => {
     const sub = AppEvents.refreshTaskApp.subscribe({
       next: () => {
@@ -299,17 +300,17 @@ export const TaskSchedule = () => {
           submitTasks={submitTasks}
           onSuccess={() => {
             setOpenCreateTaskForm(false);
-            showAlert('success', 'Successfully created task');
+            showAlert('success', t('succesfullyCreated'));
           }}
           onFail={(e) => {
-            showAlert('error', `Failed to create task: ${e.message}`);
+            showAlert('error', `${t('failedTaskCreation')} ${e.message}`);
           }}
           onSuccessScheduling={() => {
             setOpenCreateTaskForm(false);
-            showAlert('success', 'Successfully created schedule');
+            showAlert('success', t('succesfulCreateSchedule'));
           }}
           onFailScheduling={(e) => {
-            showAlert('error', `Failed to submit schedule: ${e.message}`);
+            showAlert('error', `${t('failedToSubmitSchedule')} ${e.message}`);
           }}
         />
       )}

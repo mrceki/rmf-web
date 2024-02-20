@@ -53,6 +53,53 @@
   "schedule": "Zaman Çizelgesi",
   "theme": "Tema",
   "lightMode": "Açık Mod",
-  "darkMode": "Koyu Mod"
+  "darkMode": "Koyu Mod",
+  "sureToDelete": "Silmek istediğinizden emin misiniz",
+  "doorName": "Kapı Adı",
+  "operationMode": "Op. Modu",
+  "currentFloor": "Mevcut Kat",
+  "doorType": "Kapı Tipi",
+  "doorState": "Kapı Durumu",
+  "noDoorsAvailable": "Gösterilecek kapı yok",
+  "liftName": "Kaldıraç Adı",
+  "destinationFloor": "Hedef Kat",
+  "liftState": "Kaldıraç Durumu",
+  "noLiftsAvailable": "Gösterilecek kaldıraç yok",
+  "favTaskExists": "Bu görev zaten kaydedilmiş",
+  "reqired": "Gerekli",
+  "taskProgress": "Görev İlerlemesi",
+  "inspect": "İncele",
+  "acknowledge": "Onayla",
+  "acknowledged": "Onaylandı",
+  "close": "Kapat",
+  "dismiss": "Reddet",
+  "taskCompleted": "Görev Tamamlandı!",
+  "taskAlert": "Görev Uyarısı",
+  "taskError": "Görev Hatası",
+  "logs": "Kayıtlar",
+  "errorLogs": "Hata Kayıtları",
+  "succesfullyCreated": "Görev Başarıyla Oluşturuldu",
+  "failedTaskCreation": "Görev Oluşturma Başarısız: ",
+  "failedtoDeleteFavTask": "Favori Görev Silme ya da Oluşturma Başarısız...",
+  "succesfulCreateSchedule": "Zaman Çizelgesi Başarıyla Oluşturuldu",
+  "failedToSubmitSchedule": "Zaman Çizelgesi Oluşturma Başarısız: ",
+  "details": "Görev Detayları",
+  "taskCancelled": "Görev İptal Edildi",
+  "cancelTask": "Görevi İptal Et",
+  "taskHasBeenCompleted": "Görev Tamamlandı!",
+  "startWaypoint": "Başlangıç Noktası",
+  "finishWaypoint": "Bitiş Noktası",
+  "alertType": "Uyarı Tipi:",
+  "alertCreated": "Uyarı Oluşturuldu:",
+  "alert": "Uyarı",
+  "task": "Görev: ",
+  "levels": "Katlar",
+  "resetZoom": "Sıfırla"
+
+
+  
+
+
+
 
 }

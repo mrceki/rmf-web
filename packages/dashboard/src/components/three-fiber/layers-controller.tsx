@@ -21,7 +21,7 @@ import ZoomOutIcon from '@mui/icons-material/ZoomOut';
 import { RobotData } from 'react-components';
 import { makeStyles, createStyles } from '@mui/styles';
 import { useMediaQuery } from 'react-responsive';
-
+import { useTranslation } from 'react-i18next';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     inspectText: {
@@ -59,7 +59,7 @@ export const LayersController = ({
   const isTablet = useMediaQuery({ query: '(max-width: 1224px) and (min-height: 500px)' });
   const robotValue = robots.length === 1 ? robots[0].name : 'Click to see';
   const theme = useTheme();
-
+  const { t } = useTranslation();
   const handleRobotClick = () => {
     const RobotLocations = Object.values(robotLocations);
     const mapCoordsLocation: [number, number] = [RobotLocations[0][0], RobotLocations[0][1]];
@@ -84,7 +84,7 @@ export const LayersController = ({
         <TextField
           select
           id="robot-select"
-          label="Robots"
+          label={t('robots')}
           variant="outlined"
           fullWidth
           margin="normal"
@@ -103,7 +103,7 @@ export const LayersController = ({
         <TextField
           select
           id="level-select"
-          label="Levels"
+          label={t('levels')}
           variant="outlined"
           fullWidth
           margin="normal"
@@ -142,7 +142,7 @@ export const LayersController = ({
           onClick={handleDefaultView}
           data-testid="default-view"
         >
-          <span className={classes.inspectText}>Reset Zoom</span>
+          <span className={classes.inspectText}>{t('resetZoom')}</span>
         </Button>
       </div>
       <div onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>

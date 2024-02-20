@@ -53,12 +53,48 @@
   "schedule": "Schedule",
   "theme": "Theme",
   "lightMode": "Light Mode",
-  "darkMode": "Dark Mode"
-
-
-
-
-
+  "darkMode": "Dark Mode",
+  "sureToDelete": "Are you sure you want to delete",
+  "doorName": "Door Name",
+  "operationMode": "Op. Mode",
+  "currentFloor": "Current Floor",
+  "doorType": "Door Type",
+  "doorState": "Door State",
+  "noDoorsAvailable": "No Doors Available",
+  "liftName": "Lift Name",
+  "destinationFloor": "Destination Floor",
+  "liftState": "Lift State",
+  "noLiftsAvailable": "No Lifts Available",
+  "favTaskExists": "Favorite Task already exists",
+  "reqired": "Required",
+  "taskProgress": "Task Progress",
+  "inspect": "Inspect",
+  "acknowledge": "Acknowledge",
+  "acknowledged": "Acknowledged",
+  "close": "Close",
+  "dismiss": "Dismiss",
+  "taskCompleted": "Task Completed!",
+  "taskAlert": "Task Alert",
+  "taskError": "Task Error",
+  "logs": "Logs",
+  "errorLogs": "Error Logs",
+  "succesfullyCreated": "Successfully created task",
+  "failedTaskCreation": "Failed to create task: ",
+  "failedtoDeleteFavTask": "Failed to create or delete favorite task:",
+  "succesfulCreateSchedule": "Successfully created schedule",
+  "failedToSubmitSchedule": "Failed to submit schedule: ",
+  "details": "Details",
+  "taskCancelled": "Task Cancelled",
+  "cancelTask": "Cancel Task",
+  "taskHasBeenCompleted": "Task has been completed!",
+  "startWaypoint": "Start Waypoint",
+  "finishWaypoint": "Finish Waypoint",
+  "alertType": "Type: ",
+  "alertCreated": "Created: ",
+  "alert": "Alert",
+  "task": "Task: ",
+  "levels": "Levels",
+  "resetZoom": "Reset Zoom"
 
 
 
