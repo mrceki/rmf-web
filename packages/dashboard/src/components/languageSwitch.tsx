@@ -64,11 +64,11 @@ function LanguageSwitcher() {
       >
         <MenuItem onClick={() => changeLanguage('en')}>
           <img src={en} alt="en" style={{ width: '30px', height: '20px', marginRight: '10px' }} />
-          English
+          {t('english')}
         </MenuItem>
         <MenuItem onClick={() => changeLanguage('tr')}>
           <img src={tr} alt="tr" style={{ width: '30px', height: '20px', marginRight: '10px' }} />
-          Turkish
+          {t('turkish')}
         </MenuItem>
       </Menu>
     </div>

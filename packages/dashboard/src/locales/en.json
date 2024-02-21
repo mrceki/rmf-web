@@ -95,7 +95,9 @@
   "task": "Task: ",
   "levels": "Levels",
   "resetZoom": "Reset Zoom",
-  "activeLanguage": "Active Language:"
+  "activeLanguage": "Active Language:",
+  "english": "English",
+  "turkish": "Turkish"
 
 
 

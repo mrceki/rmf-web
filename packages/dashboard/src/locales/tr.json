@@ -95,7 +95,9 @@
   "task": "Görev: ",
   "levels": "Katlar",
   "resetZoom": "Sıfırla",
-  "activeLanguage": "Aktif Dil:"
+  "activeLanguage": "Aktif Dil:",
+  "english": "İngilizce",
+  "turkish": "Türkçe"
 
 
   
