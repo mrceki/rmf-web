@@ -270,7 +270,7 @@ function DeliveryTaskForm({
 
   return (
     <Grid container spacing={theme.spacing(2)} justifyContent="center" alignItems="center">
-      <Grid item xs={6}>
+      <Grid item xs={10}>
         <Autocomplete
           id="pickup-location"
           freeSolo
@@ -306,11 +306,12 @@ function DeliveryTaskForm({
           )}
         />
       </Grid>
-      <Grid item xs={4}>
+      {/* <Grid item xs={4}>
         <TextField
           id="pickup_sku"
           fullWidth
           label="Pickup SKU"
+          defaultValue={1} //change later
           value={taskDesc.pickup.payload.sku}
           required
           onChange={(ev) => {
@@ -326,7 +327,7 @@ function DeliveryTaskForm({
             });
           }}
         />
-      </Grid>
+      </Grid> */}
       <Grid item xs={2}>
         <PositiveIntField
           id="pickup_quantity"
@@ -346,7 +347,7 @@ function DeliveryTaskForm({
           }}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={10}>
         <Autocomplete
           id="dropoff-location"
           freeSolo
@@ -382,11 +383,12 @@ function DeliveryTaskForm({
           )}
         />
       </Grid>
-      <Grid item xs={4}>
+      {/* <Grid item xs={4}>
         <TextField
           id="dropoff_sku"
           fullWidth
           label="Dropoff SKU"
+          defaultValue={1} //change later
           value={taskDesc.dropoff.payload.sku}
           required
           onChange={(ev) => {
@@ -402,7 +404,7 @@ function DeliveryTaskForm({
             });
           }}
         />
-      </Grid>
+      </Grid> */}
       <Grid item xs={2}>
         <PositiveIntField
           id="dropoff_quantity"
