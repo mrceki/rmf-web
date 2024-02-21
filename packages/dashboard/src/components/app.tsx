@@ -44,19 +44,17 @@ const LoadingScreen: React.FC = () => (
   </div>
 );
 
-i18n
-  .use(initReactI18next) // passes i18n down to react-i18next
-  .init({
-    resources: {
-      en: { translation: enTranslation },
-      tr: { translation: trTranslation },
-    },
-    lng: 'tr', // set the default language
-    fallbackLng: 'en', // use English if translation for the current language is missing
-    interpolation: {
-      escapeValue: false, // react already safes from xss
-    },
-  });
+i18n.use(initReactI18next).init({
+  resources: {
+    en: { translation: enTranslation },
+    tr: { translation: trTranslation },
+  },
+  lng: 'tr',
+  fallbackLng: 'en',
+  interpolation: {
+    escapeValue: false,
+  },
+});
 
 export default function App(): JSX.Element | null {
   const authenticator = appConfig.authenticator;
