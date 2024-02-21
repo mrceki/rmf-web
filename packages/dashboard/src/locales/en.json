@@ -94,7 +94,9 @@
   "alert": "Alert",
   "task": "Task: ",
   "levels": "Levels",
-  "resetZoom": "Reset Zoom"
+  "resetZoom": "Reset Zoom",
+  "activeLanguage": "Active Language:"
+
 
 
 

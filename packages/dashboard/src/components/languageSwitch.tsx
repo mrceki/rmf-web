@@ -2,47 +2,75 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import tr from '../assets/tr.png';
 import en from '../assets/en.png';
-import { Button } from '@mui/material';
-import CustomButton from './CustomButtonComponent';
+import { Button, Menu, MenuItem, Typography } from '@mui/material';
 import { useMediaQuery } from 'react-responsive';
 
 function LanguageSwitcher() {
   const { i18n } = useTranslation();
+  const { t } = useTranslation();
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [activeLanguage, setActiveLanguage] = useState(i18n.language);
+  const isTablet = useMediaQuery({ query: '(max-width: 1224px) and (min-height: 500px)' });
 
-  const changeLanguage = (lng: any) => {
+  const handleMenuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget as HTMLButtonElement);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
     setActiveLanguage(lng);
+    handleMenuClose();
   };
-  const isTablet = useMediaQuery({ query: '(max-width: 1224px) and (min-height: 500px)' });
 
   return (
     <div
       style={{
         display: 'flex',
-        flexDirection: isTablet ? 'column' : 'row',
-        marginTop: '2rem',
-        marginBottom: '0rem',
+        alignItems: 'center',
+        gap: '0.5rem',
+        marginLeft: isTablet ? '0px' : '18px',
       }}
     >
-      <CustomButton
-        onClick={() => changeLanguage('en')}
-        color={activeLanguage === 'en' ? '#C1C1B4' : 'transparent'}
-        property={['0rem', '0rem']}
-        border="none"
-        radius="30px"
+      {isTablet ? null : (
+        <Typography style={{ color: 'black', fontWeight: 'medium', fontSize: '1rem' }}>
+          {t('activeLanguage')}
+        </Typography>
+      )}
+      <Button
+        sx={{ width: isTablet ? '20px' : '30px', height: isTablet ? '30px' : '30px' }}
+        onClick={handleMenuOpen}
+        style={{
+          backgroundImage: `url(${activeLanguage === 'en' ? en : tr})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      ></Button>
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
       >
-        <img src={en} alt="en" style={{ width: '30px', height: '20px' }} />
-      </CustomButton>
-      <CustomButton
-        onClick={() => changeLanguage('tr')}
-        color={activeLanguage === 'tr' ? '#C1C1B4' : 'transparent'}
-        property={['0rem', '0rem']}
-        border="none"
-        radius="30px"
-      >
-        <img src={tr} alt="tr" style={{ width: '30px', height: '20px' }} />
-      </CustomButton>
+        <MenuItem onClick={() => changeLanguage('en')}>
+          <img src={en} alt="en" style={{ width: '30px', height: '20px', marginRight: '10px' }} />
+          English
+        </MenuItem>
+        <MenuItem onClick={() => changeLanguage('tr')}>
+          <img src={tr} alt="tr" style={{ width: '30px', height: '20px', marginRight: '10px' }} />
+          Turkish
+        </MenuItem>
+      </Menu>
     </div>
   );
 }

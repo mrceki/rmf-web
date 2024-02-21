@@ -94,7 +94,8 @@
   "alert": "Uyarı",
   "task": "Görev: ",
   "levels": "Katlar",
-  "resetZoom": "Sıfırla"
+  "resetZoom": "Sıfırla",
+  "activeLanguage": "Aktif Dil:"
 
 
   

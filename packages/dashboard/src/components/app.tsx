@@ -51,7 +51,7 @@ i18n
       en: { translation: enTranslation },
       tr: { translation: trTranslation },
     },
-    lng: 'en', // set the default language
+    lng: 'tr', // set the default language
     fallbackLng: 'en', // use English if translation for the current language is missing
     interpolation: {
       escapeValue: false, // react already safes from xss
