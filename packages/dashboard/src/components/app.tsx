@@ -31,10 +31,6 @@ import { ManagedWorkspace, Workspace } from './workspace';
 import { doorsWorkspace } from './doors/doors-workspace';
 import { liftsWorkspace } from './lifts/lifts-workspace';
 import { logsWorkspace } from './logs/logs-workspace';
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import enTranslation from '../locales/en.json';
-import trTranslation from '../locales/tr.json';
 
 const LoadingScreen: React.FC = () => (
   <div className="loading-screen">
@@ -43,18 +39,6 @@ const LoadingScreen: React.FC = () => (
     </div>
   </div>
 );
-
-i18n.use(initReactI18next).init({
-  resources: {
-    en: { translation: enTranslation },
-    tr: { translation: trTranslation },
-  },
-  lng: 'tr',
-  fallbackLng: 'en',
-  interpolation: {
-    escapeValue: false,
-  },
-});
 
 export default function App(): JSX.Element | null {
   const authenticator = appConfig.authenticator;
