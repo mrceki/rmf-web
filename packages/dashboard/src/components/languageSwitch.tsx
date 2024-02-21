@@ -33,6 +33,7 @@ function LanguageSwitcher() {
         alignItems: 'center',
         gap: '0.5rem',
         marginLeft: isTablet ? '0px' : '18px',
+        marginTop: '20px',
       }}
     >
       {isTablet ? null : (
@@ -41,8 +42,8 @@ function LanguageSwitcher() {
         </Typography>
       )}
       <Button
-        sx={{ width: isTablet ? '20px' : '30px', height: isTablet ? '30px' : '30px' }}
         onClick={handleMenuOpen}
+        sx={{ borderRadius: '30%', padding: '0px', width: '40px', height: '40px' }}
         style={{
           backgroundImage: `url(${activeLanguage === 'en' ? en : tr})`,
           backgroundSize: 'cover',
@@ -63,11 +64,19 @@ function LanguageSwitcher() {
         }}
       >
         <MenuItem onClick={() => changeLanguage('en')}>
-          <img src={en} alt="en" style={{ width: '30px', height: '20px', marginRight: '10px' }} />
+          <img
+            src={en}
+            alt="en"
+            style={{ width: '30px', height: '30px', marginRight: '10px', borderRadius: '50%' }}
+          />
           {t('english')}
         </MenuItem>
         <MenuItem onClick={() => changeLanguage('tr')}>
-          <img src={tr} alt="tr" style={{ width: '30px', height: '20px', marginRight: '10px' }} />
+          <img
+            src={tr}
+            alt="tr"
+            style={{ width: '30px', height: '30px', marginRight: '10px', borderRadius: '50' }}
+          />
           {t('turkish')}
         </MenuItem>
       </Menu>
