@@ -9,21 +9,11 @@ interface Props {
   children?: React.ReactNode;
   onClick: () => void;
   radius: string;
-  title: string;
+  title?: string;
   property: string[];
 }
 
-const Button: React.FC<Props> = ({
-  border,
-  color,
-  children,
-
-  onClick,
-  radius,
-
-  title,
-  property,
-}) => {
+const Button: React.FC<Props> = ({ border, color, children, onClick, radius, title, property }) => {
   const curTheme = React.useContext(SettingsContext).themeMode;
   const isTablet = useMediaQuery({ query: '(max-width: 1224px) and (min-height: 500px)' });
 
@@ -38,7 +28,7 @@ const Button: React.FC<Props> = ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        gap: isTablet ? '0rem' : '0.5rem',
+        // gap: isTablet ? '0rem' : '0.5rem',
         marginTop: property[0],
         marginBottom: property[1],
         cursor: 'pointer',
