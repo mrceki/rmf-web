@@ -45,18 +45,21 @@ export function RobotDataGridTable({ onRobotClick, robots }: RobotDataGridTableP
         color: theme.palette.warning.main,
       };
 
-      switch (params.row.status) {
-        case Status2.Error:
+      const statusUpperCase = params.row.status.toUpperCase();
+
+      switch (statusUpperCase) {
+        case 'ERROR':
           return error;
-        case Status2.Charging:
+        case 'CHARGING':
           return charging;
-        case Status2.Working:
+        case 'WORKING':
           return working;
         default:
           return defaultColor;
       }
     })();
 
+    const translatedStatus = t(`RobotStatus.${params.row.status}`);
     return (
       <Box component="div" sx={statusLabelStyle}>
         <Typography
@@ -67,7 +70,7 @@ export function RobotDataGridTable({ onRobotClick, robots }: RobotDataGridTableP
             fontSize: 14,
           }}
         >
-          {robotStatusToUpperCase(params.row.status)}
+          {translatedStatus}
         </Typography>
       </Box>
     );

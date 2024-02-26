@@ -384,7 +384,7 @@ export const LogsApp = React.memo(
           toolbar={
             <Toolbar variant="dense">
               <div>
-                <Tooltip title="New Task" color="inherit" placement="top">
+                <Tooltip title={t('newTask')} color="inherit" placement="top">
                   <IconButton
                     onClick={() => {
                       setOpenCreateTaskForm(true);
@@ -394,7 +394,7 @@ export const LogsApp = React.memo(
                     <PlaylistAddOutlined sx={{ color: '#ffffff' }} fontSize="large" />
                   </IconButton>
                 </Tooltip>
-                <Tooltip title="Download" placement="top">
+                <Tooltip title={t('download')} placement="top">
                   <IconButton
                     id="export-button"
                     aria-controls={openExportMenu ? 'export-menu' : undefined}
@@ -422,7 +422,7 @@ export const LogsApp = React.memo(
                     }}
                     disableRipple
                   >
-                    Export Minimal
+                    {t('exportMinimal')}
                   </MenuItem>
                   <MenuItem
                     onClick={() => {
@@ -431,11 +431,11 @@ export const LogsApp = React.memo(
                     }}
                     disableRipple
                   >
-                    Export Full
+                    {t('exportFull')}
                   </MenuItem>
                 </Menu>
               </div>
-              <Tooltip title="Refresh" color="inherit" placement="top">
+              <Tooltip title={t('refresh')} color="inherit" placement="top">
                 <IconButton
                   onClick={() => {
                     AppEvents.refreshTaskApp.next();

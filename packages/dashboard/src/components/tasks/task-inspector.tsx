@@ -204,7 +204,9 @@ export function TaskInspector({ task, onClose }: TableDataGridState): JSX.Elemen
                                 color: theme.palette.mode === 'dark' ? '#ffffff' : '#ffffff',
                               }}
                             >
-                              {taskState.status === 'canceled' ? 'Task Canceled' : 'Cancel Task'}
+                              {taskState.status === 'canceled'
+                                ? t('taskCancelled')
+                                : t('cancelTask')}
                             </Typography>
                           </Button>
                         )}
@@ -218,7 +220,7 @@ export function TaskInspector({ task, onClose }: TableDataGridState): JSX.Elemen
                               color: theme.palette.mode === 'dark' ? '#ffffff' : '#FF2400',
                             }}
                           >
-                            Task has been canceled by {cancelUserProfile}
+                            {t('taskCancelledByUser')} {cancelUserProfile}
                           </Typography>
                         )}
                       </Grid>
@@ -227,7 +229,7 @@ export function TaskInspector({ task, onClose }: TableDataGridState): JSX.Elemen
                     <Grid container wrap="nowrap" alignItems="center" style={{ height: '100%' }}>
                       <CardContent>
                         <Typography variant="h6" align="center">
-                          Click on a task to view more information
+                          {t('clickToViewTaskInfo')}
                         </Typography>
                       </CardContent>
                     </Grid>
@@ -240,7 +242,7 @@ export function TaskInspector({ task, onClose }: TableDataGridState): JSX.Elemen
                 />
                 <Grid item xs={6}>
                   <CardContent>
-                    <TaskLogs taskLog={taskLogs} taskState={taskState} title="Logs" />
+                    <TaskLogs taskLog={taskLogs} taskState={taskState} title={t('logs')} />
                   </CardContent>
                 </Grid>
               </Grid>

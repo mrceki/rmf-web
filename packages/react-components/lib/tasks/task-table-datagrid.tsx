@@ -256,7 +256,7 @@ export function TaskDataGridTable({
       headerName: t('status'),
       editable: false,
       valueGetter: (params: GridValueGetterParams) =>
-        params.row.status ? params.row.status : 'unknown',
+        params.row.status ? t(`Status.${params.row.status}`) : t('Status.unknown'),
       flex: 1,
       filterOperators: getMinimalStringFilterOperators,
       filterable: true,

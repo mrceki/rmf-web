@@ -77,7 +77,7 @@ export function TaskInfo({ task, title }: TaskInfoProps): JSX.Element {
       <div style={{ marginBottom: theme.spacing(1) }}></div>
       <InfoLine>
         <span>{t('taskStatus')}</span>
-        <InfoValue>{task.status || 'unknown'}</InfoValue>
+        <InfoValue>{t(`Status.${task.status}`) || t(`Status.unknown`)}</InfoValue>
       </InfoLine>
       <InfoLine>
         <span>{t('startWaypoint')}</span>

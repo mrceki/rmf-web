@@ -222,7 +222,7 @@ export const RobotSummary = React.memo(({ onClose, robot }: RobotSummaryProps) =
       },
       {
         title: t('status'),
-        value: robotState?.status ? robotState?.status : '-',
+        value: robotState?.status ? t(`RobotStatus.${robotState.status}`) : '-',
       },
     ];
 
@@ -311,7 +311,7 @@ export const RobotSummary = React.memo(({ onClose, robot }: RobotSummaryProps) =
       {taskProgress && (
         <>
           <Typography variant="body2" fontWeight="bold" ml={3} mt={1}>
-            Task progress
+            {t('taskProgress')}
           </Typography>
           <Box component="div" sx={{ width: '95%', ml: 3 }}>
             <LinearProgressWithLabel value={taskProgress * 100} />
@@ -332,7 +332,7 @@ export const RobotSummary = React.memo(({ onClose, robot }: RobotSummaryProps) =
             autoFocus
             disabled={taskState === null}
           >
-            <span className={classes.inspectText}>Inspect Task</span>
+            <span className={classes.inspectText}>{t('inspectTask')}</span>
           </Button>
         </DialogActions>
       )}

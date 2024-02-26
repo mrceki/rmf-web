@@ -97,5 +97,35 @@
   "resetZoom": "Reset Zoom",
   "activeLanguage": "Active Language:",
   "english": "English",
-  "turkish": "Turkish"
+  "turkish": "Turkish",
+  "Status": {
+    "underway": "Underway",
+    "completed": "Completed",
+    "canceled": "Canceled",
+    "failed": "Failed",
+    "queued": "Queued",
+    "blocked": "Blocked",
+    "delayed": "Delayed",
+    "error": "Error",
+    "killed": "Killed",
+    "skipped": "Skipped",
+    "standby": "Standby",
+    "uninitialized": "Uninitialized",
+    "unknown": "Unknown"
+  },
+  "RobotStatus": {
+    "idle": "Idle",
+    "working": "Working",
+    "charging": "Charging",
+    "error": "Error",
+    "offline": "Offline",
+    "shutdown": "Shutdown",
+    "uninitialized": "Uninitialized"
+  },
+  "taskCancelledByUser": "Task cancelled by user: ",
+  "clickToViewTaskInfo": "Click on a task to view more information",
+  "download": "Download",
+  "refresh": "Refresh",
+  "exportMinimal": "Export Minimal",
+  "exportFull": "Export Full"
 }

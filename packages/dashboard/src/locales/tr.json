@@ -97,5 +97,35 @@
   "resetZoom": "Sıfırla",
   "activeLanguage": "Aktif Dil:",
   "english": "İngilizce",
-  "turkish": "Türkçe"
+  "turkish": "Türkçe",
+  "Status": {
+    "underway": "Yolda",
+    "completed": "Tamamlandı",
+    "canceled": "İptal Edildi",
+    "failed": "Başarısız",
+    "queued": "Sıraya Alındı",
+    "blocked": "Engellendi",
+    "delayed": "Gecikti",
+    "error": "Hata",
+    "killed": "Bölündü",
+    "skipped": "Atlandı",
+    "standby": "Beklemede",
+    "uninitialized": "Başlatılmamış",
+    "unknown": "Bilinmiyor"
+  },
+  "RobotStatus": {
+    "idle": "Boşta",
+    "working": "Çalışıyor",
+    "charging": "Şarj Ediliyor",
+    "error": "Hata",
+    "offline": "Çevrimdışı",
+    "shutdown": "Kapatıldı",
+    "uninitialized": "Başlatılmamış"
+  },
+  "taskCancelledByUser": "Görev Kullanıcı Tarafından İptal Edildi: ",
+  "clickToViewTaskInfo": "Görevi Görüntülemek İçin Tıklayın",
+  "download": "İndir",
+  "refresh": "Yenile",
+  "exportMinimal": "Dışa Aktar Minimal",
+  "exportFull": "Dışa Aktar Tam"
 }
