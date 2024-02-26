@@ -300,7 +300,7 @@ export function TaskDataGridTable({
         onRowClick={handleEvent}
         getCellClassName={(params: GridCellParams<string>) => {
           if (params.field === 'status') {
-            switch (params.value) {
+            switch (params.row.status) {
               case Status.Underway:
                 return classes.taskActiveCell;
               case Status.Completed:
