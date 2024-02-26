@@ -193,7 +193,7 @@ export const TaskSummary = React.memo((props: TaskSummaryProps) => {
       {taskState?.status === 'underway' || taskState?.status === 'completed' ? (
         <DialogTitle align="center" className={classes.taskText}>
           <span>
-            {t('taskStatus')} : {t(`Status.${taskState.status}`)}
+            {t('taskStatus')} {t(`Status.${taskState.status}`)}
           </span>
         </DialogTitle>
       ) : (
