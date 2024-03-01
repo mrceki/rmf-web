@@ -31,6 +31,9 @@ import {
   scheduleWithSelectedDay,
 } from './task-schedule-utils';
 import { useTranslation } from 'react-i18next';
+import localeEn from 'date-fns/locale/en-US';
+import localeTr from 'date-fns/locale/tr';
+import i18n from '../i18n';
 
 enum EventScopes {
   ALL = 'all',
@@ -229,13 +232,17 @@ export const TaskSchedule = () => {
       console.error(`Failed to delete scheduled task: ${e}`);
     }
   };
-
+  // if language changes refresh the scheduler
+  React.useEffect(() => {
+    setRefreshTaskAppCount((oldValue) => ++oldValue);
+  }, [i18n.language]);
   return (
     <>
       <Scheduler
         // react-scheduler does not support refreshing, workaround by mounting a new instance.
         key={`scheduler-${refreshTaskAppCount}`}
         view="week"
+        locale={i18n.language === 'en' ? localeEn : localeTr}
         month={{
           weekDays: [0, 1, 2, 3, 4, 5, 6],
           weekStartOn: 1,
